@@ -1,0 +1,52 @@
+# Editor and operating-system files
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+
+# Debian package build output
+*.build
+*.buildinfo
+*.changes
+*.deb
+*.ddeb
+*.dsc
+*.tar.xz
+*.tar.zst
+
+# live-build working state and generated artifacts
+.build/
+binary/
+cache/
+chroot/
+local/
+tmp/
+binary.*
+live-image-*.contents
+live-image-*.files
+live-image-*.hybrid.iso
+live-image-*.iso
+live-image-*.log
+live-image-*.packages
+live-image-*.zsync
+
+# Generic release images and checksums generated locally
+*.img
+*.iso
+*.qcow2
+*.raw
+*.vdi
+*.vmdk
+SHA256SUMS
+SHA256SUMS.sign
+
