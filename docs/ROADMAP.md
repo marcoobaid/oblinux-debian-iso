@@ -8,10 +8,12 @@ the first local build establishes realistic effort.
 - [x] Record the initial project charter
 - [x] Define the POC boundary and completion criteria
 - [x] Record the initial base and desktop decisions
-- [ ] Initialize the Git repository and choose the public repository layout
-- [ ] Select documentation, code, and asset licenses
+- [x] Initialize the primary GitHub repository
+- [x] Select the original code and documentation license
+- [ ] Select branding and redistributed-asset licenses
 - [ ] Define the primary physical test machine
-- [ ] Inventory daily-driver applications and hardware requirements
+- [x] Record the initial daily-driver applications and hardware inventory
+- [ ] Complete exact hardware identification and select the primary test machine
 - [ ] Define the initial GNOME application and package set
 - [ ] Decide the POC firmware, Flatpak, encryption, dual-boot, and Secure Boot
   policies
@@ -85,4 +87,3 @@ evidence.
 - Public branding system and asset licensing
 - Release notes, user guide, troubleshooting, and support channels
 - Additional desktop flavors after the GNOME edition is maintainable
-

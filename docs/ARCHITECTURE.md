@@ -91,6 +91,18 @@ trust using `Signed-By`, versioned suites, source-package handling, promotion
 between development and stable channels, key backup, and key-rotation
 procedures. A development repository must not be presented as production-ready.
 
+## Third-party applications
+
+Applications that are not distributed by Debian must not be copied into the ISO
+without reviewing their licenses and redistribution terms. During the POC,
+Google Chrome and Microsoft Visual Studio Code should be installed from their
+vendors' signed APT repositories through an explicit, documented opt-in step.
+Their repository keys must be scoped with `Signed-By` and must not be added to a
+global trusted keyring.
+
+This keeps proprietary software availability separate from the reproducible
+Debian-based image and makes the source of future updates clear to the user.
+
 ## Artifact hosting
 
 GitHub is intended to hold source, documentation, issues, and release metadata.
@@ -117,4 +129,3 @@ The following require separate designs before public release:
 - Major-version upgrades
 - Source redistribution and license compliance
 - Automated release CI and provenance attestations
-

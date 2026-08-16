@@ -20,6 +20,8 @@ definition and planning.
 - [Roadmap](docs/ROADMAP.md)
 - [Initial architecture](docs/ARCHITECTURE.md)
 - [Testing strategy](docs/TESTING.md)
+- [Daily-driver requirements](docs/DAILY_DRIVER_REQUIREMENTS.md)
+- [Hardware targets](docs/HARDWARE_TARGETS.md)
 - [Decision 0001: Debian stable and live-build](docs/decisions/0001-debian-stable-live-build.md)
 - [Decision 0002: GNOME-first scope](docs/decisions/0002-gnome-first.md)
 
