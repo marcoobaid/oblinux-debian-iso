@@ -11,9 +11,10 @@ the first local build establishes realistic effort.
 - [x] Initialize the primary GitHub repository
 - [x] Select the original code and documentation license
 - [ ] Select branding and redistributed-asset licenses
-- [ ] Define the primary physical test machine
+- [x] Define the primary physical test machine
 - [x] Record the initial daily-driver applications and hardware inventory
-- [ ] Complete exact hardware identification and select the primary test machine
+- [x] Identify target CPU architectures and select the primary test machine
+- [ ] Capture detailed device and firmware inventory for the target machines
 - [ ] Define the initial GNOME application and package set
 - [ ] Decide the POC firmware, Flatpak, encryption, dual-boot, and Secure Boot
   policies

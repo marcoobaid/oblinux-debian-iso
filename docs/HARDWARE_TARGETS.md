@@ -2,17 +2,19 @@
 
 ## Purpose
 
-The POC has two physical laptop families and a separate VirtualBox host. Exact
-model identification is required before selecting the first daily-driver target
-or claiming hardware support.
+The POC has two physical laptops and a separate Linux VirtualBox host. The
+ThinkPad is the selected daily-driver target. More detailed device inventory is
+still required before claiming hardware support.
 
 ## Current inventory
 
 | System | Intended role | Status |
 | --- | --- | --- |
-| Lenovo ThinkPad T14s Gen 6 | Preferred first daily-driver candidate, subject to CPU architecture | Exact variant required |
-| Microsoft Surface Laptop 3 or 4 | Secondary physical compatibility target | Exact generation and Intel/AMD variant required |
-| Laptop running Oracle VirtualBox | Repeatable live-boot and installation tests | Host details and VirtualBox version required |
+| Lenovo ThinkPad T14s Gen 6, AMD, 32 GB RAM, 1 TB SSD | Primary physical test system and dedicated OBLinux daily driver | Selected; detailed device inventory pending |
+| Microsoft Surface Laptop 3, Intel, 16 GB RAM | Secondary physical compatibility target | Selected; detailed device inventory pending |
+| Linux laptop running Oracle VirtualBox | First live-boot and installation-test platform | Host distribution, resources, and VirtualBox version pending |
+| Xerox B310 | Representative network or USB printer | Deferred until printing validation |
+| Bluetooth headphones | Representative Bluetooth test class | Specific device not required for initial image |
 
 ## Required inventory
 
@@ -37,20 +39,19 @@ removed before reports are committed.
 
 ## ThinkPad T14s Gen 6
 
-CPU architecture is a gating item. A 64-bit x86 model can use the initial
-`amd64` image. An ARM model requires a separate `arm64` effort outside the first
-POC scope.
+The AMD ThinkPad is the primary target for the initial `amd64` image. It will be
+a dedicated OBLinux system with no dual boot. Its 32 GB of RAM and 1 TB SSD are
+more than sufficient for the daily-driver workload; disk sizing and encryption
+policy still need to be finalized before physical installation.
 
-If it is `amd64`, the ThinkPad is the preferred first target because stock
-Debian should first be validated on conventional laptop hardware. Tests must
-cover Wi-Fi, Bluetooth, graphics, external displays, audio, webcam, suspend,
-resume, battery reporting, function keys, power profiles, docking, and any
-required fingerprint reader.
+Stock Debian must first be validated on this conventional laptop hardware.
+Tests cover Wi-Fi, Bluetooth, graphics, external displays, audio, webcam,
+suspend, resume, battery reporting, function keys, power profiles, docking, and
+any required fingerprint reader.
 
-## Microsoft Surface Laptop
+## Microsoft Surface Laptop 3
 
-Surface Laptop 3 and 4 systems have materially different Intel and AMD variants
-and must not be treated as one target.
+The secondary target is an Intel Surface Laptop 3 with 16 GB of RAM.
 
 Testing begins with Debian's stock kernel and `non-free-firmware`. A patched
 kernel must not be added to the general OBLinux image merely because the target
@@ -66,8 +67,9 @@ Firmware should be current before testing.
 
 ## VirtualBox test system
 
-Record the host operating system, CPU architecture, VirtualBox version,
-available RAM and storage, and whether nested virtualization is involved.
+The host operating system is Linux. Record its distribution and version, CPU
+architecture, VirtualBox version, available RAM and storage, and whether nested
+virtualization is involved.
 VirtualBox validates installation behavior but not physical compatibility.
 
 The baseline VM matrix should include:
@@ -85,7 +87,6 @@ hardware.
 
 ## Selection gate
 
-No laptop becomes the daily-driver target until its exact model and CPU
-architecture are recorded, a stock Debian live environment has been tested, and
-the backup and recovery plan is complete.
-
+The ThinkPad is the selected daily-driver target, but it must not be installed
+until a stock Debian live environment has been tested and the backup, recovery,
+encryption, and disk-layout plans are complete.

@@ -95,3 +95,13 @@ host rules.
 - Required development runtimes and container tooling
 - VPN, remote desktop, cloud storage, password manager, and backup requirements
 
+## Initial peripheral test scope
+
+Printing is not a blocker for the first bootable ISO. A Xerox B310 is available
+as the initial representative printer when printing validation begins. Other
+printers can expand coverage later without becoming part of the POC baseline.
+
+No Bluetooth peripheral is required for daily use at present. Bluetooth support
+will initially be validated by pairing, reconnecting, selecting an audio
+profile, playing audio, and using the microphone on a representative pair of
+headphones.
