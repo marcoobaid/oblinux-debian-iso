@@ -37,7 +37,8 @@ provides a functional live session.
 
 ## Phase 2: Installable POC
 
-- [ ] Write the initial installer requirements
+- [x] Write the initial installer requirements
+- [x] Add and validate the initial Calamares package selection
 - [ ] Integrate Debian's Calamares packages and configuration
 - [ ] Test UEFI erase-disk installation on disposable VM disks
 - [ ] Verify user creation, locale, keyboard, timezone, and bootloader behavior

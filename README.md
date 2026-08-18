@@ -21,12 +21,14 @@ definition and planning.
 - [Initial architecture](docs/ARCHITECTURE.md)
 - [Testing strategy](docs/TESTING.md)
 - [Build instructions](docs/BUILDING.md)
+- [Installer integration and test plan](docs/INSTALLER.md)
 - [POC build 001 record](docs/builds/2026-08-17-poc-001.md)
 - [POC build 001 VirtualBox test](docs/tests/2026-08-17-poc-001-virtualbox.md)
 - [Daily-driver requirements](docs/DAILY_DRIVER_REQUIREMENTS.md)
 - [Hardware targets](docs/HARDWARE_TARGETS.md)
 - [Decision 0001: Debian stable and live-build](docs/decisions/0001-debian-stable-live-build.md)
 - [Decision 0002: GNOME-first scope](docs/decisions/0002-gnome-first.md)
+- [Decision 0003: Calamares POC installer](docs/decisions/0003-calamares-poc-installer.md)
 
 ## Project principles
 

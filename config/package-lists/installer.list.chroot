@@ -1,0 +1,13 @@
+# Debian-maintained Calamares configuration and dependencies
+calamares-settings-debian
+
+# UEFI GRUB installation support for the first supported installer path
+grub-efi-amd64
+grub-efi-amd64-signed
+shim-signed
+efibootmgr
+
+# Filesystem tools used by the partitioning workflow
+dosfstools
+e2fsprogs
+
