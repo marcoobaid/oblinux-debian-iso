@@ -27,10 +27,10 @@ known well enough to build without guessing.
 - [x] Prepare a clean Debian build environment
 - [x] Create and validate the minimal `live-build` configuration
 - [x] Build the first Debian 13 GNOME hybrid ISO
-- [ ] Configure the unprivileged live user and autologin
+- [x] Configure and verify the unprivileged live user and autologin
 - [ ] Add basic OBLinux identity and wallpaper
 - [x] Generate checksums, package manifests, and build logs
-- [ ] Boot-test the ISO under QEMU/KVM
+- [x] Boot-test the ISO in a VirtualBox UEFI VM
 
 Exit condition: a documented command produces a GNOME live ISO that boots and
 provides a functional live session.
