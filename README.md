@@ -23,6 +23,7 @@ definition and planning.
 - [Build instructions](docs/BUILDING.md)
 - [Installer integration and test plan](docs/INSTALLER.md)
 - [POC build 001 record](docs/builds/2026-08-17-poc-001.md)
+- [POC build 002 installer record](docs/builds/2026-08-18-poc-002.md)
 - [POC build 001 VirtualBox test](docs/tests/2026-08-17-poc-001-virtualbox.md)
 - [Daily-driver requirements](docs/DAILY_DRIVER_REQUIREMENTS.md)
 - [Hardware targets](docs/HARDWARE_TARGETS.md)
