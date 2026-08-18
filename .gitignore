@@ -26,6 +26,7 @@ secrets/
 
 # live-build working state and generated artifacts
 .build/
+build-logs/
 binary/
 cache/
 chroot/
@@ -49,4 +50,3 @@ live-image-*.zsync
 *.vmdk
 SHA256SUMS
 SHA256SUMS.sign
-

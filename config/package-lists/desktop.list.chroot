@@ -1,0 +1,36 @@
+# Live-system integration
+live-boot
+live-config
+live-config-systemd
+
+# GNOME desktop and graphical login
+task-gnome-desktop
+
+# Networking and firmware updates
+network-manager
+network-manager-gnome
+wpasupplicant
+fwupd
+
+# Initial user applications
+firefox-esr
+ptyxis
+
+# Firmware and CPU microcode for the initial hardware targets
+firmware-linux
+firmware-linux-free
+firmware-linux-nonfree
+firmware-amd-graphics
+firmware-iwlwifi
+firmware-realtek
+amd64-microcode
+intel-microcode
+
+# Diagnostics needed during early hardware testing
+curl
+ethtool
+inxi
+lshw
+pciutils
+usbutils
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -euo pipefail
+
+mkdir -p build-logs
+log="build-logs/build-$(date -u +%Y%m%dT%H%M%SZ).log"
+
+lb build noauto 2>&1 | tee "${log}"
