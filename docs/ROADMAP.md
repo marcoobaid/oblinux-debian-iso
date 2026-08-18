@@ -40,7 +40,8 @@ provides a functional live session.
 - [x] Write the initial installer requirements
 - [x] Add and validate the initial Calamares package selection
 - [x] Integrate Debian's Calamares packages and configuration
-- [ ] Test UEFI erase-disk installation on disposable VM disks
+- [ ] Complete two UEFI erase-disk installations on disposable VM disks
+  (1 of 2 passed)
 - [ ] Verify user creation, locale, keyboard, timezone, and bootloader behavior
 - [ ] Verify that live-only packages and credentials do not leak into the
   installed system
