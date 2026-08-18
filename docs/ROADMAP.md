@@ -26,10 +26,10 @@ known well enough to build without guessing.
 
 - [x] Prepare a clean Debian build environment
 - [x] Create and validate the minimal `live-build` configuration
-- [ ] Build a stock Debian 13 GNOME hybrid ISO
+- [x] Build the first Debian 13 GNOME hybrid ISO
 - [ ] Configure the unprivileged live user and autologin
 - [ ] Add basic OBLinux identity and wallpaper
-- [ ] Generate checksums, package manifests, and build logs
+- [x] Generate checksums, package manifests, and build logs
 - [ ] Boot-test the ISO under QEMU/KVM
 
 Exit condition: a documented command produces a GNOME live ISO that boots and

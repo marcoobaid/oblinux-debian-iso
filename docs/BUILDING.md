@@ -188,6 +188,12 @@ filesystem. The current list provides:
   targets
 - Basic hardware and network diagnostic tools
 
+The first generated package manifest showed that Debian's GNOME task also
+installs LibreOffice and much of the CUPS printing stack through its dependency
+graph. These components are therefore present even though they are not named in
+OBLinux's short explicit list. Always use the generated package manifest to
+describe the actual image contents.
+
 Debian tasks such as `task-gnome-desktop` are curated package collections. Using
 the Debian task lets Debian define the coherent GNOME baseline while OBLinux
 adds only its explicit requirements.
@@ -350,7 +356,7 @@ failure.
 
 - Calamares or another installer
 - OBLinux visual branding
-- LibreOffice and the complete daily-driver application set
+- The remaining daily-driver application set and explicit default policies
 - Zsh and Starship defaults
 - Flatpak or third-party application repositories
 - Firewall configuration
