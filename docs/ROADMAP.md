@@ -41,10 +41,12 @@ provides a functional live session.
 - [x] Add and validate the initial Calamares package selection
 - [x] Integrate Debian's Calamares packages and configuration
 - [ ] Complete two UEFI erase-disk installations on disposable VM disks
-  (1 of 2 passed)
+  (0 of 2 passed; one additional legacy-BIOS installation passed)
 - [ ] Verify user creation, locale, keyboard, timezone, and bootloader behavior
 - [ ] Verify that live-only packages and credentials do not leak into the
   installed system
+- [ ] Add automatic time synchronization and verify it after installation
+- [ ] Define and implement the final installed-system APT source policy
 - [ ] Collect useful installer logs on failure
 - [ ] Repeat clean installation from the same ISO
 
