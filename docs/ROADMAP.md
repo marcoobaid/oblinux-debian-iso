@@ -40,8 +40,8 @@ provides a functional live session.
 - [x] Write the initial installer requirements
 - [x] Add and validate the initial Calamares package selection
 - [x] Integrate Debian's Calamares packages and configuration
-- [ ] Complete two UEFI erase-disk installations on disposable VM disks
-  (1 of 2 passed; one additional legacy-BIOS installation passed)
+- [x] Complete two UEFI erase-disk installations on disposable VM disks
+  (2 of 2 passed; one additional legacy-BIOS installation passed)
 - [x] Verify installed-system boot performance; measured 8.143 seconds and
   classified the perceived delay as a VirtualBox display-resize artifact
 - [ ] Prevent automatic lock and suspend in the live installer session
@@ -52,7 +52,7 @@ provides a functional live session.
 - [ ] Add automatic time synchronization and verify it after installation
 - [ ] Define and implement the final installed-system APT source policy
 - [ ] Collect useful installer logs on failure
-- [ ] Repeat clean installation from the same ISO
+- [x] Repeat clean installation from the same ISO
 
 Exit condition: the ISO completes two repeatable VM installations and the
 installed systems update normally.
