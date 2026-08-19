@@ -151,6 +151,29 @@ The entire process must pass twice using freshly created virtual disks before
 installer work advances to encryption, manual partitioning, or physical
 hardware.
 
+## Build 003 hardening
+
+Build 002 completed two clean UEFI installation passes and one additional
+legacy-BIOS installation pass. Build 003 keeps the proven Calamares workflow
+and addresses findings from those tests:
+
+- The live-only GNOME schema override disables idle blanking, screen locking,
+  and automatic suspend on both AC and battery power. It replaces a file owned
+  by `calamares-settings-debian`, so removing that package during installation
+  also removes the live-only defaults from the installed system.
+- `systemd-timesyncd` provides automatic network time synchronization in the
+  live and installed environments.
+- An OBLinux-owned final-source helper writes the installed APT policy. It
+  enables Debian stable, updates, and security with `main`, `contrib`,
+  `non-free`, and `non-free-firmware`; backports and source-package entries are
+  not enabled by default.
+
+See [Decision 0004](decisions/0004-installed-apt-policy.md) for the repository
+policy and its tradeoffs.
+
+These changes require a new ISO and must be verified in both the live session
+and a clean installed system. They do not retroactively modify Build 002.
+
 ## Evidence to retain
 
 - ISO checksum
@@ -165,4 +188,3 @@ hardware.
 
 Binary recordings and screenshots remain outside Git. Test reports record their
 filenames and SHA-256 checksums.
-

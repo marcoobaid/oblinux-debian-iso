@@ -12,6 +12,9 @@ network-manager-gnome
 wpasupplicant
 fwupd
 
+# Automatic network time synchronization
+systemd-timesyncd
+
 # Initial user applications
 firefox-esr
 ptyxis
@@ -33,4 +36,3 @@ inxi
 lshw
 pciutils
 usbutils
-

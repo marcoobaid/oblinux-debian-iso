@@ -1,0 +1,22 @@
+# OBLinux live-session defaults. This deliberately replaces the file owned by
+# calamares-settings-debian so package removal also removes these live-only
+# settings from the installed system.
+
+# Keep the installer easy to find in the GNOME dash.
+[org.gnome.shell]
+favorite-apps=['calamares-install-debian.desktop', 'firefox-esr.desktop', 'org.gnome.Evolution.desktop', 'rhythmbox.desktop', 'libreoffice-writer.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'yelp.desktop']
+
+# Never lock or blank the live installer session while installation is active.
+[org.gnome.desktop.lockdown]
+disable-lock-screen=true
+
+[org.gnome.desktop.screensaver]
+lock-enabled=false
+
+[org.gnome.desktop.session]
+idle-delay=0
+
+# Never suspend the live installer session on AC or battery power.
+[org.gnome.settings-daemon.plugins.power]
+sleep-inactive-ac-type='nothing'
+sleep-inactive-battery-type='nothing'

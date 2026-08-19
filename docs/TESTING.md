@@ -59,6 +59,49 @@ approved for a physical test. Dual boot, manual partitioning, encryption, and
 existing EFI partition reuse each require separate test cases. A successful
 erase-disk test does not validate any of those scenarios.
 
+## Build 003 acceptance checks
+
+Build 003 must retain all Build 002 smoke tests and add the checks below.
+
+In the live GNOME session, verify the effective settings:
+
+```bash
+gsettings get org.gnome.desktop.lockdown disable-lock-screen
+gsettings get org.gnome.desktop.screensaver lock-enabled
+gsettings get org.gnome.desktop.session idle-delay
+gsettings get org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type
+gsettings get org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type
+```
+
+The expected values are `true`, `false`, `uint32 0`, `'nothing'`, and
+`'nothing'`. Start Calamares, leave the VM untouched for at least 20 minutes,
+and confirm that the session neither locks nor suspends.
+
+Check time synchronization in both the live and installed systems:
+
+```bash
+timedatectl show \
+  --property=NTP \
+  --property=NTPSynchronized \
+  --property=SystemClockSynchronized
+systemctl is-enabled systemd-timesyncd.service
+systemctl is-active systemd-timesyncd.service
+```
+
+With working networking, NTP must be enabled and active and the clock must
+eventually report synchronization. A newly booted VM may need a short interval
+before the synchronized state changes to `yes`.
+
+After a clean installation, inspect `/etc/apt/sources.list` and files under
+`/etc/apt/sources.list.d/`. Only Debian Trixie stable, updates, and security
+should be enabled by OBLinux. Each must contain `main`, `contrib`, `non-free`,
+and `non-free-firmware`; backports, source-package entries, and live-media
+sources must be absent. Finish with `sudo apt update` and confirm success.
+
+Finally, confirm `calamares-settings-debian` is absent from the installed
+system and that the installed user's normal lock and suspend controls remain
+available. The live-only policy must not weaken the installed system.
+
 ## Daily-driver evidence
 
 During the trial, record:
@@ -73,4 +116,3 @@ During the trial, record:
 - Configuration that exists only as an undocumented manual change
 
 An undocumented manual fix is a POC finding, not part of a reproducible build.
-
