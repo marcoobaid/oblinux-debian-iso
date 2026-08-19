@@ -44,12 +44,12 @@ provides a functional live session.
   (2 of 2 passed; one additional legacy-BIOS installation passed)
 - [x] Verify installed-system boot performance; measured 8.143 seconds and
   classified the perceived delay as a VirtualBox display-resize artifact
-- [ ] Verify the Build 003 live-session lock and suspend prevention
+- [x] Verify the Build 003 live-session lock and suspend prevention
 - [x] Verify user creation, locale, keyboard, timezone, and UEFI bootloader
   behavior
 - [x] Verify that live-only packages and credentials do not leak into the
   installed system
-- [ ] Verify Build 003 automatic time synchronization after installation
+- [x] Verify Build 003 automatic time synchronization after installation
 - [x] Define and implement the final installed-system APT source policy
 - [ ] Collect useful installer logs on failure
 - [x] Repeat clean installation from the same ISO

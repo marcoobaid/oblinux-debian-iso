@@ -12,9 +12,9 @@ custom graphical administration tools are later goals.
 
 The project has produced repeatable Debian 13 GNOME live images and has
 completed Calamares installation testing in both UEFI and legacy-BIOS VMs.
-POC Build 003 is built and awaiting runtime verification of live-session power
-behavior, automatic time synchronization, and installed-system APT policy.
-There is no supported public release yet.
+POC Build 003 has passed runtime verification of live-session power behavior,
+automatic time synchronization, installation, cleanup, and installed-system
+APT policy. There is no supported public release yet.
 
 ## Documentation
 
@@ -28,6 +28,7 @@ There is no supported public release yet.
 - [POC build 001 record](docs/builds/2026-08-17-poc-001.md)
 - [POC build 002 installer record](docs/builds/2026-08-18-poc-002.md)
 - [POC build 003 hardening record](docs/builds/2026-08-19-poc-003.md)
+- [POC build 003 installation test](docs/tests/2026-08-19-poc-003-install-01.md)
 - [POC build 002 installation test 01](docs/tests/2026-08-18-poc-002-install-01.md)
 - [POC build 002 installation test 02](docs/tests/2026-08-18-poc-002-install-02.md)
 - [POC build 001 VirtualBox test](docs/tests/2026-08-17-poc-001-virtualbox.md)
