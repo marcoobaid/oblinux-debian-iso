@@ -43,7 +43,8 @@ provides a functional live session.
 - [ ] Complete two UEFI erase-disk installations on disposable VM disks
   (1 functional pass pending post-install checks; one additional legacy-BIOS
   installation passed)
-- [ ] Diagnose and resolve the four-to-five-minute installed-system boot delay
+- [x] Verify installed-system boot performance; measured 8.143 seconds and
+  classified the perceived delay as a VirtualBox display-resize artifact
 - [ ] Prevent automatic lock and suspend in the live installer session
 - [ ] Verify user creation, locale, keyboard, timezone, and bootloader behavior
 - [ ] Verify that live-only packages and credentials do not leak into the
