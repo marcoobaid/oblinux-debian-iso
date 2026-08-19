@@ -7,9 +7,10 @@ doing. It is maintained alongside the build configuration so that the build can
 be understood, repeated, and moved to another machine without relying on
 undocumented setup.
 
-The current milestone is an experimental Debian 13 `amd64` GNOME live ISO. It
-is intended to prove that the image can be built reproducibly and booted in a
-VM. It does not contain an installer and is not a supported release.
+The current milestone is an experimental Debian 13 `amd64` GNOME live and
+installable ISO. Three POC images have been built successfully, and the
+Calamares baseline has completed repeatable VM installations. The image is not
+a supported release.
 
 ## What has been completed
 
@@ -39,9 +40,9 @@ The following work preceded the first ISO build:
     a Git bundle, checked out on `main`, and validated again from the permanent
     build workspace.
 
-The actual `lb build` command has not yet been run. It requires root privileges
-and the builder is intentionally configured to ask the administrator for a
-`sudo` password.
+The build command requires root privileges, and the builder is intentionally
+configured to ask the administrator for a `sudo` password. Passwords must not
+be stored in scripts, logs, documentation, or the repository.
 
 ## The Debian image-building model
 
@@ -273,7 +274,7 @@ The initial validation exposed an invalid selection of two BIOS bootloaders.
 OBLinux now selects `grub-efi` for UEFI and `grub-pc` for BIOS. This is an
 example of why configuration validation precedes a full build.
 
-## Run the first build
+## Run a build
 
 From an interactive shell on the builder:
 
@@ -298,7 +299,7 @@ During the build, live-build will roughly perform these stages:
 1. Bootstrap a minimal Trixie filesystem.
 2. Configure Debian package repositories inside the chroot.
 3. Install the kernel, live components, GNOME, firmware, and selected apps.
-4. Apply any configured hooks or included files; none are required yet.
+4. Apply configured hooks and included OBLinux files.
 5. Remove temporary package data as appropriate.
 6. Compress the live filesystem into SquashFS.
 7. Assemble GRUB boot files and the hybrid ISO.
@@ -340,7 +341,7 @@ sudo lb build
 reproducibility matters or stale state is suspected, not reflexively after every
 failure.
 
-## First-image acceptance criteria
+## Image acceptance criteria
 
 - `lb config` and `lb config --validate` complete without errors.
 - `lb build` completes and produces a hybrid ISO.
@@ -354,7 +355,6 @@ failure.
 
 ## Not included yet
 
-- Calamares or another installer
 - OBLinux visual branding
 - The remaining daily-driver application set and explicit default policies
 - Zsh and Starship defaults
