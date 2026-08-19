@@ -41,7 +41,10 @@ provides a functional live session.
 - [x] Add and validate the initial Calamares package selection
 - [x] Integrate Debian's Calamares packages and configuration
 - [ ] Complete two UEFI erase-disk installations on disposable VM disks
-  (0 of 2 passed; one additional legacy-BIOS installation passed)
+  (1 functional pass pending post-install checks; one additional legacy-BIOS
+  installation passed)
+- [ ] Diagnose and resolve the four-to-five-minute installed-system boot delay
+- [ ] Prevent automatic lock and suspend in the live installer session
 - [ ] Verify user creation, locale, keyboard, timezone, and bootloader behavior
 - [ ] Verify that live-only packages and credentials do not leak into the
   installed system
