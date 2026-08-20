@@ -33,7 +33,8 @@ known well enough to build without guessing.
   systems
 - [x] Verify Build 005 boot-menu and Calamares branding; acceptance passed with
   documented follow-ups
-- [ ] Verify Build 006 Calamares contrast and installed-system identity
+- [x] Verify Build 006 Calamares contrast and installed-system identity;
+  acceptance passed with three presentation-only follow-ups
 - [x] Generate checksums, package manifests, and build logs
 - [x] Boot-test the ISO in a VirtualBox UEFI VM
 
