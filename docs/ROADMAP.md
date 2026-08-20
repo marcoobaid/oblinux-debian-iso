@@ -35,6 +35,7 @@ known well enough to build without guessing.
   documented follow-ups
 - [x] Verify Build 006 Calamares contrast and installed-system identity;
   acceptance passed with three presentation-only follow-ups
+- [ ] Verify Build 007 GNOME About identity and transparent logo polish
 - [x] Generate checksums, package manifests, and build logs
 - [x] Boot-test the ISO in a VirtualBox UEFI VM
 

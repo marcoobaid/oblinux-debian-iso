@@ -56,13 +56,14 @@ under CC BY-SA 4.0 with the rest of the branding assets.
 
 ## Boot and installer derivatives
 
-Build 005 derives its boot symbol, Calamares logo, and installer welcome image
-from the approved OBLinux symbol and Obsidian Horizon wallpaper.
+Build 007 derives its transparent Calamares logo from the approved reversed
+OBLinux symbol. The installer welcome image remains derived from Obsidian
+Horizon.
 
 | File | SHA-256 |
 | --- | --- |
 | `source/oblinux-installer-icon.svg` | `86739c03f2702bbdb74c18eca3298cf1485023e8209815eaa6daad461bd8f81b` |
-| `installer/oblinux-logo.png` | `1ffb98650647519dfc6f6050ab3d01406c34e07fcfeee723f3a064caa8252b23` |
+| `installer/oblinux-logo.png` | `0ddbfd7eb8a81c18f1adb274e66f14d7d2e00fbabfa460c9a173e46105f0d19f` |
 | `installer/slide1.png` | `8a21ba3ab112dcb7b10726b9bf7eab4058e23fae2005790e36bcba8bef139bd2` |
 
 These derivative assets are released under CC BY-SA 4.0 with the source
@@ -70,12 +71,12 @@ identity and wallpaper.
 
 ## Installed-system derivatives
 
-Build 006 reuses the approved symbol for GNOME About and derives its Plymouth
-logo and progress textures from the Build 005 installer assets.
+Build 007 uses the approved color symbol for GNOME About and derives its
+tightly cropped transparent Plymouth logo from the corrected installer asset.
 
 | File | SHA-256 |
 | --- | --- |
-| `system/plymouth-logo.png` | `1ffb98650647519dfc6f6050ab3d01406c34e07fcfeee723f3a064caa8252b23` |
+| `system/plymouth-logo.png` | `8658eb04e7561a6c58ff4cfe851d6251d53b8c39526884530c713dc5659f0d42` |
 | `system/progress-background.png` | `b78b40b470c8f6b5e81f2a9a7c290d74a5e6c347687e7dd8ac6a38e6395fc78e` |
 | `system/progress-fill.png` | `40f84aad2a9527d2f482d85fc5d959b8b6c23f0ba8d3a35c9eb334ab97fa22ee` |
 

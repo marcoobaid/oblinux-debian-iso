@@ -8,8 +8,9 @@ screen_width = Window.GetWidth();
 screen_height = Window.GetHeight();
 
 logo = Image("logo.png");
-logo_size = Math.Min(screen_width, screen_height) * 0.24;
-logo = logo.Scale(logo_size, logo_size);
+logo_width = Math.Min(screen_width, screen_height) * 0.24;
+logo_height = logo.GetHeight() * logo_width / logo.GetWidth();
+logo = logo.Scale(logo_width, logo_height);
 logo_sprite = Sprite(logo);
 logo_sprite.SetPosition(
     (screen_width - logo.GetWidth()) / 2,

@@ -3,6 +3,8 @@
 set -eu
 
 grub_linux=/etc/grub.d/10_linux
+vendor_logo=/usr/share/icons/vendor/scalable/emblems/emblem-vendor.svg
+oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-vendor.svg
 expected='    Ubuntu|Kubuntu|*GNU/Linux)'
 replacement='    OBLinux|Ubuntu|Kubuntu|*GNU/Linux)'
 
@@ -22,5 +24,14 @@ cmp /etc/os-release /usr/lib/os-release
 grep -qx 'Theme=oblinux' /etc/plymouth/plymouthd.conf
 grep -qx 'GRUB_THEME="/usr/share/grub/themes/oblinux/theme.txt"' \
     /etc/default/grub.d/99-oblinux.cfg
+
+# Debian compiles GNOME Control Center with a fixed vendor-logo path, which
+# takes precedence over os-release LOGO. Preserve the package file through a
+# local diversion and provide the approved OBLinux symbol at that path.
+test -f "$oblinux_vendor_logo"
+if ! dpkg-divert --list "$vendor_logo" | grep -Fq "local diversion of $vendor_logo"; then
+    dpkg-divert --quiet --local --rename --add "$vendor_logo"
+fi
+install -m 0644 "$oblinux_vendor_logo" "$vendor_logo"
 
 gtk-update-icon-cache --force /usr/share/icons/hicolor

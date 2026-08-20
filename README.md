@@ -49,6 +49,7 @@ follow-ups. There is no supported public release yet.
 - [Decision 0004: Installed-system APT policy](docs/decisions/0004-installed-apt-policy.md)
 - [Decision 0005: OBLinux visual identity](docs/decisions/0005-oblinux-visual-identity.md)
 - [Decision 0006: Installed-system identity](docs/decisions/0006-installed-system-identity.md)
+- [Decision 0007: Identity asset polish](docs/decisions/0007-identity-asset-polish.md)
 - [OBLinux brand guide](branding/BRAND_GUIDE.md)
 
 ## Project principles

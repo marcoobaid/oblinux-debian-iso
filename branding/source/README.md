@@ -41,19 +41,22 @@ standards-compliant SVG renderer. The builder used Debian's `rsvg-convert` from
 
 ## Installer asset generation
 
-Render `oblinux-installer-icon.svg` at 512 by 512 pixels with a
-standards-compliant SVG renderer. Then run:
+Render `../assets/oblinux-symbol-reversed.svg` at its native 500 by 360 aspect
+ratio with a transparent background and a standards-compliant SVG renderer.
+Then run:
 
 ```bash
 branding/source/build_installer_assets.py \
   branding/wallpapers/oblinux-horizon-branded-3840x2160.jpg \
-  /path/to/rendered-installer-icon.png \
+  /path/to/rendered-reversed-symbol.png \
   branding/installer
 ```
 
-The command produces the 256-pixel Calamares logo and the 800 by 450 welcome
-image. Copy those approved outputs into the corresponding package-owned paths
-under `config/includes.chroot` when updating the integration.
+The command tightly crops the rendered symbol, fits it within a transparent
+256-pixel canvas, and produces the 800 by 450 welcome image. It rejects the
+opaque rounded-square treatment previously used by Build 006. Copy approved
+outputs into the corresponding package-owned paths under
+`config/includes.chroot` when updating the integration.
 
 ## Installed-system asset generation
 

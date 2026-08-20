@@ -190,6 +190,32 @@ Finally, repeat the Build 005 Calamares/live-package cleanup checks, run
 `sudo update-grub` and `sudo update-initramfs -u`, and reboot. OBLinux GRUB and
 Plymouth branding must remain after regeneration.
 
+## Build 007 identity-polish acceptance checks
+
+Build 007 must retain all Build 006 functional checks and close its three
+presentation findings.
+
+In live and installed GNOME Settings About, confirm that the approved OBLinux
+symbol replaces the Debian swirl. The operating-system name must remain
+`OBLinux Proof of Concept (Debian 13)`. Verify the preserved Debian vendor file
+and active diversion:
+
+```bash
+dpkg-divert --list \
+  /usr/share/icons/vendor/scalable/emblems/emblem-vendor.svg
+test -r \
+  /usr/share/icons/vendor/scalable/emblems/emblem-vendor.svg.distrib
+```
+
+Open Calamares at normal and maximized sizes. Confirm its symbol has no white
+corners, tile, border, stretching, or clipping and is balanced within the
+sidebar.
+
+Boot the installed system and confirm Plymouth displays the proportional
+OBLinux symbol without a surrounding square or light corner artifacts. Run
+`sudo update-initramfs -u`, reboot, and confirm the corrected presentation
+persists. Complete the Build 006 cleanup, APT, GRUB, and basic regression checks.
+
 ## Daily-driver evidence
 
 During the trial, record:

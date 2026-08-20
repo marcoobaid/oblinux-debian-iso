@@ -18,7 +18,14 @@ def main():
     args.output_directory.mkdir(parents=True, exist_ok=True)
 
     logo = Image.open(args.logo).convert("RGBA")
-    logo = logo.resize((256, 256), Image.Resampling.LANCZOS)
+    if logo.size != (256, 256):
+        raise ValueError("Plymouth source logo must be 256 by 256 pixels")
+    if logo.getchannel("A").getextrema()[0] != 0:
+        raise ValueError("Plymouth source logo must contain transparent pixels")
+    alpha_bbox = logo.getchannel("A").getbbox()
+    if alpha_bbox is None:
+        raise ValueError("Plymouth source logo has no visible pixels")
+    logo = logo.crop(alpha_bbox)
     logo.save(args.output_directory / "plymouth-logo.png", optimize=True)
 
     Image.new("RGB", (8, 8), "#1B2836").save(

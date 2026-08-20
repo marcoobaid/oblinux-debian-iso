@@ -11,6 +11,7 @@ from PIL import Image
 
 SLIDE_SIZE = (800, 450)
 ICON_SIZE = (256, 256)
+ICON_CONTENT_SIZE = (224, 224)
 
 
 def main():
@@ -27,8 +28,18 @@ def main():
     slide.save(args.output_directory / "slide1.png", format="PNG", optimize=True)
 
     icon = Image.open(args.rendered_icon).convert("RGBA")
-    icon = icon.resize(ICON_SIZE, Image.Resampling.LANCZOS)
-    icon.save(
+    alpha_bbox = icon.getchannel("A").getbbox()
+    if alpha_bbox is None:
+        raise ValueError("rendered icon has no visible pixels")
+    icon = icon.crop(alpha_bbox)
+    icon.thumbnail(ICON_CONTENT_SIZE, Image.Resampling.LANCZOS)
+
+    canvas = Image.new("RGBA", ICON_SIZE, (0, 0, 0, 0))
+    canvas.alpha_composite(
+        icon,
+        ((ICON_SIZE[0] - icon.width) // 2, (ICON_SIZE[1] - icon.height) // 2),
+    )
+    canvas.save(
         args.output_directory / "oblinux-logo.png",
         format="PNG",
         optimize=True,
