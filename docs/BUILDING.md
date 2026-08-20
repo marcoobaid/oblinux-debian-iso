@@ -199,6 +199,18 @@ Debian tasks such as `task-gnome-desktop` are curated package collections. Using
 the Debian task lets Debian define the coherent GNOME baseline while OBLinux
 adds only its explicit requirements.
 
+### `config/includes.chroot`
+
+Files under `config/includes.chroot` are copied into the image filesystem after
+package installation. Build 004 uses this mechanism for the approved OBLinux
+wallpapers, their GNOME catalog, licensing, and background defaults.
+
+The background schema override defines unlocked defaults. It remains in the
+installed system so new users start with the OBLinux wallpaper but can change
+it normally. This is deliberately separate from the package-owned Calamares
+override containing live-only lock and suspend settings, which the installer
+removes from the target system.
+
 ### `auto/build`
 
 Running `sudo lb build` automatically invokes `auto/build`. The wrapper stores a

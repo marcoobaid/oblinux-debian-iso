@@ -102,6 +102,37 @@ Finally, confirm `calamares-settings-debian` is absent from the installed
 system and that the installed user's normal lock and suspend controls remain
 available. The live-only policy must not weaken the installed system.
 
+## Build 004 wallpaper acceptance checks
+
+Build 004 must retain all Build 003 checks and verify the wallpaper integration
+in both the live and installed systems.
+
+Confirm the files and effective GNOME defaults:
+
+```bash
+test -r /usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg
+test -r /usr/share/backgrounds/oblinux/oblinux-horizon-clean-3840x2160.jpg
+
+gsettings get org.gnome.desktop.background picture-uri
+gsettings get org.gnome.desktop.background picture-uri-dark
+gsettings get org.gnome.desktop.background picture-options
+gsettings get org.gnome.desktop.screensaver picture-uri
+```
+
+The branded wallpaper must be the light, dark, and lock-screen default, with
+`zoom` as the picture option. Open GNOME Settings and confirm that both OBLinux
+variants appear in the background chooser.
+
+In the live session, switch to the clean wallpaper and back to the branded
+wallpaper. After installation, repeat the change as the created user and log out
+and back in. The user's selection must persist. No dconf lock file may prevent
+changing any background key.
+
+Inspect the installed system and confirm that both wallpaper files, the GNOME
+catalog, the OBLinux background schema override, license, and attribution remain
+present. This integration is an installed-system default, unlike the live-only
+lock and suspend policy that Calamares removes.
+
 ## Daily-driver evidence
 
 During the trial, record:

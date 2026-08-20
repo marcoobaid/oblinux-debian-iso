@@ -16,3 +16,9 @@ The clean wallpaper is the visual master. The branded variant is assembled by
 
 These wallpapers are OBLinux artwork licensed under CC BY-SA 4.0. See
 `../LICENSE-CC-BY-SA-4.0.txt` and `../ATTRIBUTION.md`.
+
+## Image integration
+
+Build 004 installs both variants under `/usr/share/backgrounds/oblinux` and
+registers them with GNOME Settings. The branded variant is an unlocked system
+default; users remain free to select either OBLinux wallpaper or another image.
