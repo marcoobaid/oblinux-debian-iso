@@ -53,3 +53,17 @@ outlined OBLinux wordmark through deterministic project tooling.
 
 The clean and branded wallpaper variants are original OBLinux artwork released
 under CC BY-SA 4.0 with the rest of the branding assets.
+
+## Boot and installer derivatives
+
+Build 005 derives its boot symbol, Calamares logo, and installer welcome image
+from the approved OBLinux symbol and Obsidian Horizon wallpaper.
+
+| File | SHA-256 |
+| --- | --- |
+| `source/oblinux-installer-icon.svg` | `86739c03f2702bbdb74c18eca3298cf1485023e8209815eaa6daad461bd8f81b` |
+| `installer/oblinux-logo.png` | `1ffb98650647519dfc6f6050ab3d01406c34e07fcfeee723f3a064caa8252b23` |
+| `installer/slide1.png` | `8a21ba3ab112dcb7b10726b9bf7eab4058e23fae2005790e36bcba8bef139bd2` |
+
+These derivative assets are released under CC BY-SA 4.0 with the source
+identity and wallpaper.

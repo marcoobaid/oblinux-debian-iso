@@ -133,6 +133,31 @@ catalog, the OBLinux background schema override, license, and attribution remain
 present. This integration is an installed-system default, unlike the live-only
 lock and suspend policy that Calamares removes.
 
+## Build 005 boot and installer branding acceptance checks
+
+Build 005 must retain all Build 004 checks and verify the new identity-facing
+integration without changing installer behavior.
+
+Boot the ISO once in UEFI mode and once in legacy-BIOS mode. In both modes,
+confirm that the GRUB menu uses the Obsidian Horizon background, displays the
+`OBLinux Live` title, uses readable white and cyan menu text, starts the default
+live entry successfully, and retains the utilities and media-integrity entries.
+
+In the live session, confirm that the launcher is visibly named
+`Install OBLinux` and uses the OBLinux icon. Start Calamares and verify:
+
+- The window identifies the product as OBLinux, not Debian.
+- The sidebar uses the approved Obsidian Navy, Deep Ocean Blue, and Soft White.
+- The OBLinux logo and Obsidian Horizon welcome image render cleanly.
+- The slideshow text says `Installing OBLinux`.
+- Every previously tested page remains available and functional.
+
+Cancel before disk changes, relaunch, and then complete a clean UEFI
+installation on a disposable VM disk. Confirm the installed GRUB entry is
+named OBLinux and repeat the Build 004 installed-system checks. Finally, verify
+that Calamares, its live launcher, and its branding directory are absent from
+the installed system after cleanup.
+
 ## Daily-driver evidence
 
 During the trial, record:

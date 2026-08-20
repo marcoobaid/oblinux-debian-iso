@@ -93,10 +93,18 @@ The packaged workflow:
 9. Regenerates the initramfs and unmounts the target.
 10. Offers to restart into the installed system.
 
-The settings use Debian branding and an `Install Debian` launcher. That is
-intentional for the first functional baseline. OBLinux-specific branding and
-settings will be introduced only after the unmodified Debian-maintained workflow
-passes installation testing.
+Builds 002 through 004 deliberately retained Debian branding and the
+`Install Debian` launcher while the unmodified Debian-maintained workflow was
+being proven. Build 005 replaces only the identity-facing branding content,
+images, palette, slideshow, and launcher metadata. Debian's module sequence,
+helpers, and installer behavior remain unchanged.
+
+The overrides use paths owned by `calamares-settings-debian`. When Calamares
+removes that package from the target system, it therefore also removes the
+installer-only OBLinux branding and launcher. This avoids leaving a separate,
+unowned Calamares configuration directory on the installed system. A build
+hook verifies that Debian still owns every overridden path and fails the build
+if that cleanup invariant changes.
 
 One expected inspection item is whether the generic `calamares` package remains
 installed after the settings package removes itself. The installed-system

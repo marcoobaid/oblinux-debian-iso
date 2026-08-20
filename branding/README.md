@@ -7,6 +7,7 @@ material, licensing, and usage rules.
 
 - `assets/`: approved deterministic SVG assets
 - `wallpapers/`: approved clean and branded 4K wallpaper variants
+- `installer/`: approved Calamares raster assets
 - `source/`: editable source and reproducible wordmark-generation tooling
 - `BRAND_GUIDE.md`: palette, variants, spacing, sizing, and usage rules
 - `ATTRIBUTION.md`: third-party font provenance and artwork attribution
@@ -16,6 +17,6 @@ The generated wordmarks contain outlined paths and have no runtime font
 dependency. The editable wordmark is retained only as source and must not be
 used as a release asset.
 
-Wallpaper, boot, Plymouth, GRUB, GNOME, and Calamares integrations are separate
-milestones. Adding a logo to this directory does not claim those integrations
-are complete.
+Wallpaper and GNOME integration passed Build 004 acceptance. GRUB and Calamares
+integration is prepared for Build 005 acceptance. Plymouth remains a separate
+future milestone; the presence of an asset does not claim runtime acceptance.

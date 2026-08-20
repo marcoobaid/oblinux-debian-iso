@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -eu
+
+owned_paths='\
+/etc/calamares/branding/debian/branding.desc
+/etc/calamares/branding/debian/debian-logo.png
+/etc/calamares/branding/debian/show.qml
+/etc/calamares/branding/debian/slide1.png
+/usr/share/applications/calamares-install-debian.desktop
+/usr/share/pixmaps/install-debian.png'
+
+for path in $owned_paths; do
+    owner=$(dpkg-query -S "$path" | cut -d: -f1)
+    if [ "$owner" != calamares-settings-debian ]; then
+        echo "$path is not owned by calamares-settings-debian" >&2
+        exit 1
+    fi
+done
+
+grep -qx 'branding: debian' /etc/calamares/settings.conf
+grep -qx '    productName: OBLinux' \
+    /etc/calamares/branding/debian/branding.desc
+grep -qx 'Name=Install OBLinux' \
+    /usr/share/applications/calamares-install-debian.desktop

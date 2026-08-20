@@ -38,3 +38,19 @@ Render the wordmark from
 `../assets/oblinux-wordmark-reversed-outlined.svg` at 461 pixels wide with a
 standards-compliant SVG renderer. The builder used Debian's `rsvg-convert` from
 `librsvg2-bin` 2.60.0 for the approved output.
+
+## Installer asset generation
+
+Render `oblinux-installer-icon.svg` at 512 by 512 pixels with a
+standards-compliant SVG renderer. Then run:
+
+```bash
+branding/source/build_installer_assets.py \
+  branding/wallpapers/oblinux-horizon-branded-3840x2160.jpg \
+  /path/to/rendered-installer-icon.png \
+  branding/installer
+```
+
+The command produces the 256-pixel Calamares logo and the 800 by 450 welcome
+image. Copy those approved outputs into the corresponding package-owned paths
+under `config/includes.chroot` when updating the integration.

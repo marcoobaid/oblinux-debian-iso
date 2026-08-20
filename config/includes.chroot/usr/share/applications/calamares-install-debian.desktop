@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Install OBLinux
+GenericName=System Installer
+Exec=calamares-install-debian
+Comment=Install OBLinux on this computer
+Keywords=calamares;system;install;oblinux;installer
+Icon=install-debian
+Terminal=false
+Categories=Qt;System;
+StartupWMClass=calamares
+StartupNotify=true
