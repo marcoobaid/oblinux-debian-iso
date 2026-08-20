@@ -2,8 +2,7 @@
 
 set -eu
 
-owned_paths='\
-/etc/calamares/branding/debian/branding.desc
+owned_paths='/etc/calamares/branding/debian/branding.desc
 /etc/calamares/branding/debian/debian-logo.png
 /etc/calamares/branding/debian/show.qml
 /etc/calamares/branding/debian/slide1.png
