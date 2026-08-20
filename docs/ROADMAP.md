@@ -28,7 +28,8 @@ known well enough to build without guessing.
 - [x] Create and validate the minimal `live-build` configuration
 - [x] Build the first Debian 13 GNOME hybrid ISO
 - [x] Configure and verify the unprivileged live user and autologin
-- [ ] Add basic OBLinux identity and wallpaper
+- [x] Define and license the foundational OBLinux visual identity
+- [ ] Integrate OBLinux identity and wallpaper into the live image
 - [x] Generate checksums, package manifests, and build logs
 - [x] Boot-test the ISO in a VirtualBox UEFI VM
 

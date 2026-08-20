@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: 2026 OBLinux Project -->
+<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 360" role="img" aria-labelledby="title desc">
+  <title id="title">OBLinux monochrome symbol</title>
+  <desc id="desc">Geometric O and B letterforms for small sizes and one-color use.</desc>
+  <path fill="#111820" fill-rule="evenodd" d="
+    M154 52a128 128 0 1 0 0 256 128 128 0 0 0 0-256Zm0 52a76 76 0 1 1 0 152 76 76 0 0 1 0-152Z"/>
+  <path fill="#111820" fill-rule="evenodd" d="
+    M294 52h80c56 0 88 26 88 74 0 32-16 54-42 64 31 8 50 30 50 66 0 35-28 52-84 52h-92V52Zm52 50v54h28c23 0 34-9 34-27s-11-27-34-27h-28Zm0 116v40h40c20 0 30-7 30-20s-10-20-30-20h-40Z"/>
+</svg>

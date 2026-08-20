@@ -38,6 +38,8 @@ APT policy. There is no supported public release yet.
 - [Decision 0002: GNOME-first scope](docs/decisions/0002-gnome-first.md)
 - [Decision 0003: Calamares POC installer](docs/decisions/0003-calamares-poc-installer.md)
 - [Decision 0004: Installed-system APT policy](docs/decisions/0004-installed-apt-policy.md)
+- [Decision 0005: OBLinux visual identity](docs/decisions/0005-oblinux-visual-identity.md)
+- [OBLinux brand guide](branding/BRAND_GUIDE.md)
 
 ## Project principles
 
