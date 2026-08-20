@@ -12,9 +12,10 @@ custom graphical administration tools are later goals.
 
 The project has produced repeatable Debian 13 GNOME live images and has
 completed Calamares installation testing in both UEFI and legacy-BIOS VMs.
-POC Build 003 has passed runtime verification of live-session power behavior,
-automatic time synchronization, installation, cleanup, and installed-system
-APT policy. There is no supported public release yet.
+POC Build 004 has passed live and installed-system verification of the OBLinux
+Obsidian Horizon wallpaper integration while retaining the proven power,
+time-synchronization, installation, cleanup, and APT behavior from Build 003.
+There is no supported public release yet.
 
 ## Documentation
 
@@ -29,6 +30,8 @@ APT policy. There is no supported public release yet.
 - [POC build 002 installer record](docs/builds/2026-08-18-poc-002.md)
 - [POC build 003 hardening record](docs/builds/2026-08-19-poc-003.md)
 - [POC build 003 installation test](docs/tests/2026-08-19-poc-003-install-01.md)
+- [POC build 004 branding record](docs/builds/2026-08-20-poc-004.md)
+- [POC build 004 installation test](docs/tests/2026-08-20-poc-004-install-01.md)
 - [POC build 002 installation test 01](docs/tests/2026-08-18-poc-002-install-01.md)
 - [POC build 002 installation test 02](docs/tests/2026-08-18-poc-002-install-02.md)
 - [POC build 001 VirtualBox test](docs/tests/2026-08-17-poc-001-virtualbox.md)

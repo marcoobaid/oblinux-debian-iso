@@ -10,7 +10,7 @@ the first local build establishes realistic effort.
 - [x] Record the initial base and desktop decisions
 - [x] Initialize the primary GitHub repository
 - [x] Select the original code and documentation license
-- [ ] Select branding and redistributed-asset licenses
+- [x] Select branding and redistributed-asset licenses
 - [x] Define the primary physical test machine
 - [x] Record the initial daily-driver applications and hardware inventory
 - [x] Identify target CPU architectures and select the primary test machine
@@ -29,7 +29,7 @@ known well enough to build without guessing.
 - [x] Build the first Debian 13 GNOME hybrid ISO
 - [x] Configure and verify the unprivileged live user and autologin
 - [x] Define and license the foundational OBLinux visual identity
-- [ ] Verify Build 004 OBLinux wallpaper integration in live and installed
+- [x] Verify Build 004 OBLinux wallpaper integration in live and installed
   systems
 - [x] Generate checksums, package manifests, and build logs
 - [x] Boot-test the ISO in a VirtualBox UEFI VM
