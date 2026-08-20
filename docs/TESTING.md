@@ -190,6 +190,26 @@ Finally, repeat the Build 005 Calamares/live-package cleanup checks, run
 `sudo update-grub` and `sudo update-initramfs -u`, and reboot. OBLinux GRUB and
 Plymouth branding must remain after regeneration.
 
+## Build 008 presentation acceptance checks
+
+Build 008 must retain all Build 007 functional checks and close its three
+remaining presentation findings.
+
+Boot the ISO normally in UEFI mode. After GRUB, confirm the graphical OBLinux
+Plymouth screen appears instead of verbose kernel and systemd output. Boot once
+more after removing `quiet splash` temporarily from the GRUB entry and confirm
+that diagnostic console output remains available.
+
+In the live GNOME Dash, confirm the `Install OBLinux` launcher uses the clean
+transparent symbol without white corners, a surrounding tile, distortion, or
+clipping. Calamares must retain its already accepted logo presentation.
+
+Open GNOME Settings About in both live and installed sessions. Confirm the
+OBLinux symbol and operating-system name remain correct and that the symbol is
+balanced near the scale previously occupied by Debian's emblem rather than
+dominating the page. Repeat the installed Plymouth, GRUB, diversion,
+regeneration, cleanup, and basic regression checks from Build 007.
+
 ## Build 007 identity-polish acceptance checks
 
 Build 007 must retain all Build 006 functional checks and close its three

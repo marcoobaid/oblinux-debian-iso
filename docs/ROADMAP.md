@@ -37,6 +37,7 @@ known well enough to build without guessing.
   acceptance passed with three presentation-only follow-ups
 - [x] Verify Build 007 GNOME About identity and transparent logo polish;
   functionally accepted with three presentation follow-ups
+- [ ] Verify Build 008 live Plymouth, Dash icon, and GNOME About sizing
 - [x] Generate checksums, package manifests, and build logs
 - [x] Boot-test the ISO in a VirtualBox UEFI VM
 

@@ -223,6 +223,11 @@ these are intentional installed-system defaults and must remain after cleanup.
 The identity hook validates all required fields, updates the icon cache, and
 applies a guarded OBLinux-only branch to Debian's GRUB title logic.
 
+Build 008 adds `quiet splash` to the generated live kernel command line, uses
+the approved transparent Calamares symbol at the package-owned Dash launcher
+icon path, and gives GNOME's diverted vendor emblem Debian's expected
+128-by-128 intrinsic canvas size.
+
 ### `config/bootloaders`
 
 Files under `config/bootloaders` override Debian live-build's corresponding

@@ -22,3 +22,5 @@ grep -qx '    productName: OBLinux' \
     /etc/calamares/branding/debian/branding.desc
 grep -qx 'Name=Install OBLinux' \
     /usr/share/applications/calamares-install-debian.desktop
+cmp /etc/calamares/branding/debian/debian-logo.png \
+    /usr/share/pixmaps/install-debian.png

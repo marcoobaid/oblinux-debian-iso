@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- SPDX-FileCopyrightText: 2026 OBLinux Project -->
 <!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 360" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 500 360" role="img" aria-labelledby="title desc">
   <title id="title">OBLinux symbol</title>
   <desc id="desc">Geometric O and B letterforms joined by a cyan horizon bridge.</desc>
   <path fill="#111820" fill-rule="evenodd" d="

@@ -19,7 +19,7 @@ lb config noauto \
 	--firmware-binary true \
 	--firmware-chroot true \
 	--bootloaders "grub-efi grub-pc" \
-	--bootappend-live "boot=live components username=live hostname=oblinux-live locales=en_US.UTF-8 keyboard-layouts=us" \
+	--bootappend-live "boot=live components quiet splash username=live hostname=oblinux-live locales=en_US.UTF-8 keyboard-layouts=us" \
 	--checksums sha256 \
 	--chroot-filesystem squashfs \
 	--chroot-squashfs-compression-type xz \
