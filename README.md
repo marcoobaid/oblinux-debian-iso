@@ -12,11 +12,12 @@ custom graphical administration tools are later goals.
 
 The project has produced repeatable Debian 13 GNOME live images and has
 completed Calamares installation testing in both UEFI and legacy-BIOS VMs.
-POC Build 004 has passed live and installed-system verification of the OBLinux
+POC Build 004 passed live and installed-system verification of the OBLinux
 Obsidian Horizon wallpaper integration. POC Build 005 passed live GRUB,
 Calamares, installation, cleanup, and regression acceptance with four branding
-follow-ups recorded for GNOME About, Calamares contrast, installed GRUB, and
-Plymouth. There is no supported public release yet.
+follow-ups. POC Build 006 was built successfully with fixes for GNOME About,
+Calamares contrast, installed GRUB, and Plymouth; runtime acceptance is pending.
+There is no supported public release yet.
 
 ## Documentation
 
@@ -35,6 +36,7 @@ Plymouth. There is no supported public release yet.
 - [POC build 004 installation test](docs/tests/2026-08-20-poc-004-install-01.md)
 - [POC build 005 branding record](docs/builds/2026-08-20-poc-005.md)
 - [POC build 005 installation test](docs/tests/2026-08-20-poc-005-install-01.md)
+- [POC build 006 installed-identity record](docs/builds/2026-08-20-poc-006.md)
 - [POC build 002 installation test 01](docs/tests/2026-08-18-poc-002-install-01.md)
 - [POC build 002 installation test 02](docs/tests/2026-08-18-poc-002-install-02.md)
 - [POC build 001 VirtualBox test](docs/tests/2026-08-17-poc-001-virtualbox.md)
