@@ -80,6 +80,17 @@ name. `OBLinux` is one word with no space between `OB` and `Linux`.
 The optional descriptive line is `Debian-based Linux`. It is not part of the
 product name and should be omitted in compact contexts.
 
+## Wallpaper
+
+The default wallpaper is `oblinux-horizon-branded-3840x2160.jpg`. Its layered
+forms occupy the lower third, leaving quiet space for GNOME. The approved
+reversed wordmark is 12% of canvas width, inset 4% from the right and bottom
+edges, and rendered at 72% opacity.
+
+`oblinux-horizon-clean-3840x2160.jpg` is the approved unbranded alternative.
+Do not add a separate logo, tagline, glow, shadow, or containing box to either
+variant. Preserve the 16:9 composition when producing lower-resolution copies.
+
 ## Prohibited modifications
 
 - Do not change the palette or recolor individual letters.

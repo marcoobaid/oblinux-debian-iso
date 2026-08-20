@@ -37,3 +37,19 @@ Suggested attribution: `OBLinux artwork, OBLinux Project, CC BY-SA 4.0`.
 The artwork license does not grant trademark rights or imply that a modified
 system is an official OBLinux release. A public trademark and naming policy is
 future release work.
+
+## Obsidian Horizon wallpaper
+
+The clean wallpaper master was generated for the OBLinux Project with OpenAI's
+built-in image-generation tool from a project-authored visual specification.
+The approved composition was then scaled and combined with the authoritative
+outlined OBLinux wordmark through deterministic project tooling.
+
+| File | SHA-256 |
+| --- | --- |
+| `source/oblinux-horizon-master.png` | `f83e53ffe0c11877e4321a1fc048239da08bc7ae776be02a7a67f1b6fe8fb865` |
+| `wallpapers/oblinux-horizon-clean-3840x2160.jpg` | `b8073c48afb64843b1b96114915f29116e3b770e7acd9cb181dbc2f0474d1a5b` |
+| `wallpapers/oblinux-horizon-branded-3840x2160.jpg` | `429f302ec916322a240a4e9f05cffb491bf541e130d2aedafc38a59993af47b2` |
+
+The clean and branded wallpaper variants are original OBLinux artwork released
+under CC BY-SA 4.0 with the rest of the branding assets.

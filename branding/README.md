@@ -6,6 +6,7 @@ material, licensing, and usage rules.
 ## Structure
 
 - `assets/`: approved deterministic SVG assets
+- `wallpapers/`: approved clean and branded 4K wallpaper variants
 - `source/`: editable source and reproducible wordmark-generation tooling
 - `BRAND_GUIDE.md`: palette, variants, spacing, sizing, and usage rules
 - `ATTRIBUTION.md`: third-party font provenance and artwork attribution

@@ -20,3 +20,21 @@ Generated output must pass XML validation and visual review before commit.
 
 `oblinux-wordmark-editable.svg` retains editable text for design reference. It
 depends on installed fonts and is not an approved release asset.
+
+## Wallpaper generation
+
+`oblinux-horizon-master.png` is the approved clean image-generation output.
+`build_wallpapers.py` scales it to the 4K delivery size and composites an exact
+transparent rendering of the approved reversed SVG wordmark.
+
+```bash
+branding/source/build_wallpapers.py \
+  branding/source/oblinux-horizon-master.png \
+  /path/to/rendered-reversed-wordmark.png \
+  branding/wallpapers
+```
+
+Render the wordmark from
+`../assets/oblinux-wordmark-reversed-outlined.svg` at 461 pixels wide with a
+standards-compliant SVG renderer. The builder used Debian's `rsvg-convert` from
+`librsvg2-bin` 2.60.0 for the approved output.
