@@ -17,9 +17,10 @@ Obsidian Horizon wallpaper integration. POC Build 005 passed live GRUB,
 Calamares, installation, cleanup, and regression acceptance with four branding
 follow-ups. POC Build 006 passed installation, cleanup, regression, GRUB,
 Plymouth, and Calamares contrast acceptance with three presentation-only logo
-follow-ups. POC Build 007 was built successfully with focused fixes for those
-findings; runtime acceptance is pending. There is no supported public release
-yet.
+follow-ups. POC Build 007 functionally passed installation and visual-polish
+acceptance with three presentation follow-ups for live Plymouth, the Dash
+installer icon, and GNOME About logo sizing. There is no supported public
+release yet.
 
 ## Documentation
 
@@ -41,6 +42,7 @@ yet.
 - [POC build 006 installed-identity record](docs/builds/2026-08-20-poc-006.md)
 - [POC build 006 installation test](docs/tests/2026-08-20-poc-006-install-01.md)
 - [POC build 007 visual-polish record](docs/builds/2026-08-20-poc-007.md)
+- [POC build 007 installation test](docs/tests/2026-08-20-poc-007-install-01.md)
 - [POC build 002 installation test 01](docs/tests/2026-08-18-poc-002-install-01.md)
 - [POC build 002 installation test 02](docs/tests/2026-08-18-poc-002-install-02.md)
 - [POC build 001 VirtualBox test](docs/tests/2026-08-17-poc-001-virtualbox.md)
