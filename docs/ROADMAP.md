@@ -31,7 +31,10 @@ known well enough to build without guessing.
 - [x] Define and license the foundational OBLinux visual identity
 - [x] Verify Build 004 OBLinux wallpaper integration in live and installed
   systems
-- [ ] Verify Build 005 boot-menu and Calamares branding
+- [x] Verify Build 005 boot-menu and Calamares branding; acceptance passed with
+  documented follow-ups
+- [ ] Improve Calamares sidebar and `About` contrast
+- [ ] Replace Debian identity in GNOME About, installed GRUB, and Plymouth
 - [x] Generate checksums, package manifests, and build logs
 - [x] Boot-test the ISO in a VirtualBox UEFI VM
 
