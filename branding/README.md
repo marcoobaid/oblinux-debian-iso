@@ -8,6 +8,7 @@ material, licensing, and usage rules.
 - `assets/`: approved deterministic SVG assets
 - `wallpapers/`: approved clean and branded 4K wallpaper variants
 - `installer/`: approved Calamares raster assets
+- `system/`: installed-system identity and Plymouth raster assets
 - `source/`: editable source and reproducible wordmark-generation tooling
 - `BRAND_GUIDE.md`: palette, variants, spacing, sizing, and usage rules
 - `ATTRIBUTION.md`: third-party font provenance and artwork attribution

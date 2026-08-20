@@ -33,8 +33,7 @@ known well enough to build without guessing.
   systems
 - [x] Verify Build 005 boot-menu and Calamares branding; acceptance passed with
   documented follow-ups
-- [ ] Improve Calamares sidebar and `About` contrast
-- [ ] Replace Debian identity in GNOME About, installed GRUB, and Plymouth
+- [ ] Verify Build 006 Calamares contrast and installed-system identity
 - [x] Generate checksums, package manifests, and build logs
 - [x] Boot-test the ISO in a VirtualBox UEFI VM
 

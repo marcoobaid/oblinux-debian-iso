@@ -54,3 +54,17 @@ branding/source/build_installer_assets.py \
 The command produces the 256-pixel Calamares logo and the 800 by 450 welcome
 image. Copy those approved outputs into the corresponding package-owned paths
 under `config/includes.chroot` when updating the integration.
+
+## Installed-system asset generation
+
+Build the Plymouth logo and progress textures from the approved installer icon:
+
+```bash
+branding/source/build_system_assets.py \
+  branding/installer/oblinux-logo.png \
+  branding/system
+```
+
+Copy the approved outputs into the OBLinux Plymouth theme under
+`config/includes.chroot`. The GNOME About icon uses the approved color symbol
+SVG directly and does not require another raster export.

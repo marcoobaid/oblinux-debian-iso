@@ -91,6 +91,20 @@ edges, and rendered at 72% opacity.
 Do not add a separate logo, tagline, glow, shadow, or containing box to either
 variant. Preserve the 16:9 composition when producing lower-resolution copies.
 
+## System identity surfaces
+
+- GNOME About uses the color symbol and identifies OBLinux as Debian-based.
+- Installed GRUB uses the branded Obsidian Horizon wallpaper, Soft White text,
+  and Clear Cyan selection color.
+- Plymouth uses the reversed symbol on an Obsidian Navy to Slate Blue gradient
+  with a Clear Cyan progress indicator.
+- Calamares uses Slate Blue for the normal sidebar, Deep Ocean Blue for the
+  selected step, and Soft White for navigation text.
+
+These surfaces must not display Debian artwork as the primary product identity.
+Text may identify Debian 13 as the technical base where that context helps the
+user understand compatibility and support boundaries.
+
 ## Prohibited modifications
 
 - Do not change the palette or recolor individual letters.

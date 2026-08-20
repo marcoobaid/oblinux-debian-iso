@@ -67,3 +67,16 @@ from the approved OBLinux symbol and Obsidian Horizon wallpaper.
 
 These derivative assets are released under CC BY-SA 4.0 with the source
 identity and wallpaper.
+
+## Installed-system derivatives
+
+Build 006 reuses the approved symbol for GNOME About and derives its Plymouth
+logo and progress textures from the Build 005 installer assets.
+
+| File | SHA-256 |
+| --- | --- |
+| `system/plymouth-logo.png` | `1ffb98650647519dfc6f6050ab3d01406c34e07fcfeee723f3a064caa8252b23` |
+| `system/progress-background.png` | `b78b40b470c8f6b5e81f2a9a7c290d74a5e6c347687e7dd8ac6a38e6395fc78e` |
+| `system/progress-fill.png` | `40f84aad2a9527d2f482d85fc5d959b8b6c23f0ba8d3a35c9eb334ab97fa22ee` |
+
+The raster assets and direct SVG integration remain under CC BY-SA 4.0.

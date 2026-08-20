@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -eu
+
+grub_linux=/etc/grub.d/10_linux
+expected='    Ubuntu|Kubuntu|*GNU/Linux)'
+replacement='    OBLinux|Ubuntu|Kubuntu|*GNU/Linux)'
+
+if grep -Fqx "$expected" "$grub_linux"; then
+    sed -i "s/^    Ubuntu|Kubuntu|\*GNU\/Linux)$/    OBLinux|Ubuntu|Kubuntu|*GNU\/Linux)/" \
+        "$grub_linux"
+elif ! grep -Fqx "$replacement" "$grub_linux"; then
+    echo "Unexpected GRUB title logic in $grub_linux" >&2
+    exit 1
+fi
+
+grep -qx 'PRETTY_NAME="OBLinux Proof of Concept (Debian 13)"' /etc/os-release
+grep -qx 'ID=oblinux' /etc/os-release
+grep -qx 'ID_LIKE=debian' /etc/os-release
+grep -qx 'LOGO=oblinux-logo' /etc/os-release
+cmp /etc/os-release /usr/lib/os-release
+grep -qx 'Theme=oblinux' /etc/plymouth/plymouthd.conf
+grep -qx 'GRUB_THEME="/usr/share/grub/themes/oblinux/theme.txt"' \
+    /etc/default/grub.d/99-oblinux.cfg
+
+gtk-update-icon-cache --force /usr/share/icons/hicolor

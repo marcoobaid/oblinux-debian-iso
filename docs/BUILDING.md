@@ -217,6 +217,12 @@ launcher, and icon. The installer settings, modules, and helper sequence remain
 Debian-maintained. A chroot hook verifies package ownership so the branding is
 removed with `calamares-settings-debian` after installation.
 
+Build 006 adds installed-system identity through an OBLinux os-release file,
+hicolor icon, GRUB defaults, and Plymouth theme. Unlike the Calamares files,
+these are intentional installed-system defaults and must remain after cleanup.
+The identity hook validates all required fields, updates the icon cache, and
+applies a guarded OBLinux-only branch to Debian's GRUB title logic.
+
 ### `config/bootloaders`
 
 Files under `config/bootloaders` override Debian live-build's corresponding

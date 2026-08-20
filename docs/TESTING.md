@@ -158,6 +158,38 @@ named OBLinux and repeat the Build 004 installed-system checks. Finally, verify
 that Calamares, its live launcher, and its branding directory are absent from
 the installed system after cleanup.
 
+## Build 006 installed identity acceptance checks
+
+Build 006 must retain all Build 005 functional checks and close its four
+documented branding findings.
+
+In Calamares, confirm that the Slate Blue sidebar is visibly lighter than Build
+005 and that the bottom-left `About` control is readable. All navigation text
+must retain clear contrast in normal and selected states.
+
+In both the live and installed GNOME systems, open Settings, select System, and
+inspect About. Confirm the OBLinux symbol and the name
+`OBLinux Proof of Concept (Debian 13)` appear. Also run:
+
+```bash
+cat /etc/os-release
+```
+
+Confirm `ID=oblinux`, `ID_LIKE=debian`, and `LOGO=oblinux-logo` are present.
+
+After installation, confirm the GRUB background uses Obsidian Horizon and the
+primary entry is exactly `OBLinux`. The advanced submenu must be
+`Advanced options for OBLinux`; neither entry may contain the automatic
+`GNU/Linux` suffix.
+
+Continue booting and confirm Plymouth uses the OBLinux symbol, dark gradient,
+and cyan progress indicator with no Debian name, swirl, or artwork. Reboot and
+shut down once more to verify repeatability.
+
+Finally, repeat the Build 005 Calamares/live-package cleanup checks, run
+`sudo update-grub` and `sudo update-initramfs -u`, and reboot. OBLinux GRUB and
+Plymouth branding must remain after regeneration.
+
 ## Daily-driver evidence
 
 During the trial, record:
