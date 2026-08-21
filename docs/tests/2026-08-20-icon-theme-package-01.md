@@ -3,8 +3,8 @@
 - Date: 2026-08-20
 - Host: Installed OBLinux test VM
 - Package: `oblinux-icon-theme` `0.1.0-1`
-- Status: Construction and initial system installation passed; visual,
-  upgrade, removal, and reinstallation tests pending
+- Status: Construction, initial system installation, and light/dark visual
+  tests passed; upgrade, removal, and reinstallation tests pending
 
 ## Construction results
 
@@ -30,15 +30,6 @@ The final hash differs from the initial reproducibility proof because the final
 payload intentionally excludes inherited icon caches and adds exact cache
 cleanup during package removal.
 
-## Pending
-
-- Visual confirmation from the system-installed package
-- Light and dark system-package rendering
-- Same-version reinstall
-- Higher-revision upgrade simulation
-- Removal, cache cleanup, and rollback
-- Clean reinstallation
-
 ## Initial installation results
 
 The final artifact was installed through APT from the test user's home
@@ -58,3 +49,29 @@ as root. Package unpacking and configuration completed successfully.
 
 After these checks, the test account was explicitly switched to the packaged
 `OBLinux-Horizon-Dark` theme for visual review.
+
+## Visual results
+
+The complete application grid and GNOME Files were inspected using the themes
+installed by the Debian package, with no per-user Horizon theme directories
+present to shadow the system installation.
+
+- `OBLinux-Horizon-Dark` application-grid rendering: passed
+- `OBLinux-Horizon-Dark` application containers and horizon accents: passed
+- `OBLinux-Horizon` application-grid rendering: passed
+- `OBLinux-Horizon` GNOME Files rendering: passed
+- Light folder colors and symbolic toolbar/sidebar icons: passed
+- Application identity remains recognizable in both variants: passed
+- Visual consistency between applications, folders, and the dock: passed
+
+GNOME's Activities and application overview retains a dark shell background
+when the light desktop color scheme is selected. This is GNOME Shell behavior,
+not evidence that `OBLinux-Horizon-Dark` remains active. GNOME Files visibly
+used the light interface and light Horizon assets during the test.
+
+## Pending
+
+- Same-version reinstall
+- Higher-revision upgrade simulation
+- Removal, cache cleanup, and rollback
+- Clean reinstallation
