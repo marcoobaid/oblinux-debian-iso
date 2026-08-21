@@ -76,7 +76,7 @@ tightly cropped transparent Plymouth logo from the corrected installer asset.
 
 | File | SHA-256 |
 | --- | --- |
-| `config/includes.chroot/usr/share/oblinux/branding/oblinux-vendor.svg` | `1a4a4c5120726c9345b31235a245487df2087dcdc3b1d5348f46881c2397decf` |
+| `config/includes.chroot/usr/share/oblinux/branding/oblinux-vendor.svg` | `f75e652bcda3099c15fc5f02e47f851ab69ecd44e8e4645cc8efe4b92f1b04cd` |
 | `system/plymouth-logo.png` | `8658eb04e7561a6c58ff4cfe851d6251d53b8c39526884530c713dc5659f0d42` |
 | `system/progress-background.png` | `b78b40b470c8f6b5e81f2a9a7c290d74a5e6c347687e7dd8ac6a38e6395fc78e` |
 | `system/progress-fill.png` | `40f84aad2a9527d2f482d85fc5d959b8b6c23f0ba8d3a35c9eb334ab97fa22ee` |

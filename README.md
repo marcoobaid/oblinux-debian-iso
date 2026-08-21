@@ -59,6 +59,7 @@ follow-up. There is no supported public release yet.
 - [Decision 0006: Installed-system identity](docs/decisions/0006-installed-system-identity.md)
 - [Decision 0007: Identity asset polish](docs/decisions/0007-identity-asset-polish.md)
 - [Decision 0008: Presentation follow-ups](docs/decisions/0008-presentation-follow-ups.md)
+- [Decision 0009: GNOME About badge](docs/decisions/0009-about-badge.md)
 - [OBLinux brand guide](branding/BRAND_GUIDE.md)
 
 ## Project principles

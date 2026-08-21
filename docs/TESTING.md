@@ -210,6 +210,18 @@ balanced near the scale previously occupied by Debian's emblem rather than
 dominating the page. Repeat the installed Plymouth, GRUB, diversion,
 regeneration, cleanup, and basic regression checks from Build 007.
 
+## GNOME About badge acceptance checks
+
+Open GNOME Settings About in both light and dark appearances. Confirm the
+surface-specific badge has a clean rounded Obsidian Navy background, Soft White
+OB letters, and Clear Cyan bridge. It must remain balanced at the accepted
+Build 008 size and show no accidental white corners, clipping, stretching, or
+low-contrast letterforms.
+
+Confirm that Calamares, Plymouth, the Dash launcher, GRUB, wallpapers, and the
+primary transparent symbol remain unchanged. Verify the vendor-logo diversion
+and repeat the installed-system smoke checks.
+
 ## Build 007 identity-polish acceptance checks
 
 Build 007 must retain all Build 006 functional checks and close its three

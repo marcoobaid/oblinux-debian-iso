@@ -39,6 +39,7 @@ known well enough to build without guessing.
   functionally accepted with three presentation follow-ups
 - [x] Verify Build 008 live Plymouth, Dash icon, and GNOME About sizing;
   accepted with one dark-theme contrast follow-up
+- [ ] Verify the theme-neutral GNOME About badge in light and dark appearances
 - [x] Generate checksums, package manifests, and build logs
 - [x] Boot-test the ISO in a VirtualBox UEFI VM
 

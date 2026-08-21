@@ -105,6 +105,11 @@ These surfaces must not display Debian artwork as the primary product identity.
 Text may identify Debian 13 as the technical base where that context helps the
 user understand compatibility and support boundaries.
 
+GNOME Settings About uses the approved surface-specific badge: the reversed
+symbol on a rounded Obsidian Navy background. This deliberate container solves
+light- and dark-appearance contrast where Debian provides only one vendor-logo
+path. It does not replace the primary transparent symbol or wordmark.
+
 ## Prohibited modifications
 
 - Do not change the palette or recolor individual letters.
