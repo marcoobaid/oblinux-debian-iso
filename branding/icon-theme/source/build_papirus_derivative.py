@@ -176,6 +176,9 @@ def install_identity_overlay(theme: Path, overlay: Path) -> int:
 
 def transform_theme(source: Path, destination: Path, name: str, inherits: str) -> tuple[int, int, int]:
     shutil.copytree(source, destination, symlinks=True)
+    cache = destination / "icon-theme.cache"
+    if cache.exists():
+        cache.unlink()
     aliases = rewrite_papirus_links(destination)
     update_index(destination / "index.theme", name, inherits)
     applications = 0

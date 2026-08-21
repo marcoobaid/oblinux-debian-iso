@@ -1,0 +1,11 @@
+Package: oblinux-icon-theme
+Version: @VERSION@
+Section: x11
+Priority: optional
+Architecture: all
+Maintainer: OBLinux Project <noreply@oblinux.invalid>
+Recommends: gnome-shell
+Provides: oblinux-icon-theme
+Description: OBLinux Horizon desktop icon theme
+ Complete Papirus-derived icon coverage using the OBLinux Obsidian Horizon
+ palette, application treatment, and original identity layer.

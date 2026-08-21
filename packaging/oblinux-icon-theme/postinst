@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+for theme in OBLinux-Horizon OBLinux-Horizon-Dark; do
+    if command -v gtk-update-icon-cache >/dev/null 2>&1 \
+        && test -d "/usr/share/icons/$theme"; then
+        gtk-update-icon-cache -q -t -f "/usr/share/icons/$theme" || true
+    fi
+done
+
+if command -v glib-compile-schemas >/dev/null 2>&1; then
+    glib-compile-schemas /usr/share/glib-2.0/schemas || true
+fi
+
+exit 0
