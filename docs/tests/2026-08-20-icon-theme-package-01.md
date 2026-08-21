@@ -3,9 +3,7 @@
 - Date: 2026-08-20
 - Host: Installed OBLinux test VM
 - Package: `oblinux-icon-theme` `0.1.0-1`
-- Status: Construction, initial system installation, light/dark visual tests,
-  same-version reinstallation, and higher-revision upgrade passed; removal and
-  clean reinstallation tests pending
+- Status: Passed
 
 ## Construction results
 
@@ -103,11 +101,6 @@ package from `0.1.0-1` to `0.1.0-2` successfully.
 - `dpkg --audit`: clean
 - Failed systemd units: 0
 
-## Pending
-
-- Removal, cache cleanup, and rollback
-- Clean reinstallation
-
 ## Initial removal observation
 
 Removing `0.1.0-2` correctly removed all packaged files, generated icon caches,
@@ -118,5 +111,47 @@ The first removal attempt left the two empty top-level theme directories behind
 because `dpkg` processed them before `postrm` deleted the generated cache files.
 No icons or cache data remained. The maintainer script was corrected to remove
 these directories with `rmdir --ignore-fail-on-non-empty`, which preserves any
-unexpected content. A clean installation and second removal will verify the
-correction before this lifecycle test is marked passed.
+unexpected content. A clean installation and second removal were then used to
+verify the correction.
+
+## Corrected clean installation results
+
+Corrected test revision `0.1.0-3` was installed from a fully removed state. Its
+filesystem payload was identical to `0.1.0-2`; only package metadata and the
+corrected `postrm` differed.
+
+- Both system themes installed: passed
+- Both icon caches generated: passed
+- GNOME schema override installed: passed
+- Existing explicit `Adwaita` preference preserved: passed
+- In-memory system default set to `OBLinux-Horizon-Dark`: passed
+- Broken system-theme symlinks: 0
+- Non-root-owned system-theme entries: 0
+- `dpkg --audit`: clean
+- Failed systemd units: 0
+
+## Corrected removal and rollback results
+
+The second removal verified the corrected maintainer script.
+
+- Light and dark system theme directories removed: passed
+- Generated light and dark caches removed: passed
+- GNOME schema override removed: passed
+- Explicit user preference remained `Adwaita`: passed
+- In-memory system default returned to `Adwaita`: passed
+- Per-user Horizon shadow themes: 0
+- `dpkg --audit`: clean
+- Failed systemd units: 0
+
+After `apt remove`, Debian reported package state `rc` (`deinstall ok
+config-files`). This is expected because the test intentionally used `remove`
+rather than `purge`; the package is not installed and no theme or schema files
+remain. The retained package-database metadata can be removed later with
+`apt purge` but does not affect runtime behavior.
+
+## Conclusion
+
+The `oblinux-icon-theme` package passed construction, reproducibility,
+installation, visual, same-version reinstallation, higher-revision upgrade,
+safe rollback, corrected removal, and clean-reinstallation testing. It is ready
+for controlled ISO integration.
