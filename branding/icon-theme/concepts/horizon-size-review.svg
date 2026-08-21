@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+  <style>.title{font:700 38px Inter,system-ui,sans-serif}.sub{font:400 18px Inter,system-ui,sans-serif}.head{font:700 22px Inter,system-ui,sans-serif}.label{font:500 14px Inter,system-ui,sans-serif;text-anchor:middle}</style>
+  <rect width="1400" height="820" fill="#111820"/>
+  <text x="65" y="65" class="title" fill="#F4F7F9">Horizon Layer — optical-size review</text>
+  <text x="65" y="98" class="sub" fill="#9fb0bf">Representative source SVGs rendered at actual GNOME sizes</text>
+  <rect x="50" y="135" width="1300" height="300" rx="24" fill="#F4F7F9"/>
+  <text x="80" y="178" class="head" fill="#111820">Light appearance</text>
+  <rect x="50" y="465" width="1300" height="300" rx="24" fill="#1f2126" stroke="#39404a"/>
+  <text x="80" y="508" class="head" fill="#F4F7F9">Dark appearance</text>
+  <g id="light" fill="#111820">
+    <g transform="translate(245 200)"><image x="56" y="56" width="16" height="16" href="../pilot/OBLinux-Horizon/scalable/places/folder.svg"/><text x="64" y="160" class="label">16 px</text></g>
+    <g transform="translate(420 200)"><image x="52" y="52" width="24" height="24" href="../pilot/OBLinux-Horizon/scalable/places/folder-download.svg"/><text x="64" y="160" class="label">24 px</text></g>
+    <g transform="translate(595 200)"><image x="48" y="48" width="32" height="32" href="../pilot/OBLinux-Horizon/scalable/devices/oblinux-drive.svg"/><text x="64" y="160" class="label">32 px</text></g>
+    <g transform="translate(770 200)"><image x="40" y="40" width="48" height="48" href="../pilot/OBLinux-Horizon/scalable/categories/oblinux-settings.svg"/><text x="64" y="160" class="label">48 px</text></g>
+    <g transform="translate(945 200)"><image x="32" y="32" width="64" height="64" href="../pilot/OBLinux-Horizon/scalable/places/user-home.svg"/><text x="64" y="160" class="label">64 px</text></g>
+    <g transform="translate(1120 185)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/categories/oblinux-terminal.svg"/><text x="64" y="175" class="label">128 px</text></g>
+  </g>
+  <g id="dark" fill="#F4F7F9" transform="translate(0 330)">
+    <g transform="translate(245 200)"><image x="56" y="56" width="16" height="16" href="../pilot/OBLinux-Horizon-Dark/scalable/places/folder.svg"/><text x="64" y="160" class="label">16 px</text></g>
+    <g transform="translate(420 200)"><image x="52" y="52" width="24" height="24" href="../pilot/OBLinux-Horizon-Dark/scalable/places/folder-download.svg"/><text x="64" y="160" class="label">24 px</text></g>
+    <g transform="translate(595 200)"><image x="48" y="48" width="32" height="32" href="../pilot/OBLinux-Horizon-Dark/scalable/devices/oblinux-drive.svg"/><text x="64" y="160" class="label">32 px</text></g>
+    <g transform="translate(770 200)"><image x="40" y="40" width="48" height="48" href="../pilot/OBLinux-Horizon-Dark/scalable/categories/oblinux-settings.svg"/><text x="64" y="160" class="label">48 px</text></g>
+    <g transform="translate(945 200)"><image x="32" y="32" width="64" height="64" href="../pilot/OBLinux-Horizon-Dark/scalable/places/user-home.svg"/><text x="64" y="160" class="label">64 px</text></g>
+    <g transform="translate(1120 185)"><image width="128" height="128" href="../pilot/OBLinux-Horizon-Dark/scalable/categories/oblinux-terminal.svg"/><text x="64" y="175" class="label">128 px</text></g>
+  </g>
+</svg>

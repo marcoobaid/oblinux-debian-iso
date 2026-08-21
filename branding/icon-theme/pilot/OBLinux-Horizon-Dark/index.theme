@@ -1,7 +1,7 @@
 [Icon Theme]
-Name=OBLinux Horizon Pilot
-Comment=Horizon Layer light-appearance pilot; not for production use
-Inherits=Papirus,hicolor
+Name=OBLinux Horizon Dark Pilot
+Comment=Horizon Layer dark-appearance pilot; not for production use
+Inherits=Papirus-Dark,Papirus,hicolor
 Directories=scalable/places,scalable/devices,scalable/categories
 
 [scalable/places]

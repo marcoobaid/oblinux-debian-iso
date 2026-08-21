@@ -62,6 +62,15 @@ python3 branding/icon-theme/source/build_horizon_pilot.py
 The pilot is deliberately not copied into `config/includes.chroot` and is not a
 GNOME default. It is a visual and technical review artifact only.
 
+The pilot provides separate fallback definitions for desktop appearance:
+
+- `OBLinux-Horizon` inherits `Papirus,hicolor` for light appearance.
+- `OBLinux-Horizon-Dark` inherits `Papirus-Dark,Papirus,hicolor` for dark
+  appearance and shares the original OBLinux SVG layer.
+
+This separation prevents dark-specific inherited icons from being selected in
+a light session while keeping the OBLinux identity artwork identical.
+
 ## Licensing boundary
 
 The concept artwork in this directory is original OBLinux branding work and is

@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 THEME = ROOT / "pilot" / "OBLinux-Horizon"
 SCALABLE = THEME / "scalable"
+DARK_THEME = ROOT / "pilot" / "OBLinux-Horizon-Dark"
 
 PALETTE = {
     "navy": "#111820",
@@ -90,9 +91,16 @@ def main() -> None:
         accent = PALETTE["amber"] if name == "power" else PALETTE["cyan"]
         write(f"categories/oblinux-{name}.svg", tile(GLYPHS[name], accent))
 
-    index = '''[Icon Theme]\nName=OBLinux Horizon Pilot\nComment=Horizon Layer design pilot; not for production use\nInherits=Papirus-Dark,Papirus,hicolor\nDirectories=scalable/places,scalable/devices,scalable/categories\n\n[scalable/places]\nSize=128\nMinSize=16\nMaxSize=256\nType=Scalable\nContext=Places\n\n[scalable/devices]\nSize=128\nMinSize=16\nMaxSize=256\nType=Scalable\nContext=Devices\n\n[scalable/categories]\nSize=128\nMinSize=16\nMaxSize=256\nType=Scalable\nContext=Categories\n'''
+    directories = '''Directories=scalable/places,scalable/devices,scalable/categories\n\n[scalable/places]\nSize=128\nMinSize=16\nMaxSize=256\nType=Scalable\nContext=Places\n\n[scalable/devices]\nSize=128\nMinSize=16\nMaxSize=256\nType=Scalable\nContext=Devices\n\n[scalable/categories]\nSize=128\nMinSize=16\nMaxSize=256\nType=Scalable\nContext=Categories\n'''
+    index = f'''[Icon Theme]\nName=OBLinux Horizon Pilot\nComment=Horizon Layer light-appearance pilot; not for production use\nInherits=Papirus,hicolor\n{directories}'''
+    dark_index = f'''[Icon Theme]\nName=OBLinux Horizon Dark Pilot\nComment=Horizon Layer dark-appearance pilot; not for production use\nInherits=Papirus-Dark,Papirus,hicolor\n{directories}'''
     THEME.mkdir(parents=True, exist_ok=True)
     (THEME / "index.theme").write_text(index, encoding="utf-8")
+    DARK_THEME.mkdir(parents=True, exist_ok=True)
+    dark_scalable = DARK_THEME / "scalable"
+    if not dark_scalable.exists():
+        dark_scalable.symlink_to(Path("../OBLinux-Horizon/scalable"))
+    (DARK_THEME / "index.theme").write_text(dark_index, encoding="utf-8")
     print(f"Generated {sum(1 for _ in SCALABLE.rglob('*.svg'))} pilot icons in {THEME}")
 
 
