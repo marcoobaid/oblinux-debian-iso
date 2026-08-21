@@ -42,6 +42,18 @@ future `oblinux-icon-theme` package or ISO integration must declare and install
 `papirus-icon-theme` as a dependency. Papirus will not be installed as an
 unrecorded system mutation during this trial.
 
+## Finding: active coverage is smaller than the asset count
+
+The pilot contains 20 original assets, but only nine currently use standard
+icon names that GNOME Files can request. The remaining eleven use deliberately
+isolated `oblinux-*` names and are visual-language candidates rather than active
+system replacements. This explains why GNOME Files visibly changes while the
+application grid and most Settings surfaces do not.
+
+The next pilot revision must inventory actual Freedesktop and GNOME lookup
+names, add aliases only where semantics match, and distinguish active coverage
+from concept coverage in every test record.
+
 ## Pending user-visible review
 
 - GNOME Files folder and places presentation

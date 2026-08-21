@@ -71,6 +71,37 @@ The pilot provides separate fallback definitions for desktop appearance:
 This separation prevents dark-specific inherited icons from being selected in
 a light session while keeping the OBLinux identity artwork identical.
 
+## Pilot coverage inventory
+
+The 20 pilot assets do not yet represent 20 active GNOME replacements.
+
+Nine assets use established icon names and can appear in GNOME Files or another
+consumer that requests those names:
+
+| Standard icon name | Intended surface |
+| --- | --- |
+| `folder` | Generic folders |
+| `folder-documents` | Documents folder |
+| `folder-download` | Downloads folder |
+| `folder-music` | Music folder |
+| `folder-pictures` | Pictures folder |
+| `folder-videos` | Videos folder |
+| `user-home` | Home location |
+| `user-desktop` | Desktop location |
+| `user-trash` | Trash location |
+
+Eleven assets are design candidates with OBLinux-only names. They demonstrate
+the visual language but will not appear until they are mapped to correct
+Freedesktop/GNOME names or assigned to an OBLinux application:
+
+- devices: drive, USB, network, printer, and Bluetooth;
+- categories: Settings, Terminal, Software, Security, Power, and Accessibility.
+
+The application grid is intentionally outside this pilot. OBLinux does not
+replace Firefox, LibreOffice, GNOME application, or other third-party brand
+icons. Once Papirus is installed, those icons should come from Papirus or the
+application's own assets through normal fallback.
+
 ## Licensing boundary
 
 The concept artwork in this directory is original OBLinux branding work and is
