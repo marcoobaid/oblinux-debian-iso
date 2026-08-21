@@ -3,8 +3,8 @@
 - Date: 2026-08-20
 - Host: Installed OBLinux test VM
 - Scope: Per-user, reversible pilot installation
-- Status: In progress; automated checks passed with one dependency finding,
-  visual review and rollback pending
+- Status: Full derived-theme trial active; structural validation passed and
+  initial visual direction approved; final visual review and rollback pending
 
 ## Baseline
 
@@ -73,5 +73,21 @@ from concept coverage in every test record.
 - Standard-density and HiDPI appearance, where available
 - Clean rollback to `Adwaita` and removal of both pilot directories
 
-The pilot remains active for visual inspection. It is not accepted and must not
-be integrated into the ISO until the remaining checks and rollback pass.
+## Full derivative extension
+
+After the pilot exposed the visual split between Horizon folders and inherited
+Papirus applications, the approved scope changed to a complete Papirus-derived
+family. The reproducible generator was run against Debian's extracted Papirus
+`20250501-1` package and installed per-user without root changes.
+
+- Generated base theme: 43,463 SVG files, including 20 original identity icons
+- Generated dark supplement: 3,954 SVG files
+- Broken aliases after Papirus-to-Horizon retargeting: 0
+- Active theme: `OBLinux-Horizon-Dark`
+- Original theme retained for rollback: `Adwaita`
+- Representative application treatment: approved
+- GNOME Files identity layer: approved
+
+The full theme remains active for final coverage review. It must not be selected
+as the ISO default until light/dark coverage and clean rollback pass, followed
+by independent Debian packaging and a fresh-image installation test.

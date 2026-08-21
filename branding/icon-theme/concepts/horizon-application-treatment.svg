@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760">
+  <style>.title{font:700 39px Inter,system-ui,sans-serif;fill:#F4F7F9}.sub{font:400 18px Inter,system-ui,sans-serif;fill:#9fb0bf}.name{font:500 15px Inter,system-ui,sans-serif;fill:#d6dee4;text-anchor:middle}</style>
+  <rect width="1400" height="760" fill="#111820"/>
+  <text x="70" y="70" class="title">Horizon application treatment — proof</text>
+  <text x="70" y="104" class="sub">Recognizable Papirus symbols · normalized scale · shared Horizon container</text>
+  <g transform="translate(100 175)"><image width="128" height="128" href="papirus-app-prototypes/org.mozilla.firefox.svg"/><text x="64" y="160" class="name">Firefox</text></g>
+  <g transform="translate(300 175)"><image width="128" height="128" href="papirus-app-prototypes/google-chrome2.svg"/><text x="64" y="160" class="name">Chrome</text></g>
+  <g transform="translate(500 175)"><image width="128" height="128" href="papirus-app-prototypes/visual-studio-code.svg"/><text x="64" y="160" class="name">VS Code</text></g>
+  <g transform="translate(700 175)"><image width="128" height="128" href="papirus-app-prototypes/libreoffice-startcenter.svg"/><text x="64" y="160" class="name">LibreOffice</text></g>
+  <g transform="translate(900 175)"><image width="128" height="128" href="papirus-app-prototypes/org.gnome.Nautilus.svg"/><text x="64" y="160" class="name">Files</text></g>
+  <g transform="translate(1100 175)"><image width="128" height="128" href="papirus-app-prototypes/org.gnome.Settings.svg"/><text x="64" y="160" class="name">Settings</text></g>
+  <g transform="translate(100 450)"><image width="128" height="128" href="papirus-app-prototypes/org.gnome.Terminal.svg"/><text x="64" y="160" class="name">Terminal</text></g>
+  <g transform="translate(300 450)"><image width="128" height="128" href="papirus-app-prototypes/org.gnome.Software.svg"/><text x="64" y="160" class="name">Software</text></g>
+  <g transform="translate(500 450)"><image width="128" height="128" href="papirus-app-prototypes/org.gnome.Calculator.svg"/><text x="64" y="160" class="name">Calculator</text></g>
+  <g transform="translate(700 450)"><image width="128" height="128" href="papirus-app-prototypes/org.gnome.Calendar.svg"/><text x="64" y="160" class="name">Calendar</text></g>
+  <g transform="translate(900 450)"><image width="128" height="128" href="papirus-app-prototypes/org.gnome.TextEditor.svg"/><text x="64" y="160" class="name">Text Editor</text></g>
+  <rect x="1090" y="440" width="220" height="170" rx="24" fill="#17222D" stroke="#2d4050"/>
+  <text x="1200" y="500" class="name">Review goal</text>
+  <text x="1200" y="535" class="name">one branded family</text>
+  <text x="1200" y="565" class="name">without losing identity</text>
+</svg>

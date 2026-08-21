@@ -1,6 +1,6 @@
 # Decision 0010: Icon-theme foundation
 
-- Status: Accepted for pilot implementation
+- Status: Accepted for full derivative implementation
 - Date: 2026-08-20
 
 ## Context
@@ -17,20 +17,21 @@ by the Debian Desktop Theme Team. Upstream distributes Papirus under GPL-3.0.
 
 ## Proposal
 
-Create an independently packaged OBLinux identity layer that inherits from
-Papirus and hicolor. Papirus supplies broad application and system coverage;
-OBLinux owns the Horizon folder/place identity and only a small number of
-high-value system overrides. OBLinux will not build or maintain a separate
-application-icon collection and will not redraw third-party application brands.
+Create an independently packaged, reproducible OBLinux derivative of Papirus.
+All icon classes covered by Papirus belong to the generated Horizon family.
+Recognizable application symbols are retained inside a consistent Horizon
+container; system artwork is remapped into the OBLinux palette. The approved
+original folder/place layer remains the highest-priority identity overlay.
 
 Three original design directions are provided for review. **Horizon Layer** is
 recommended because it extends the approved Obsidian Horizon identity, remains
 friendly and legible, and can work across light and dark desktop appearances
 without excessive variants.
 
-Horizon Layer was approved on 2026-08-20. The next implementation gate is a
-standalone 20–30 icon pilot; approval does not yet authorize selecting the theme
-as the ISO or installed desktop default.
+Horizon Layer and the complete-derivative architecture were approved on
+2026-08-20. Static application prototypes and a reversible per-user full-theme
+trial were approved. This does not yet authorize selecting the theme as the ISO
+or installed desktop default; packaging and ISO validation remain separate gates.
 
 ## Acceptance gate
 

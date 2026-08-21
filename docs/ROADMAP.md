@@ -74,9 +74,10 @@ installed systems update normally.
   palette, optical sizing, light/dark behavior, and accessibility constraints
 - [x] Select a mature, actively maintained upstream icon theme as the inherited
   compatibility base and confirm its license permits an OBLinux derivative
-- [ ] Create and test a focused OBLinux icon layer for folders, places, devices,
-  status categories, and core OBLinux utilities without replacing recognizable
-  third-party application brands
+- [x] Create and test the Horizon design layer plus a reproducible full
+  Papirus-derived theme that preserves recognizable application symbols
+- [ ] Complete visual coverage review of the full derived theme in GNOME Files,
+  the application grid, Settings, menus, dialogs, light mode, and dark mode
 - [ ] Package the icon theme as an independently versioned Debian package and
   verify clean installation, upgrade, rollback, and fallback behavior
 - [ ] Validate icon clarity and consistency at common GNOME sizes in light and
