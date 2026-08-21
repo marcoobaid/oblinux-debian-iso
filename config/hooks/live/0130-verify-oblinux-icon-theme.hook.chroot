@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -eu
+
+test "$(dpkg-query -W -f='${db:Status-Abbrev}' oblinux-icon-theme)" = ii
+test -r /usr/share/icons/OBLinux-Horizon/index.theme
+test -r /usr/share/icons/OBLinux-Horizon-Dark/index.theme
+test -r /usr/share/icons/OBLinux-Horizon/icon-theme.cache
+test -r /usr/share/icons/OBLinux-Horizon-Dark/icon-theme.cache
+test -r /usr/share/glib-2.0/schemas/90_oblinux-icon-theme.gschema.override
+
+test "$(find -L \
+    /usr/share/icons/OBLinux-Horizon \
+    /usr/share/icons/OBLinux-Horizon-Dark \
+    -type l -print | wc -l)" -eq 0
+
+test "$(GSETTINGS_BACKEND=memory \
+    gsettings get org.gnome.desktop.interface icon-theme)" = \
+    "'OBLinux-Horizon-Dark'"
+
+echo "OBLinux Horizon icon-theme package verification passed"

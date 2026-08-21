@@ -15,7 +15,14 @@ packaging/oblinux-icon-theme/build-package.sh \
 ```
 
 The build produces `oblinux-icon-theme_0.1.0-1_all.deb`. Set
-`SOURCE_DATE_EPOCH` to reproduce a release with a chosen timestamp.
+`SOURCE_DATE_EPOCH` to reproduce a release with a chosen timestamp. A controlled
+test revision may be selected with `PACKAGE_VERSION`; the default remains the
+reviewed package version in `build-package.sh`.
+
+For ISO builds, `scripts/prepare-icon-theme-package` obtains the pinned Papirus
+input and writes the generated package to `config/packages.chroot/` before
+live-build begins. Do not commit that generated binary package or the complete
+generated icon trees.
 
 ## Default behavior
 

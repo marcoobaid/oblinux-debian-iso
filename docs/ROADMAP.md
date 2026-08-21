@@ -80,7 +80,7 @@ installed systems update normally.
   Files, the application grid, grouped applications, and the dock
 - [ ] Complete the remaining light/dark review in Settings, menus, dialogs, and
   common small-icon surfaces
-- [ ] Package the icon theme as an independently versioned Debian package and
+- [x] Package the icon theme as an independently versioned Debian package and
   verify clean installation, upgrade, rollback, and fallback behavior
 - [ ] Validate icon clarity and consistency at common GNOME sizes in light and
   dark appearances, including standard-resolution and HiDPI displays

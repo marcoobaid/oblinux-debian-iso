@@ -19,6 +19,7 @@ secrets/
 *.buildinfo
 *.changes
 *.deb
+*.deb.sha256
 *.ddeb
 *.dsc
 *.tar.xz

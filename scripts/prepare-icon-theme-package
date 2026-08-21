@@ -1,0 +1,56 @@
+#!/bin/sh
+
+set -eu
+
+papirus_version=${PAPIRUS_VERSION:-20250501-1}
+package_version=${PACKAGE_VERSION:-0.1.0-1}
+repository_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+package_output=$repository_root/config/packages.chroot
+builder=$repository_root/packaging/oblinux-icon-theme/build-package.sh
+work_root=$(mktemp -d "${TMPDIR:-/tmp}/oblinux-icon-source.XXXXXX")
+trap 'rm -rf -- "$work_root"' EXIT HUP INT TERM
+
+for command_name in apt-get dpkg-deb find; do
+    command -v "$command_name" >/dev/null 2>&1 || {
+        echo "ERROR: $command_name is required" >&2
+        exit 1
+    }
+done
+
+mkdir -p "$package_output" "$work_root/download" "$work_root/extracted"
+chmod 0755 "$work_root" "$work_root/download"
+find "$package_output" -maxdepth 1 -type f \
+    \( -name 'oblinux-icon-theme_*_all.deb' \
+       -o -name 'oblinux-icon-theme_*_all.deb.sha256' \) \
+    -delete
+
+(
+    cd "$work_root/download"
+    apt-get download "papirus-icon-theme=$papirus_version"
+)
+
+papirus_count=$(find "$work_root/download" -maxdepth 1 -type f \
+    -name 'papirus-icon-theme_*.deb' -print | wc -l)
+test "$papirus_count" -eq 1 || {
+    echo "ERROR: expected one papirus-icon-theme artifact; found $papirus_count" >&2
+    exit 1
+}
+papirus_deb=$(find "$work_root/download" -maxdepth 1 -type f \
+    -name 'papirus-icon-theme_*.deb' -print)
+
+dpkg-deb -x "$papirus_deb" "$work_root/extracted"
+PACKAGE_VERSION=$package_version "$builder" \
+    "$work_root/extracted/usr/share/icons" \
+    "$package_output"
+
+artifact=$package_output/oblinux-icon-theme_${package_version}_all.deb
+test -r "$artifact" || {
+    echo "ERROR: expected package was not built: $artifact" >&2
+    exit 1
+}
+
+test "$(dpkg-deb -f "$artifact" Package)" = oblinux-icon-theme
+test "$(dpkg-deb -f "$artifact" Version)" = "$package_version"
+test "$(dpkg-deb -f "$artifact" Architecture)" = all
+
+echo "Prepared $artifact for live-build"
