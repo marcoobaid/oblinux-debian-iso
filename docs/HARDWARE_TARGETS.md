@@ -10,7 +10,7 @@ still required before claiming hardware support.
 
 | System | Intended role | Status |
 | --- | --- | --- |
-| Lenovo ThinkPad T14s Gen 6, AMD, 32 GB RAM, 1 TB SSD | Primary physical test system and dedicated OBLinux daily driver | Selected; detailed device inventory pending |
+| Lenovo ThinkPad T14s Gen 6, AMD, 32 GB RAM, 1 TB SSD | Primary physical test system and dedicated OBLinux daily driver | Initial live, installation, and daily-driver acceptance passed; detailed device inventory pending |
 | Microsoft Surface Laptop 3, Intel, 16 GB RAM | Secondary physical compatibility target | Selected; detailed device inventory pending |
 | Linux laptop running Oracle VirtualBox | First live-boot and installation-test platform | Host distribution, resources, and VirtualBox version pending |
 | Xerox B310 | Representative network or USB printer | Deferred until printing validation |
@@ -39,15 +39,16 @@ removed before reports are committed.
 
 ## ThinkPad T14s Gen 6
 
-The AMD ThinkPad is the primary target for the initial `amd64` image. It will be
-a dedicated OBLinux system with no dual boot. Its 32 GB of RAM and 1 TB SSD are
-more than sufficient for the daily-driver workload; disk sizing and encryption
-policy still need to be finalized before physical installation.
+The AMD ThinkPad is the primary target for the initial `amd64` image. It is a
+dedicated OBLinux system with no dual boot. Its first USB live test, clean
+installation, and rest-of-day daily-driver evaluation completed successfully
+on 2026-08-21. The only reported finding was Debian artwork on the installed
+GDM login screen; that presentation issue is tracked separately.
 
-Stock Debian must first be validated on this conventional laptop hardware.
-Tests cover Wi-Fi, Bluetooth, graphics, external displays, audio, webcam,
-suspend, resume, battery reporting, function keys, power profiles, docking, and
-any required fingerprint reader.
+Continued testing covers Wi-Fi, Bluetooth, graphics, external displays, audio,
+webcam, suspend, resume, battery reporting, function keys, power profiles,
+docking, and any required fingerprint reader. Initial functional acceptance
+passed, but detailed hardware inventory and longer-term soak testing remain.
 
 ## Microsoft Surface Laptop 3
 
@@ -87,6 +88,7 @@ hardware.
 
 ## Selection gate
 
-The ThinkPad is the selected daily-driver target, but it must not be installed
-until a stock Debian live environment has been tested and the backup, recovery,
-encryption, and disk-layout plans are complete.
+The ThinkPad is installed and serving as the selected daily-driver target. A
+future public-support claim still requires the detailed inventory, longer-term
+hardware testing, and documented backup, recovery, encryption, and disk-layout
+policies.

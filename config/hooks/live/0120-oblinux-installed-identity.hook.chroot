@@ -8,6 +8,8 @@ oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-vendor.svg
 default_avatar=/etc/skel/.face
 default_avatar_link=/etc/skel/.face.icon
 oblinux_default_avatar=/usr/share/oblinux/branding/oblinux-default-avatar.svg
+login_background=/usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg
+login_background_link=/usr/share/images/desktop-base/login-background.svg
 expected='    Ubuntu|Kubuntu|*GNU/Linux)'
 replacement='    OBLinux|Ubuntu|Kubuntu|*GNU/Linux)'
 
@@ -51,5 +53,19 @@ ln -sfn .face "$default_avatar_link"
 test -r "$default_avatar.distrib"
 cmp "$default_avatar" "$oblinux_default_avatar"
 test "$(readlink "$default_avatar_link")" = .face
+
+# desktop-base exposes GDM's vendor artwork through the
+# desktop-login-background alternative. Register the existing OBLinux Horizon
+# wallpaper at a higher priority and select it explicitly. This changes only
+# the display-manager login surface; the GNOME desktop, session lock screen,
+# and user-selected account photos remain independently configurable.
+test -r "$login_background"
+update-alternatives --install \
+    "$login_background_link" \
+    desktop-login-background \
+    "$login_background" \
+    100
+update-alternatives --set desktop-login-background "$login_background"
+test "$(readlink -f "$login_background_link")" = "$login_background"
 
 gtk-update-icon-cache --force /usr/share/icons/hicolor

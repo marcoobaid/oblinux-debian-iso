@@ -271,6 +271,29 @@ Set a custom account photo, lock the session, and confirm that the selected
 photo replaces the default and remains after logout and reboot. The build must
 not overwrite an existing user's `~/.face` or AccountsService image.
 
+## GDM login-background acceptance checks
+
+After a clean installation, log out or reboot to GDM. Confirm that the login
+screen uses the branded Obsidian Horizon artwork and does not display the
+Debian 13 mark. Confirm separately that the account avatar remains the neutral
+Horizon default or the user's selected photo.
+
+Verify the alternatives registration and active target:
+
+```bash
+update-alternatives --display desktop-login-background
+test "$(readlink -f \
+  /usr/share/images/desktop-base/login-background.svg)" = \
+  /usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg \
+  && echo "PASS: OBLinux GDM background active"
+```
+
+Switch the user avatar, lock and unlock the active session, log out, log back
+in, and reboot. The avatar choice and normal session lock screen must remain
+functional. Run `sudo apt update`, reinstall or upgrade `desktop-base` when a
+safe test update is available, and confirm that the OBLinux alternative stays
+selected.
+
 ## Daily-driver evidence
 
 During the trial, record:
