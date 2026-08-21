@@ -6,7 +6,7 @@ if test "$#" -ne 2; then
     exit 2
 fi
 
-package_version=0.1.0-1
+package_version=${PACKAGE_VERSION:-0.1.0-1}
 papirus_root=$1
 output_root=$2
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
@@ -17,6 +17,13 @@ notice=$repository_root/branding/icon-theme/PAPIRUS-NOTICE.md
 license=$repository_root/LICENSE
 source_date_epoch=${SOURCE_DATE_EPOCH:-946684800}
 export SOURCE_DATE_EPOCH=$source_date_epoch
+
+case "$package_version" in
+    *[!0-9A-Za-z.+:~\-]*|'')
+        echo "ERROR: invalid Debian package version: $package_version" >&2
+        exit 2
+        ;;
+esac
 
 for required in \
     "$papirus_root/Papirus/index.theme" \
