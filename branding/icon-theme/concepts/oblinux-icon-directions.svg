@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#111820"/>
+      <stop offset="1" stop-color="#0b1118"/>
+    </linearGradient>
+    <linearGradient id="folderA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2385a2"/>
+      <stop offset="1" stop-color="#176B87"/>
+    </linearGradient>
+    <linearGradient id="softC" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4CC9D8"/>
+      <stop offset="1" stop-color="#176B87"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".28"/>
+    </filter>
+    <style>
+      .title{font:700 42px Inter,system-ui,sans-serif;fill:#F4F7F9}
+      .subtitle{font:400 20px Inter,system-ui,sans-serif;fill:#9fb0bf}
+      .label{font:700 27px Inter,system-ui,sans-serif;fill:#F4F7F9}
+      .desc{font:400 17px Inter,system-ui,sans-serif;fill:#9fb0bf}
+      .caption{font:600 15px Inter,system-ui,sans-serif;fill:#cbd5dc;text-anchor:middle}
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#page)"/>
+  <text x="80" y="82" class="title">OBLinux Icon Theme — Direction Study</text>
+  <text x="80" y="120" class="subtitle">Original identity-layer concepts · Papirus inheritance proposed for compatibility coverage</text>
+
+  <!-- Direction A -->
+  <rect x="60" y="170" width="1480" height="240" rx="28" fill="#17222d" stroke="#263746"/>
+  <text x="95" y="220" class="label">A · Horizon Layer</text>
+  <text x="95" y="250" class="desc">Recommended · confident, approachable, and distinctly OBLinux</text>
+  <g transform="translate(650 205)" filter="url(#shadow)">
+    <path d="M8 42Q8 28 22 28h54l18 18h96q14 0 14 14v108q0 16-16 16H24q-16 0-16-16z" fill="url(#folderA)"/>
+    <path d="M8 83h196v85q0 16-16 16H24q-16 0-16-16z" fill="#1B2836" opacity=".34"/>
+    <path d="M18 120c40-23 78 25 117 0 26-17 48-10 69-1" fill="none" stroke="#4CC9D8" stroke-width="9" stroke-linecap="round"/>
+  </g>
+  <text x="756" y="385" class="caption">Folder</text>
+  <g transform="translate(910 205)" filter="url(#shadow)">
+    <rect x="8" y="28" width="196" height="156" rx="34" fill="#1B2836"/>
+    <path d="M51 105 106 59l55 46v57h-38v-39H89v39H51z" fill="#F2F5F7"/>
+    <path d="m39 104 67-56 67 56" fill="none" stroke="#4CC9D8" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="163" cy="54" r="10" fill="#E5A84B"/>
+  </g>
+  <text x="1016" y="385" class="caption">Home</text>
+  <g transform="translate(1170 205)" filter="url(#shadow)">
+    <rect x="8" y="28" width="196" height="156" rx="34" fill="#1B2836"/>
+    <circle cx="106" cy="106" r="48" fill="none" stroke="#4CC9D8" stroke-width="14" stroke-dasharray="25 9"/>
+    <circle cx="106" cy="106" r="20" fill="#F2F5F7"/>
+    <circle cx="154" cy="62" r="10" fill="#E5A84B"/>
+  </g>
+  <text x="1276" y="385" class="caption">Settings</text>
+
+  <!-- Direction B -->
+  <rect x="60" y="440" width="1480" height="240" rx="28" fill="#131c25" stroke="#263746"/>
+  <text x="95" y="490" class="label">B · Obsidian Outline</text>
+  <text x="95" y="520" class="desc">Technical, high-contrast, and optimized for dark surfaces</text>
+  <g transform="translate(650 475)">
+    <path d="M8 44Q8 28 24 28h51l19 18h94q16 0 16 16v106q0 16-16 16H24q-16 0-16-16z" fill="#111820" stroke="#4CC9D8" stroke-width="7"/>
+    <path d="M32 135h148" stroke="#E5A84B" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <text x="756" y="655" class="caption">Folder</text>
+  <g transform="translate(910 475)">
+    <rect x="8" y="28" width="196" height="156" rx="34" fill="#111820" stroke="#324759" stroke-width="5"/>
+    <path d="M48 108 106 58l58 50v54h-41v-39H89v39H48z" fill="none" stroke="#4CC9D8" stroke-width="9" stroke-linejoin="round"/>
+  </g>
+  <text x="1016" y="655" class="caption">Home</text>
+  <g transform="translate(1170 475)">
+    <rect x="8" y="28" width="196" height="156" rx="34" fill="#111820" stroke="#324759" stroke-width="5"/>
+    <circle cx="106" cy="106" r="48" fill="none" stroke="#F2F5F7" stroke-width="10" stroke-dasharray="18 9"/>
+    <circle cx="106" cy="106" r="19" fill="#4CC9D8"/>
+  </g>
+  <text x="1276" y="655" class="caption">Settings</text>
+
+  <!-- Direction C -->
+  <rect x="60" y="710" width="1480" height="240" rx="28" fill="#17222d" stroke="#263746"/>
+  <text x="95" y="760" class="label">C · Soft Geometry</text>
+  <text x="95" y="790" class="desc">Calm and friendly, with broad shapes and minimal detail</text>
+  <g transform="translate(650 745)" filter="url(#shadow)">
+    <path d="M8 48Q8 32 24 32h51l18 18h95q16 0 16 16v102q0 16-16 16H24q-16 0-16-16z" fill="url(#softC)"/>
+    <path d="M8 92h196v76q0 16-16 16H24q-16 0-16-16z" fill="#176B87" opacity=".58"/>
+  </g>
+  <text x="756" y="925" class="caption">Folder</text>
+  <g transform="translate(910 745)" filter="url(#shadow)">
+    <rect x="8" y="32" width="196" height="152" rx="52" fill="url(#softC)"/>
+    <path d="M48 108 106 62l58 46v54h-42v-39H90v39H48z" fill="#F2F5F7"/>
+  </g>
+  <text x="1016" y="925" class="caption">Home</text>
+  <g transform="translate(1170 745)" filter="url(#shadow)">
+    <rect x="8" y="32" width="196" height="152" rx="52" fill="url(#softC)"/>
+    <circle cx="106" cy="108" r="48" fill="#F2F5F7" opacity=".96"/>
+    <circle cx="106" cy="108" r="22" fill="#176B87"/>
+    <path d="M106 51v19M106 146v19M49 108h19M144 108h19" stroke="#176B87" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <text x="1276" y="925" class="caption">Settings</text>
+</svg>
+
