@@ -295,6 +295,11 @@ Live-build also generates standard hook links under `config/hooks/normal/` and
 the `0010-disable-kexec-tools` and `0050-disable-sysvinit-tmpfs` live hooks.
 These generated links are ignored; authored OBLinux hooks remain tracked.
 
+Debian's standard `9000-remove-gnome-icon-cache` hook removes icon caches near
+the end of the chroot stage. OBLinux therefore regenerates the Horizon Light
+and Horizon Dark caches in its later `0130-verify-oblinux-icon-theme` hook,
+then verifies them before the live filesystem is packaged.
+
 ## Getting the source onto a builder
 
 A builder with authorized access to the private repository can clone it:

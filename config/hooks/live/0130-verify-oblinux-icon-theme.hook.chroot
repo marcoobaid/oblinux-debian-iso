@@ -5,6 +5,13 @@ set -eu
 test "$(dpkg-query -W -f='${db:Status-Abbrev}' oblinux-icon-theme)" = ii
 test -r /usr/share/icons/OBLinux-Horizon/index.theme
 test -r /usr/share/icons/OBLinux-Horizon-Dark/index.theme
+
+# Debian live-build removes GNOME icon caches in its normal 9000 cleanup hook.
+# Rebuild the OBLinux caches late so they are included in the final image.
+for theme in OBLinux-Horizon OBLinux-Horizon-Dark; do
+    gtk-update-icon-cache -q -f "/usr/share/icons/$theme"
+done
+
 test -r /usr/share/icons/OBLinux-Horizon/icon-theme.cache
 test -r /usr/share/icons/OBLinux-Horizon-Dark/icon-theme.cache
 test -r /usr/share/glib-2.0/schemas/90_oblinux-icon-theme.gschema.override
