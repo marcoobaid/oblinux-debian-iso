@@ -298,7 +298,9 @@ These generated links are ignored; authored OBLinux hooks remain tracked.
 Debian's standard `9000-remove-gnome-icon-cache` hook removes icon caches near
 the end of the chroot stage. OBLinux therefore regenerates the Horizon Light
 and Horizon Dark caches in its later `0130-verify-oblinux-icon-theme` hook,
-then verifies them before the live filesystem is packaged.
+then verifies them before the live filesystem is packaged. The package list
+explicitly includes `libglib2.0-bin` and `gtk-update-icon-cache`; these hook
+dependencies must not rely on their incidental inclusion by another package.
 
 ## Getting the source onto a builder
 

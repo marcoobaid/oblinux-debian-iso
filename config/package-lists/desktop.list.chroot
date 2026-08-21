@@ -6,6 +6,10 @@ live-config-systemd
 # GNOME desktop and graphical login
 task-gnome-desktop
 
+# Utilities required by late OBLinux GNOME and icon-theme hooks
+libglib2.0-bin
+gtk-update-icon-cache
+
 # Networking and firmware updates
 network-manager
 network-manager-gnome
