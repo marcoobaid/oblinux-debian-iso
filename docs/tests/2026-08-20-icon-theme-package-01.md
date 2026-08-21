@@ -4,8 +4,8 @@
 - Host: Installed OBLinux test VM
 - Package: `oblinux-icon-theme` `0.1.0-1`
 - Status: Construction, initial system installation, light/dark visual tests,
-  and same-version reinstallation passed; upgrade, removal, and clean
-  reinstallation tests pending
+  same-version reinstallation, and higher-revision upgrade passed; removal and
+  clean reinstallation tests pending
 
 ## Construction results
 
@@ -86,8 +86,24 @@ completed successfully.
 - `dpkg --audit`: clean
 - Failed systemd units: 0
 
+## Higher-revision upgrade results
+
+A temporary `0.1.0-2` package was produced for lifecycle testing. It differs
+from `0.1.0-1` only in Debian package metadata: the SHA-256 hashes of their
+filesystem payload tar streams are identical. APT upgraded the installed
+package from `0.1.0-1` to `0.1.0-2` successfully.
+
+- Installed package/version changed to `0.1.0-2`: passed
+- Explicit `OBLinux-Horizon` user preference preserved: passed
+- Light and dark system theme directories present: passed
+- Light and dark icon caches regenerated and present: passed
+- Broken system-theme symlinks: 0
+- Non-root-owned system-theme entries: 0
+- Per-user Horizon shadow themes: 0
+- `dpkg --audit`: clean
+- Failed systemd units: 0
+
 ## Pending
 
-- Higher-revision upgrade simulation
 - Removal, cache cleanup, and rollback
 - Clean reinstallation
