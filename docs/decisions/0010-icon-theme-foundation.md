@@ -18,9 +18,10 @@ by the Debian Desktop Theme Team. Upstream distributes Papirus under GPL-3.0.
 ## Proposal
 
 Create an independently packaged OBLinux identity layer that inherits from
-Papirus and hicolor. OBLinux will initially own folders, places, devices, core
-system categories, and OBLinux-specific utility icons. It will not redraw
-third-party application brands.
+Papirus and hicolor. Papirus supplies broad application and system coverage;
+OBLinux owns the Horizon folder/place identity and only a small number of
+high-value system overrides. OBLinux will not build or maintain a separate
+application-icon collection and will not redraw third-party application brands.
 
 Three original design directions are provided for review. **Horizon Layer** is
 recommended because it extends the approved Obsidian Horizon identity, remains

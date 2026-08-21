@@ -31,7 +31,7 @@ changes, or ISO rebuild were used.
 - Failed systemd units after activation: 0
 - Current active pilot: `OBLinux-Horizon-Dark`
 
-## Finding: Papirus fallback is absent
+## Finding resolved for the isolated trial: Papirus fallback
 
 The installed test image does not currently contain `papirus-icon-theme`.
 Although the OBLinux theme metadata correctly names Papirus and Papirus Dark,
@@ -39,8 +39,17 @@ icons outside the OBLinux layer fall through to `hicolor` on this machine.
 
 This is not an icon lookup failure in the OBLinux layer. It confirms that a
 future `oblinux-icon-theme` package or ISO integration must declare and install
-`papirus-icon-theme` as a dependency. Papirus will not be installed as an
-unrecorded system mutation during this trial.
+`papirus-icon-theme` as a dependency.
+
+For the isolated trial, Debian's `papirus-icon-theme` version `20250501-1` was
+downloaded without root privileges, extracted into the temporary trial area,
+and copied into the test user's local icon directory. The three added theme
+directories are recorded in the rollback state. No system package was installed
+and no root-owned file changed.
+
+GNOME was toggled through `Adwaita` and back to `OBLinux-Horizon-Dark`, and
+GNOME Files was restarted. The active stack is now Horizon overrides followed
+by complete Papirus Dark, Papirus, and hicolor fallback.
 
 ## Finding: active coverage is smaller than the asset count
 

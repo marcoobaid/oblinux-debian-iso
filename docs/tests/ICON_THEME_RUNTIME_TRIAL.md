@@ -12,6 +12,10 @@ restores that preference and removes only these exact per-user directories:
 - `~/.local/share/icons/OBLinux-Horizon`
 - `~/.local/share/icons/OBLinux-Horizon-Dark`
 
+If the trial explicitly stages Papirus locally, it records and removes only
+`Papirus`, `Papirus-Dark`, and `Papirus-Light`. It will not remove an unrecorded
+or pre-existing Papirus installation.
+
 Do not manually delete the saved state while a trial is active.
 
 ## Install and inspect
@@ -55,4 +59,3 @@ Confirm the prior icon theme is active and the two pilot directories are gone.
 - Light and dark appearances remain legible.
 - Common sizes and HiDPI rendering have no clipping or severe blur.
 - Rollback restores the exact prior preference and removes the pilot.
-

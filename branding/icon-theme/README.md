@@ -11,16 +11,18 @@ inherits from Debian's `Papirus-Dark`, `Papirus`, and `hicolor` themes. OBLinux
 would own the high-visibility identity layer while Papirus supplies broad
 application, action, MIME, and symbolic-icon coverage.
 
-Initial OBLinux-owned coverage should be limited to:
+OBLinux-owned coverage is intentionally limited to:
 
 - folders and common folder variants;
 - places such as Home, Desktop, Documents, Downloads, Music, Pictures, Videos,
   and removable media;
-- devices and a small set of system categories;
-- OBLinux utilities and distribution-specific applications.
+- selected devices and system categories where an override materially improves
+  the Horizon identity.
 
 Third-party application brands should not be redrawn. Their upstream or
 inherited icons preserve recognition and reduce trademark and maintenance risk.
+Papirus supplies the complete application and system icon layer; OBLinux does
+not maintain a parallel application-icon collection.
 
 ## Candidate directions
 
