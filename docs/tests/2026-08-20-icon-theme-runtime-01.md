@@ -3,8 +3,8 @@
 - Date: 2026-08-20
 - Host: Installed OBLinux test VM
 - Scope: Per-user, reversible pilot installation
-- Status: Full derived-theme trial active; structural validation passed and
-  initial visual direction approved; final visual review and rollback pending
+- Status: Full derived-theme runtime presentation passed; clean rollback and
+  Debian-package lifecycle validation remain pending
 
 ## Baseline
 
@@ -104,5 +104,10 @@ The generator now accepts either SVG dimension form and counts an application
 only when its content was actually transformed. The corrected theme was
 regenerated, its caches rebuilt, and GNOME was toggled away from and back to
 `OBLinux-Horizon-Dark`. Resolved icons for GNOME Contacts, GNOME Settings,
-Firefox, and LibreOffice now contain the Horizon application container. Final
-user-visible application-grid confirmation remains pending.
+Firefox, and LibreOffice now contain the Horizon application container.
+
+The corrected application grid was reviewed after a new login and passed. The
+Horizon container and cyan line appear consistently across GNOME applications,
+LibreOffice, grouped application folders, and dock icons while the underlying
+application symbols remain recognizable. GNOME Files and the application grid
+now present one cohesive icon family.

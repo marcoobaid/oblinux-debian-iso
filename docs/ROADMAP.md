@@ -76,8 +76,10 @@ installed systems update normally.
   compatibility base and confirm its license permits an OBLinux derivative
 - [x] Create and test the Horizon design layer plus a reproducible full
   Papirus-derived theme that preserves recognizable application symbols
-- [ ] Complete visual coverage review of the full derived theme in GNOME Files,
-  the application grid, Settings, menus, dialogs, light mode, and dark mode
+- [x] Complete the initial visual review of the full derived theme in GNOME
+  Files, the application grid, grouped applications, and the dock
+- [ ] Complete the remaining light/dark review in Settings, menus, dialogs, and
+  common small-icon surfaces
 - [ ] Package the icon theme as an independently versioned Debian package and
   verify clean installation, upgrade, rollback, and fallback behavior
 - [ ] Validate icon clarity and consistency at common GNOME sizes in light and
