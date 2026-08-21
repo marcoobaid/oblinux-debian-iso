@@ -248,6 +248,29 @@ OBLinux symbol without a surrounding square or light corner artifacts. Run
 `sudo update-initramfs -u`, reboot, and confirm the corrected presentation
 persists. Complete the Build 006 cleanup, APT, GRUB, and basic regression checks.
 
+## Default account avatar acceptance checks
+
+Complete a clean Calamares installation and reach GDM with the newly created
+account. Confirm that the account and lock screens show the neutral Horizon
+user silhouette rather than Debian artwork or the OBLinux product mark.
+
+After login, verify the source diversion and active skeleton default:
+
+```bash
+dpkg-divert --list /etc/skel/.face
+test -r /etc/skel/.face.distrib \
+  && echo "PASS: Debian skeleton avatar preserved"
+cmp /etc/skel/.face \
+  /usr/share/oblinux/branding/oblinux-default-avatar.svg \
+  && echo "PASS: OBLinux skeleton avatar active"
+test "$(readlink /etc/skel/.face.icon)" = .face \
+  && echo "PASS: skeleton avatar link valid"
+```
+
+Set a custom account photo, lock the session, and confirm that the selected
+photo replaces the default and remains after logout and reboot. The build must
+not overwrite an existing user's `~/.face` or AccountsService image.
+
 ## Daily-driver evidence
 
 During the trial, record:

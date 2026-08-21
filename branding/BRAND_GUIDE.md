@@ -100,6 +100,9 @@ variant. Preserve the 16:9 composition when producing lower-resolution copies.
   with a Clear Cyan progress indicator.
 - Calamares uses Slate Blue for the normal sidebar, Deep Ocean Blue for the
   selected step, and Soft White for navigation text.
+- Newly created accounts use the neutral Horizon avatar: a Soft White user
+  silhouette on a circular Slate Blue and Obsidian Navy field with restrained
+  Clear Cyan accents. A user-selected account photo always takes precedence.
 
 These surfaces must not display Debian artwork as the primary product identity.
 Text may identify Debian 13 as the technical base where that context helps the

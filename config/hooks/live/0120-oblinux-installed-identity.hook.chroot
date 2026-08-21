@@ -5,6 +5,9 @@ set -eu
 grub_linux=/etc/grub.d/10_linux
 vendor_logo=/usr/share/icons/vendor/scalable/emblems/emblem-vendor.svg
 oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-vendor.svg
+default_avatar=/etc/skel/.face
+default_avatar_link=/etc/skel/.face.icon
+oblinux_default_avatar=/usr/share/oblinux/branding/oblinux-default-avatar.svg
 expected='    Ubuntu|Kubuntu|*GNU/Linux)'
 replacement='    OBLinux|Ubuntu|Kubuntu|*GNU/Linux)'
 
@@ -33,5 +36,20 @@ if ! dpkg-divert --list "$vendor_logo" | grep -Fq "local diversion of $vendor_lo
     dpkg-divert --quiet --local --rename --add "$vendor_logo"
 fi
 install -m 0644 "$oblinux_vendor_logo" "$vendor_logo"
+
+# desktop-base supplies a Debian-branded skeleton avatar. Calamares copies it
+# into each newly created home, where GDM then presents it as the user's face.
+# Preserve Debian's package file and replace only the account-creation default;
+# existing homes and user-selected account photos are never modified here.
+test -f "$oblinux_default_avatar"
+if ! dpkg-divert --list "$default_avatar" | grep -Fq "local diversion of $default_avatar"; then
+    dpkg-divert --quiet --local --rename --add "$default_avatar"
+fi
+install -m 0644 "$oblinux_default_avatar" "$default_avatar"
+ln -sfn .face "$default_avatar_link"
+
+test -r "$default_avatar.distrib"
+cmp "$default_avatar" "$oblinux_default_avatar"
+test "$(readlink "$default_avatar_link")" = .face
 
 gtk-update-icon-cache --force /usr/share/icons/hicolor
