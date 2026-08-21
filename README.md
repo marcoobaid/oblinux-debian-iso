@@ -21,9 +21,9 @@ follow-ups. POC Build 007 functionally passed installation and visual-polish
 acceptance with three presentation follow-ups for live Plymouth, the Dash
 installer icon, and GNOME About logo sizing. POC Build 008 passed functional
 and targeted presentation acceptance with one dark-theme About-logo contrast
-follow-up. POC Build 009 was built successfully with an About-only
-theme-neutral badge; final runtime acceptance is pending. There is no supported
-public release yet.
+follow-up. POC Build 009 passed complete runtime acceptance with a
+theme-neutral About badge, closing the foundational OBLinux theming milestone.
+There is no supported public release yet.
 
 ## Documentation
 
@@ -49,6 +49,7 @@ public release yet.
 - [POC build 008 presentation record](docs/builds/2026-08-20-poc-008.md)
 - [POC build 008 installation test](docs/tests/2026-08-20-poc-008-install-01.md)
 - [POC build 009 About-badge record](docs/builds/2026-08-20-poc-009.md)
+- [POC build 009 installation test](docs/tests/2026-08-20-poc-009-install-01.md)
 - [POC build 002 installation test 01](docs/tests/2026-08-18-poc-002-install-01.md)
 - [POC build 002 installation test 02](docs/tests/2026-08-18-poc-002-install-02.md)
 - [POC build 001 VirtualBox test](docs/tests/2026-08-17-poc-001-virtualbox.md)
