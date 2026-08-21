@@ -3,7 +3,8 @@
 - Date: 2026-08-20
 - Host: Installed OBLinux test VM
 - Package: `oblinux-icon-theme` `0.1.0-1`
-- Status: Package construction passed; installation lifecycle pending
+- Status: Construction and initial system installation passed; visual,
+  upgrade, removal, and reinstallation tests pending
 
 ## Construction results
 
@@ -31,11 +32,29 @@ cleanup during package removal.
 
 ## Pending
 
-- System installation through APT
-- Confirmation that an existing explicit user preference is preserved
-- Confirmation that a new user receives the Horizon default
+- Visual confirmation from the system-installed package
 - Light and dark system-package rendering
 - Same-version reinstall
 - Higher-revision upgrade simulation
 - Removal, cache cleanup, and rollback
 - Clean reinstallation
+
+## Initial installation results
+
+The final artifact was installed through APT from the test user's home
+directory. APT emitted an `_apt` sandbox warning because the user's home
+directory is private; APT intentionally fell back to reading the local package
+as root. Package unpacking and configuration completed successfully.
+
+- Installed package/version: `oblinux-icon-theme 0.1.0-1`
+- `dpkg --audit`: clean
+- Failed systemd units: 0
+- Theme files: root-owned and readable
+- Light and dark icon caches: present
+- Broken system-theme symlinks: 0
+- Existing explicit preference remained `Adwaita`: passed
+- In-memory system/default preference is `OBLinux-Horizon-Dark`: passed
+- Per-user Horizon directories absent during verification: passed
+
+After these checks, the test account was explicitly switched to the packaged
+`OBLinux-Horizon-Dark` theme for visual review.
