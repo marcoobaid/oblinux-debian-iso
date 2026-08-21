@@ -6,7 +6,7 @@ if test "$#" -ne 2; then
     exit 2
 fi
 
-package_version=${PACKAGE_VERSION:-0.1.0-1}
+package_version=${PACKAGE_VERSION:-0.1.0-2}
 papirus_root=$1
 output_root=$2
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)

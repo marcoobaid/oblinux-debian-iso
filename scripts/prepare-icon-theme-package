@@ -3,7 +3,7 @@
 set -eu
 
 papirus_version=${PAPIRUS_VERSION:-20250501-1}
-package_version=${PACKAGE_VERSION:-0.1.0-1}
+package_version=${PACKAGE_VERSION:-0.1.0-2}
 repository_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 package_output=$repository_root/config/packages.chroot
 builder=$repository_root/packaging/oblinux-icon-theme/build-package.sh

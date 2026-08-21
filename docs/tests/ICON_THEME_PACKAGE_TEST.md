@@ -15,7 +15,7 @@ gsettings get org.gnome.desktop.interface icon-theme
 ## Install
 
 ```bash
-sudo apt install ./oblinux-icon-theme_0.1.0-1_all.deb
+sudo apt install ./oblinux-icon-theme_0.1.0-2_all.deb
 dpkg-query -W oblinux-icon-theme
 test -r /usr/share/icons/OBLinux-Horizon/index.theme
 test -r /usr/share/icons/OBLinux-Horizon-Dark/index.theme
@@ -37,6 +37,11 @@ gsettings set org.gnome.desktop.interface color-scheme default
 gsettings set org.gnome.desktop.interface icon-theme OBLinux-Horizon-Dark
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 ```
+
+In GNOME Settings, verify every sidebar entry displays its intended symbolic
+glyph in both appearances. Solid foreground-colored squares are a failure and
+indicate that symbolic application icons were incorrectly given a regular
+application container.
 
 Confirm that both theme directories contain a readable `icon-theme.cache` after
 package configuration and that no broken symlinks exist.

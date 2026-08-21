@@ -14,7 +14,7 @@ packaging/oblinux-icon-theme/build-package.sh \
   /path/to/output
 ```
 
-The build produces `oblinux-icon-theme_0.1.0-1_all.deb`. Set
+The build produces `oblinux-icon-theme_0.1.0-2_all.deb`. Set
 `SOURCE_DATE_EPOCH` to reproduce a release with a chosen timestamp. A controlled
 test revision may be selected with `PACKAGE_VERSION`; the default remains the
 reviewed package version in `build-package.sh`.

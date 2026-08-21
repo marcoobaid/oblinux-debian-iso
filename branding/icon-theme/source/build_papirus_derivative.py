@@ -100,6 +100,11 @@ def recolor(svg: str) -> str:
     return HEX.sub(horizon_color, svg)
 
 
+def is_symbolic_icon(path: Path) -> bool:
+    """Return whether GTK must render this icon as symbolic artwork."""
+    return "symbolic" in path.parts or path.stem.endswith("-symbolic")
+
+
 def app_container(svg: str) -> str:
     open_match = OPEN_SVG.search(svg)
     close_match = CLOSE_SVG.search(svg)
@@ -187,7 +192,11 @@ def transform_theme(source: Path, destination: Path, name: str, inherits: str) -
         if path.is_symlink():
             continue
         text = path.read_text(encoding="utf-8")
-        if path.parent.name == "apps":
+        # GNOME Settings panel entries are symbolic icons stored below an
+        # `apps` directory. They must remain single-color symbolic artwork;
+        # wrapping them in the regular application container makes GTK reduce
+        # the entire composition to a solid foreground-colored square.
+        if path.parent.name == "apps" and not is_symbolic_icon(path):
             transformed = app_container(text)
             if transformed != text:
                 applications += 1

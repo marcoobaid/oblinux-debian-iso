@@ -252,7 +252,7 @@ and `.deb` artifacts remain excluded from Git.
 The default pinned inputs are:
 
 - `papirus-icon-theme` `20250501-1`
-- `oblinux-icon-theme` `0.1.0-1`
+- `oblinux-icon-theme` `0.1.0-2`
 
 `PAPIRUS_VERSION` and `PACKAGE_VERSION` may be set for a controlled package
 test, but release builds should use reviewed, documented values.
