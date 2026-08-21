@@ -18,6 +18,8 @@ HEX = re.compile(r"#([0-9a-fA-F]{6})(?![0-9a-fA-F])")
 OPEN_SVG = re.compile(r"(<svg\b[^>]*>)", re.IGNORECASE)
 CLOSE_SVG = re.compile(r"</svg>\s*$", re.IGNORECASE)
 VIEWBOX = re.compile(r'viewBox="[^" ]+ [^" ]+ ([0-9.]+) ([0-9.]+)"', re.IGNORECASE)
+WIDTH = re.compile(r'\bwidth="([0-9.]+)(?:px)?"', re.IGNORECASE)
+HEIGHT = re.compile(r'\bheight="([0-9.]+)(?:px)?"', re.IGNORECASE)
 
 NAVY = "#111820"
 SLATE = "#1B2836"
@@ -102,11 +104,19 @@ def app_container(svg: str) -> str:
     open_match = OPEN_SVG.search(svg)
     close_match = CLOSE_SVG.search(svg)
     viewbox = VIEWBOX.search(svg)
-    if not open_match or not close_match or not viewbox:
+    if not open_match or not close_match:
         return svg
 
-    width = float(viewbox.group(1))
-    height = float(viewbox.group(2))
+    if viewbox:
+        width = float(viewbox.group(1))
+        height = float(viewbox.group(2))
+    else:
+        width_match = WIDTH.search(open_match.group(1))
+        height_match = HEIGHT.search(open_match.group(1))
+        if not width_match or not height_match:
+            return svg
+        width = float(width_match.group(1))
+        height = float(height_match.group(1))
     if width <= 0 or height <= 0:
         return svg
     inset = min(width, height) * 0.12
@@ -175,8 +185,10 @@ def transform_theme(source: Path, destination: Path, name: str, inherits: str) -
             continue
         text = path.read_text(encoding="utf-8")
         if path.parent.name == "apps":
-            text = app_container(text)
-            applications += 1
+            transformed = app_container(text)
+            if transformed != text:
+                applications += 1
+            text = transformed
         else:
             text = recolor(text)
             system_icons += 1

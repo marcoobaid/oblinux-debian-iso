@@ -91,3 +91,18 @@ family. The reproducible generator was run against Debian's extracted Papirus
 The full theme remains active for final coverage review. It must not be selected
 as the ISO default until light/dark coverage and clean rollback pass, followed
 by independent Debian packaging and a fresh-image installation test.
+
+## Application-grid correction
+
+The first full-theme runtime build failed its visual application-grid check:
+folders used Horizon artwork, but applications still displayed unmodified
+Papirus icons. Most Papirus application SVG roots specify `width` and `height`
+without a `viewBox`; the initial production transformer required a `viewBox`
+and silently returned those files unchanged.
+
+The generator now accepts either SVG dimension form and counts an application
+only when its content was actually transformed. The corrected theme was
+regenerated, its caches rebuilt, and GNOME was toggled away from and back to
+`OBLinux-Horizon-Dark`. Resolved icons for GNOME Contacts, GNOME Settings,
+Firefox, and LibreOffice now contain the Horizon application container. Final
+user-visible application-grid confirmation remains pending.
