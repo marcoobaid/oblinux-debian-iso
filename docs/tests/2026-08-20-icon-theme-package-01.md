@@ -107,3 +107,16 @@ package from `0.1.0-1` to `0.1.0-2` successfully.
 
 - Removal, cache cleanup, and rollback
 - Clean reinstallation
+
+## Initial removal observation
+
+Removing `0.1.0-2` correctly removed all packaged files, generated icon caches,
+and the GNOME schema override. The stored user preference and compiled default
+were both `Adwaita`; `dpkg --audit` was clean and no systemd units failed.
+
+The first removal attempt left the two empty top-level theme directories behind
+because `dpkg` processed them before `postrm` deleted the generated cache files.
+No icons or cache data remained. The maintainer script was corrected to remove
+these directories with `rmdir --ignore-fail-on-non-empty`, which preserves any
+unexpected content. A clean installation and second removal will verify the
+correction before this lifecycle test is marked passed.
