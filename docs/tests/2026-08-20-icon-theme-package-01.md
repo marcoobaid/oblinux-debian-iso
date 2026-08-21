@@ -3,8 +3,9 @@
 - Date: 2026-08-20
 - Host: Installed OBLinux test VM
 - Package: `oblinux-icon-theme` `0.1.0-1`
-- Status: Construction, initial system installation, and light/dark visual
-  tests passed; upgrade, removal, and reinstallation tests pending
+- Status: Construction, initial system installation, light/dark visual tests,
+  and same-version reinstallation passed; upgrade, removal, and clean
+  reinstallation tests pending
 
 ## Construction results
 
@@ -69,9 +70,24 @@ when the light desktop color scheme is selected. This is GNOME Shell behavior,
 not evidence that `OBLinux-Horizon-Dark` remains active. GNOME Files visibly
 used the light interface and light Horizon assets during the test.
 
+## Same-version reinstallation results
+
+APT reinstalled `oblinux-icon-theme 0.1.0-1` over the installed copy using the
+local package artifact. The `_apt` sandbox warning was expected because the
+artifact resides in a private home directory; unpacking and configuration
+completed successfully.
+
+- Installed package/version remains `0.1.0-1`: passed
+- Explicit `OBLinux-Horizon` user preference preserved: passed
+- Light and dark system theme directories present: passed
+- Light and dark icon caches regenerated and present: passed
+- Broken system-theme symlinks: 0
+- Non-root-owned system-theme entries: 0
+- `dpkg --audit`: clean
+- Failed systemd units: 0
+
 ## Pending
 
-- Same-version reinstall
 - Higher-revision upgrade simulation
 - Removal, cache cleanup, and rollback
 - Clean reinstallation
