@@ -13,13 +13,18 @@ for theme in "$light_theme" "$dark_theme"; do
     }
 done
 
-test -L "$icon_root/$dark_theme/scalable" || {
-    echo "FAIL: dark pilot does not share the OBLinux SVG layer" >&2
+test -d "$icon_root/$dark_theme/scalable" || {
+    echo "FAIL: dark pilot SVG layer is not readable" >&2
     exit 1
 }
 
 test -r "$icon_root/$dark_theme/scalable/places/folder.svg"
 test "$(find "$icon_root/$light_theme/scalable" -type f -name '*.svg' | wc -l | tr -d ' ')" = 20
+dark_count=$(find -L "$icon_root/$dark_theme/scalable" -type f -name '*.svg' | wc -l | tr -d ' ')
+test "$dark_count" = 20 || {
+    echo "FAIL: expected 20 readable dark-pilot icons; found $dark_count" >&2
+    exit 1
+}
 
 printf 'Active icon theme: '
 gsettings get org.gnome.desktop.interface icon-theme
@@ -27,3 +32,7 @@ printf 'GNOME color scheme: '
 gsettings get org.gnome.desktop.interface color-scheme
 echo "PASS: both pilot variants and all 20 source icons are readable"
 
+if test ! -r "$icon_root/Papirus/index.theme" \
+    && test ! -r /usr/share/icons/Papirus/index.theme; then
+    echo "WARN: Papirus is not installed; missing icons currently fall through to hicolor"
+fi
