@@ -70,6 +70,17 @@ installed systems update normally.
 
 ## Phase 3: Daily-driver candidate
 
+- [ ] Define the OBLinux icon-theme design language, including geometry,
+  palette, optical sizing, light/dark behavior, and accessibility constraints
+- [ ] Select a mature, actively maintained upstream icon theme as the inherited
+  compatibility base and confirm its license permits an OBLinux derivative
+- [ ] Create and test a focused OBLinux icon layer for folders, places, devices,
+  status categories, and core OBLinux utilities without replacing recognizable
+  third-party application brands
+- [ ] Package the icon theme as an independently versioned Debian package and
+  verify clean installation, upgrade, rollback, and fallback behavior
+- [ ] Validate icon clarity and consistency at common GNOME sizes in light and
+  dark appearances, including standard-resolution and HiDPI displays
 - [ ] Validate graphics, networking, audio, Bluetooth, storage, suspend, resume,
   printing, and external displays on the target machine
 - [ ] Finalize the required application set
@@ -105,5 +116,7 @@ evidence.
 - Accessibility and localization review
 - Support lifecycle and major-version upgrades
 - Public branding system and asset licensing
+- Complete OBLinux icon-theme coverage, contribution guidelines, visual QA,
+  and upstream-theme update policy
 - Release notes, user guide, troubleshooting, and support channels
 - Additional desktop flavors after the GNOME edition is maintainable
