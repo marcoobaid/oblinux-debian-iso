@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <style>
+    .title{font:700 40px Inter,system-ui,sans-serif;fill:#F4F7F9}.sub{font:400 19px Inter,system-ui,sans-serif;fill:#9fb0bf}.group{font:700 23px Inter,system-ui,sans-serif;fill:#4CC9D8}.name{font:500 14px Inter,system-ui,sans-serif;fill:#cbd5dc;text-anchor:middle}
+  </style>
+  <rect width="1400" height="900" fill="#111820"/>
+  <text x="70" y="70" class="title">OBLinux Horizon Layer — 20-icon pilot</text>
+  <text x="70" y="105" class="sub">Standalone review assets · not installed or selected by the ISO</text>
+
+  <text x="70" y="165" class="group">Folders and places</text>
+  <g transform="translate(70 190)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/places/folder.svg"/><text x="64" y="153" class="name">Folder</text></g>
+  <g transform="translate(210 190)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/places/folder-documents.svg"/><text x="64" y="153" class="name">Documents</text></g>
+  <g transform="translate(350 190)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/places/folder-download.svg"/><text x="64" y="153" class="name">Downloads</text></g>
+  <g transform="translate(490 190)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/places/folder-music.svg"/><text x="64" y="153" class="name">Music</text></g>
+  <g transform="translate(630 190)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/places/folder-pictures.svg"/><text x="64" y="153" class="name">Pictures</text></g>
+  <g transform="translate(770 190)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/places/folder-videos.svg"/><text x="64" y="153" class="name">Videos</text></g>
+  <g transform="translate(910 190)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/places/user-home.svg"/><text x="64" y="153" class="name">Home</text></g>
+  <g transform="translate(1050 190)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/places/user-desktop.svg"/><text x="64" y="153" class="name">Desktop</text></g>
+  <g transform="translate(1190 190)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/places/user-trash.svg"/><text x="64" y="153" class="name">Trash</text></g>
+
+  <text x="70" y="405" class="group">Devices</text>
+  <g transform="translate(70 430)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/devices/oblinux-drive.svg"/><text x="64" y="153" class="name">Drive</text></g>
+  <g transform="translate(230 430)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/devices/oblinux-usb.svg"/><text x="64" y="153" class="name">USB</text></g>
+  <g transform="translate(390 430)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/devices/oblinux-network.svg"/><text x="64" y="153" class="name">Network</text></g>
+  <g transform="translate(550 430)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/devices/oblinux-printer.svg"/><text x="64" y="153" class="name">Printer</text></g>
+  <g transform="translate(710 430)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/devices/oblinux-bluetooth.svg"/><text x="64" y="153" class="name">Bluetooth</text></g>
+
+  <text x="70" y="645" class="group">System categories</text>
+  <g transform="translate(70 670)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/categories/oblinux-settings.svg"/><text x="64" y="153" class="name">Settings</text></g>
+  <g transform="translate(230 670)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/categories/oblinux-terminal.svg"/><text x="64" y="153" class="name">Terminal</text></g>
+  <g transform="translate(390 670)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/categories/oblinux-software.svg"/><text x="64" y="153" class="name">Software</text></g>
+  <g transform="translate(550 670)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/categories/oblinux-security.svg"/><text x="64" y="153" class="name">Security</text></g>
+  <g transform="translate(710 670)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/categories/oblinux-power.svg"/><text x="64" y="153" class="name">Power</text></g>
+  <g transform="translate(870 670)"><image width="128" height="128" href="../pilot/OBLinux-Horizon/scalable/categories/oblinux-accessibility.svg"/><text x="64" y="153" class="name">Accessibility</text></g>
+</svg>

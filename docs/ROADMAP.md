@@ -70,9 +70,9 @@ installed systems update normally.
 
 ## Phase 3: Daily-driver candidate
 
-- [ ] Define the OBLinux icon-theme design language, including geometry,
+- [x] Define the OBLinux icon-theme design language, including geometry,
   palette, optical sizing, light/dark behavior, and accessibility constraints
-- [ ] Select a mature, actively maintained upstream icon theme as the inherited
+- [x] Select a mature, actively maintained upstream icon theme as the inherited
   compatibility base and confirm its license permits an OBLinux derivative
 - [ ] Create and test a focused OBLinux icon layer for folders, places, devices,
   status categories, and core OBLinux utilities without replacing recognizable

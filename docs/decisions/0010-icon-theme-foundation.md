@@ -1,6 +1,6 @@
 # Decision 0010: Icon-theme foundation
 
-- Status: Proposed for visual-direction review
+- Status: Accepted for pilot implementation
 - Date: 2026-08-20
 
 ## Context
@@ -27,6 +27,10 @@ recommended because it extends the approved Obsidian Horizon identity, remains
 friendly and legible, and can work across light and dark desktop appearances
 without excessive variants.
 
+Horizon Layer was approved on 2026-08-20. The next implementation gate is a
+standalone 20–30 icon pilot; approval does not yet authorize selecting the theme
+as the ISO or installed desktop default.
+
 ## Acceptance gate
 
 No icon theme will be selected as the GNOME default until:
@@ -43,4 +47,3 @@ No icon theme will be selected as the GNOME default until:
 - Debian package: <https://packages.debian.org/trixie/papirus-icon-theme>
 - Upstream project and GPL-3.0 license:
   <https://github.com/PapirusDevelopmentTeam/papirus-icon-theme>
-

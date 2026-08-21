@@ -51,6 +51,17 @@ base. Before ISO integration, produce a pilot theme containing approximately
 20–30 icons and validate it at 16, 24, 32, 48, 64, and 128 pixels in GNOME light
 and dark appearances.
 
+Horizon Layer was approved on 2026-08-20. The first standalone pilot contains
+20 scalable icons under `pilot/OBLinux-Horizon`; its review board is
+`concepts/horizon-pilot-board.svg`. Regenerate the pilot with:
+
+```bash
+python3 branding/icon-theme/source/build_horizon_pilot.py
+```
+
+The pilot is deliberately not copied into `config/includes.chroot` and is not a
+GNOME default. It is a visual and technical review artifact only.
+
 ## Licensing boundary
 
 The concept artwork in this directory is original OBLinux branding work and is
@@ -58,4 +69,3 @@ covered by the repository's branding license. A future package derived from or
 linking substantial Papirus artwork must satisfy Papirus's GPL-3.0 terms and
 include the relevant copyright and source information. The package decision and
 licensing inventory must be recorded before distribution.
-
