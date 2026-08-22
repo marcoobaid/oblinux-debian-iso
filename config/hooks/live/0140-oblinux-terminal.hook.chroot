@@ -12,16 +12,51 @@ fi
 sed -i 's|^SHELL=.*|SHELL=/bin/zsh|' /etc/default/useradd
 
 # Calamares otherwise supplies /bin/bash independently of Debian's account
-# defaults. Keep its existing users configuration and set only the shell used
-# for the account created by the installer.
+# defaults. Keep its existing users configuration and set only user.shell,
+# which is the nested key consumed by the users module.
 users_config=/etc/calamares/modules/users.conf
 test -r "$users_config"
 
-if grep -q '^userShell:' "$users_config"; then
-    sed -i 's|^userShell:.*|userShell: /bin/zsh|' "$users_config"
-else
-    printf '\nuserShell: /bin/zsh\n' >> "$users_config"
-fi
+# Remove the obsolete flat key from earlier proof-of-concept builds, then
+# update or add shell within the existing user mapping without disturbing the
+# remainder of Debian's Calamares configuration.
+sed -i '/^userShell:[[:space:]]*/d' "$users_config"
+
+users_tmp=$(mktemp)
+trap 'rm -f "$users_tmp"' EXIT HUP INT TERM
+awk '
+    BEGIN { in_user = 0; shell_set = 0; user_seen = 0 }
+    /^user:[[:space:]]*$/ {
+        print
+        in_user = 1
+        user_seen = 1
+        next
+    }
+    in_user && /^[^[:space:]#][^:]*:/ {
+        if (!shell_set) {
+            print "  shell: /bin/zsh"
+            shell_set = 1
+        }
+        in_user = 0
+    }
+    in_user && /^[[:space:]]+shell:[[:space:]]*/ {
+        if (!shell_set) {
+            print "  shell: /bin/zsh"
+            shell_set = 1
+        }
+        next
+    }
+    { print }
+    END {
+        if (in_user && !shell_set)
+            print "  shell: /bin/zsh"
+        else if (!user_seen)
+            print "\nuser:\n  shell: /bin/zsh"
+    }
+' "$users_config" > "$users_tmp"
+cp "$users_tmp" "$users_config"
+rm -f "$users_tmp"
+trap - EXIT HUP INT TERM
 
 dconf update
 
@@ -33,7 +68,13 @@ done
 grep -Fxq /bin/zsh /etc/shells
 grep -qx 'DSHELL=/bin/zsh' /etc/adduser.conf
 grep -qx 'SHELL=/bin/zsh' /etc/default/useradd
-grep -qx 'userShell: /bin/zsh' "$users_config"
+! grep -q '^userShell:' "$users_config"
+awk '
+    /^user:[[:space:]]*$/ { in_user = 1; next }
+    in_user && /^[^[:space:]#][^:]*:/ { in_user = 0 }
+    in_user && $1 == "shell:" && $2 == "/bin/zsh" { found = 1 }
+    END { exit found ? 0 : 1 }
+' "$users_config"
 
 test -r /etc/skel/.zshrc
 test -r /etc/skel/.config/starship.toml

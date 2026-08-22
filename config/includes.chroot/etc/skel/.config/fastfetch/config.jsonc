@@ -3,10 +3,17 @@
   "logo": {
     "type": "file",
     "source": "~/.config/fastfetch/oblinux.txt",
+    "color": { "1": "default" },
     "padding": { "right": 3 }
   },
   "display": {
     "separator": "  ",
+    "color": {
+      "keys": "default",
+      "title": "default",
+      "output": "default",
+      "separator": "default"
+    },
     "key": { "width": 12 }
   },
   "modules": [
@@ -22,8 +29,6 @@
     { "type": "terminal", "key": "Terminal" },
     { "type": "cpu", "key": "CPU" },
     { "type": "gpu", "key": "GPU" },
-    { "type": "memory", "key": "Memory" },
-    "break",
-    "colors"
+    { "type": "memory", "key": "Memory" }
   ]
 }

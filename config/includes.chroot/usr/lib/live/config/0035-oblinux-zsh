@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Set the pre-created live account's login shell. Calamares uses its own
-# userShell setting for the account created on the installed system.
+# Set the pre-created live account's login shell. Calamares uses the nested
+# user.shell setting for the account created on the installed system.
 
 . /usr/lib/live/config.sh
 

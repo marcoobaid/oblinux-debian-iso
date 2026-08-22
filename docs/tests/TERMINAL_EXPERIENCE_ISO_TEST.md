@@ -13,6 +13,7 @@ Confirm:
 - the shell is Zsh;
 - the Starship prompt is visible and remains readable;
 - Fastfetch displays the OBLinux ASCII wordmark once when the first terminal is opened;
+- Fastfetch follows the terminal foreground in light and dark styles, without bright red fixed styling or an ANSI palette strip;
 - command completion, autosuggestions, and syntax highlighting work;
 - the terminal uses the OBLinux navy/cyan palette and modest transparency;
 - opening another interactive shell does not print Fastfetch repeatedly.
