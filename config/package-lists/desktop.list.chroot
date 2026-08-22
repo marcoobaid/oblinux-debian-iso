@@ -23,6 +23,13 @@ systemd-timesyncd
 firefox-esr
 ptyxis
 
+# OBLinux developer terminal experience
+zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
+starship
+fastfetch
+
 # Firmware and CPU microcode for the initial hardware targets
 firmware-linux
 firmware-linux-free

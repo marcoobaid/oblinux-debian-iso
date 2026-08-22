@@ -1,0 +1,10 @@
+[org/gnome/Ptyxis]
+default-profile-uuid='7f7e0100-4f42-4c49-8e58-4f424c494e55'
+profile-uuids=['7f7e0100-4f42-4c49-8e58-4f424c494e55']
+
+[org/gnome/Ptyxis/Profiles/7f7e0100-4f42-4c49-8e58-4f424c494e55]
+label='OBLinux'
+login-shell=true
+palette='OBLinux Horizon'
+opacity=0.94
+bold-is-bright=true

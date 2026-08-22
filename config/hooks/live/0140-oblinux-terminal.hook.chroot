@@ -1,0 +1,49 @@
+#!/bin/sh
+
+set -eu
+
+# Make Zsh the account-creation default without replacing Bash, which remains
+# available for system scripts, recovery, and users who explicitly select it.
+sed -i 's|^DSHELL=.*|DSHELL=/bin/zsh|' /etc/adduser.conf
+sed -i 's|^SHELL=.*|SHELL=/bin/zsh|' /etc/default/useradd
+
+# Calamares otherwise supplies /bin/bash independently of Debian's account
+# defaults. Keep its existing users configuration and set only the shell used
+# for the account created by the installer.
+users_config=/etc/calamares/modules/users.conf
+test -r "$users_config"
+
+if grep -q '^userShell:' "$users_config"; then
+    sed -i 's|^userShell:.*|userShell: /bin/zsh|' "$users_config"
+else
+    printf '\nuserShell: /bin/zsh\n' >> "$users_config"
+fi
+
+dconf update
+
+for package in zsh zsh-autosuggestions zsh-syntax-highlighting starship fastfetch ptyxis; do
+    test "$(dpkg-query -W -f='${Status}' "$package")" = \
+        "install ok installed"
+done
+
+grep -Fxq /bin/zsh /etc/shells
+grep -qx 'DSHELL=/bin/zsh' /etc/adduser.conf
+grep -qx 'SHELL=/bin/zsh' /etc/default/useradd
+grep -qx 'userShell: /bin/zsh' "$users_config"
+
+test -r /etc/skel/.zshrc
+test -r /etc/skel/.config/starship.toml
+test -r /etc/skel/.config/fastfetch/config.jsonc
+test -r /etc/skel/.config/fastfetch/oblinux.txt
+test -r /etc/skel/.local/share/org.gnome.Ptyxis/palettes/oblinux.palette
+test -x /usr/lib/live/config/0035-oblinux-zsh
+test -s /etc/dconf/db/local
+
+zsh -n /etc/skel/.zshrc
+sh -n /usr/lib/live/config/0035-oblinux-zsh
+STARSHIP_CONFIG=/etc/skel/.config/starship.toml starship prompt >/dev/null
+HOME=/etc/skel fastfetch \
+    --config /etc/skel/.config/fastfetch/config.jsonc \
+    --format json >/dev/null
+
+echo "OBLinux terminal defaults verification passed"

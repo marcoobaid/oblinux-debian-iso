@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Set the pre-created live account's login shell. Calamares uses its own
+# userShell setting for the account created on the installed system.
+
+. /usr/lib/live/config.sh
+
+Init()
+{
+    if component_was_executed "oblinux-zsh"; then
+        exit 0
+    fi
+
+    echo -n " oblinux-zsh"
+}
+
+Config()
+{
+    if [ -n "${LIVE_USERNAME:-}" ] \
+        && getent passwd "$LIVE_USERNAME" >/dev/null 2>&1 \
+        && [ -x /bin/zsh ]; then
+        usermod --shell /bin/zsh "$LIVE_USERNAME"
+    fi
+
+    touch /var/lib/live/config/oblinux-zsh
+}
+
+Init
+Config

@@ -1,0 +1,54 @@
+# OBLinux Starship prompt. User editable after account creation.
+add_newline = true
+format = "$username$hostname$directory$git_branch$git_status$cmd_duration$status$line_break$character"
+
+palette = "oblinux"
+
+[palettes.oblinux]
+ink = "#101923"
+slate = "#607584"
+cyan = "#4CC4D7"
+amber = "#D99A2B"
+white = "#E8EEF2"
+red = "#E06C75"
+
+[username]
+show_always = false
+style_user = "bold cyan"
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = true
+style = "bold slate"
+format = "[@$hostname]($style) "
+
+[directory]
+style = "bold cyan"
+truncation_length = 4
+truncate_to_repo = false
+read_only = " ro"
+format = "[$path]($style)[$read_only](bold amber) "
+
+[git_branch]
+symbol = "git:"
+style = "bold amber"
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "bold cyan"
+format = "([$all_status$ahead_behind]($style) )"
+
+[cmd_duration]
+min_time = 1500
+style = "slate"
+format = "[took $duration]($style) "
+
+[status]
+disabled = false
+style = "bold red"
+format = "[exit $status]($style) "
+
+[character]
+success_symbol = "[❯](bold cyan)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold amber)"
