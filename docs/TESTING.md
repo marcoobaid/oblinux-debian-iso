@@ -207,7 +207,7 @@ clipping. Calamares must retain its already accepted logo presentation.
 Open GNOME Settings About in both live and installed sessions. Confirm the
 OBLinux symbol and operating-system name remain correct and that the symbol is
 balanced near the scale previously occupied by Debian's emblem rather than
-dominating the page. Repeat the installed Plymouth, GRUB, diversion,
+dominating the page. Repeat the installed Plymouth, GRUB, identity,
 regeneration, cleanup, and basic regression checks from Build 007.
 
 ## GNOME About badge acceptance checks
@@ -219,7 +219,7 @@ Build 008 size and show no accidental white corners, clipping, stretching, or
 low-contrast letterforms.
 
 Confirm that Calamares, Plymouth, the Dash launcher, GRUB, wallpapers, and the
-primary transparent symbol remain unchanged. Verify the vendor-logo diversion
+primary transparent symbol remain unchanged. Verify the vendor-logo selection
 and repeat the installed-system smoke checks.
 
 ## Build 007 identity-polish acceptance checks
@@ -229,14 +229,14 @@ presentation findings.
 
 In live and installed GNOME Settings About, confirm that the approved OBLinux
 symbol replaces the Debian swirl. The operating-system name must remain
-`OBLinux Proof of Concept (Debian 13)`. Verify the preserved Debian vendor file
-and active diversion:
+`OBLinux Proof of Concept (Debian 13)`. Verify the active OBLinux vendor-logo
+alternative and the retained Debian candidate:
 
 ```bash
-dpkg-divert --list \
-  /usr/share/icons/vendor/scalable/emblems/emblem-vendor.svg
-test -r \
-  /usr/share/icons/vendor/scalable/emblems/emblem-vendor.svg.distrib
+update-alternatives --display vendor-logos
+test "$(readlink -f /usr/share/images/vendor-logos)" = \
+  /usr/share/oblinux/vendor-logos
+test -d /usr/share/desktop-base/debian-logos
 ```
 
 Open Calamares at normal and maximized sizes. Confirm its symbol has no white
@@ -271,21 +271,21 @@ Set a custom account photo, lock the session, and confirm that the selected
 photo replaces the default and remains after logout and reboot. The build must
 not overwrite an existing user's `~/.face` or AccountsService image.
 
-## GDM login-background acceptance checks
+## GDM vendor-mark acceptance checks
 
 After a clean installation, log out or reboot to GDM. Confirm that the login
-screen uses the branded Obsidian Horizon artwork and does not display the
-Debian 13 mark. Confirm separately that the account avatar remains the neutral
-Horizon default or the user's selected photo.
+screen displays the OBLinux vendor mark and does not display the Debian 13
+mark. Confirm separately that the account avatar remains the neutral Horizon
+default or the user's selected photo.
 
 Verify the alternatives registration and active target:
 
 ```bash
-update-alternatives --display desktop-login-background
+update-alternatives --display vendor-logos
 test "$(readlink -f \
-  /usr/share/images/desktop-base/login-background.svg)" = \
-  /usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg \
-  && echo "PASS: OBLinux GDM background active"
+  /usr/share/images/vendor-logos)" = \
+  /usr/share/oblinux/vendor-logos \
+  && echo "PASS: OBLinux GDM vendor mark active"
 ```
 
 Switch the user avatar, lock and unlock the active session, log out, log back

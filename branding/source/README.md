@@ -71,3 +71,20 @@ branding/source/build_system_assets.py \
 Copy the approved outputs into the OBLinux Plymouth theme under
 `config/includes.chroot`. The GNOME About icon uses the approved color symbol
 SVG directly and does not require another raster export.
+
+## GDM vendor-logo generation
+
+Build the complete Debian-compatible `vendor-logos` alternative from the
+approved transparent system symbol and installer badge:
+
+```bash
+branding/source/build_vendor_logos.py \
+  branding/system/plymouth-logo.png \
+  branding/installer/oblinux-logo.png \
+  config/includes.chroot/usr/share/oblinux
+```
+
+The text and version variants use the transparent OBLinux symbol displayed by
+GDM. The square logo and vendor-emblem variants use the approved badge. The
+installed-identity hook registers all outputs as one alternatives group so
+Debian's package-owned candidate remains available.
