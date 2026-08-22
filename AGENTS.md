@@ -1,168 +1,114 @@
-# OBLinux repository guidance
+# OBLinux operating guide for Codex
 
-## Project scope
+Read this file before making changes. OBLinux is a Debian-based project; never
+apply Arch Linux conventions or assume behavior from another distribution.
+Consult the authoritative document for the subsystem being changed, and treat
+the repository's current tracked state as authoritative where milestone prose
+has become stale.
 
-OBLinux is an experimental, proof-of-concept Debian desktop distribution. It is
-a thin Debian derivative, not an independent package ecosystem and not an Arch
-Linux project. The current deliverable is an `amd64` Debian 13 (`trixie`) GNOME
-hybrid live/install ISO. There is no supported public release yet.
+## Project identity and current phase
 
-Major components are:
+OBLinux is an experimental, proof-of-concept desktop distribution intended to
+measure whether a polished, dependable, maintainable Debian workstation can be
+sustained for daily use. It is a thin Debian derivative, not an independent
+package ecosystem. The current edition is Debian 13 stable (`trixie`), `amd64`,
+GNOME, built as a hybrid live/install ISO with Debian `live-build`, `live-boot`,
+and `live-config`; installed systems receive normal Debian updates through APT.
 
-- Debian stable repositories, APT, `dpkg`, `debootstrap`, `live-build`,
-  `live-boot`, and `live-config`.
-- Debian's `task-gnome-desktop` as the coherent desktop baseline.
-- Calamares with Debian's `calamares-settings-debian` package for installation.
-- OBLinux-owned GNOME defaults, boot/installed-system identity, wallpapers,
-  installer branding, Horizon icon themes, and terminal defaults.
+The project is in Roadmap Phase 3, daily-driver candidate. Repeatable live ISO
+builds and Calamares VM installations have passed, foundational branding and
+the Horizon icon theme are integrated, and a ThinkPad candidate passed initial
+physical installation and daily-driver testing. This is not a supported public
+release or a broad hardware-support claim. Later GDM fixes and the terminal
+experience have source changes and focused acceptance procedures but no newer
+documented full-ISO/clean-install result; do not describe them as runtime-passed
+until those tests actually succeed.
 
-Stay close to Debian stable. Prefer configuration and small Debian packages over
-forking or rebuilding Debian packages. Do not add testing/unstable packages;
-backports require an explicit, documented need and must not be globally
-preferred. Secure Boot is `auto` in live-build but is not a support claim.
+Core principles from the project charter:
 
-## Authoritative build model
+- Stay close to Debian stable; prefer upstream solutions and small, visible,
+  reversible OBLinux configuration or packages over downstream forks.
+- Do not mix Debian testing or unstable into the POC. Backports and custom
+  packages require explicit justification and testing.
+- User data and installer safety outrank visual polish. Security and support
+  claims require implemented policy and verification evidence.
+- Keep builds reproducible from version-controlled inputs and document all
+  manual intervention. Scope expands only after the GNOME edition is
+  maintainable.
 
-`auto/config` is the source of truth for live-build options. It selects Trixie,
-`amd64`, `iso-hybrid`, all four Debian archive areas, authenticated APT,
-firmware, GRUB for both UEFI and legacy BIOS, SquashFS with xz, SHA-256
-checksums, and the `live`/`oblinux-live` session identity. The Debian Installer
-is disabled because Calamares is installed in the live filesystem instead.
+## Architecture and repository map
 
-Debian/live-build conventions used here:
+- `auto/`: authoritative `live-build` configure/build/clean wrappers.
+  `auto/config` owns persistent image settings; the wrappers use `noauto` to
+  avoid recursion. Do not make persistent edits to generated live-build state.
+- `config/package-lists/`: packages installed in the live filesystem. GNOME is
+  based on Debian's `task-gnome-desktop`; transitive contents must be verified
+  from generated manifests rather than inferred from the explicit lists.
+- `config/includes.chroot/`: files overlaid into the image filesystem. Some are
+  persistent installed-system defaults; files owned by
+  `calamares-settings-debian` are deliberately removed with that package.
+- `config/hooks/live/`: ordered late chroot customization and assertions.
+  Preserve hook ordering and explicit package dependencies.
+- `config/bootloaders/`: live-build GRUB presentation overrides; live-build
+  retains kernel discovery, menu generation, and boot mechanics.
+- `branding/`: approved identity sources, generated consumer assets, licensing,
+  attribution, and generators. Follow `branding/BRAND_GUIDE.md` and asset
+  READMEs; regenerate derived assets and preserve third-party notices.
+- `packaging/` and `scripts/`: OBLinux-owned package recipes and build helpers.
+  The Horizon theme is an independently versioned, locally generated Debian
+  package derived reproducibly from pinned Debian Papirus input.
+- `docs/decisions/`, `docs/issues/`, `docs/tests/`, and `docs/builds/`: the
+  durable record of decisions, known problems, test procedures/results, and
+  artifact history. Dated records describe their specific source revision and
+  must not be generalized to later changes without retesting.
 
-- `auto/config`, `auto/build`, and `auto/clean` call their corresponding `lb`
-  command with `noauto`; omitting it would recurse through the wrapper.
-- `config/package-lists/*.list.chroot` contains packages installed in the live
-  filesystem. Transitive contents must be verified from generated manifests,
-  not inferred from the short explicit lists.
-- `config/includes.chroot/` is overlaid onto the image filesystem after package
-  installation.
-- `config/hooks/live/*.hook.chroot` runs late customization and verification in
-  the chroot. Hook order is significant.
-- `config/bootloaders/` overrides live-build bootloader resources while leaving
-  menu generation and kernel discovery to live-build.
-- Some files generated by `lb config`, standard hook links, working trees,
-  logs, local `.deb` files, manifests, and images are ignored. Do not edit
-  generated config to make a persistent change; edit `auto/config`, clean when
-  needed, and regenerate.
+The initial architecture deliberately uses live-build includes and hooks while
+package boundaries are learned. Persistent configuration should move into
+policy-compliant OBLinux Debian packages where practical before public release.
+No OBLinux APT repository is justified merely by the POC; a future repository
+requires signed metadata, scoped trust, source-package handling, promotion and
+key-management policy. Third-party applications require license review and
+explicit vendor-repository opt-in with scoped `Signed-By` trust.
 
-## Repository map
+## GNOME, installer, and identity boundaries
 
-- `auto/`: authoritative configure/build/clean wrappers. `auto/build` logs to
-  `build-logs/`, prepares the icon package, then runs `lb build noauto` with
-  Bash `pipefail` so `tee` cannot hide a failed build.
-- `config/package-lists/`: GNOME/live packages, networking, firmware, apps,
-  diagnostics, terminal tools, Calamares, GRUB/shim, and filesystem tools.
-- `config/includes.chroot/`: files copied into live and, unless Calamares
-  removes their owning package, installed systems.
-- `config/hooks/live/`: ordered customization and build-time assertions.
-- `config/bootloaders/`: live GRUB theme and splash overrides.
-- `branding/`: approved sources, generated consumer assets, licensing,
-  attribution, brand guide, and asset-generation scripts.
-- `packaging/oblinux-icon-theme/`: local package recipe and maintainer scripts.
-- `scripts/prepare-icon-theme-package`: downloads pinned Papirus input and
-  creates the local package consumed by live-build.
-- `docs/decisions/`: accepted architectural/design decisions; consult the
-  relevant record before changing an established mechanism.
-- `docs/builds/` and `docs/tests/`: dated build/test evidence. These can describe
-  older milestones; verify current code before treating their status as current.
-- `docs/issues/`: tracked presentation/integration findings.
+GNOME is the only POC edition. Defaults such as wallpapers, icon theme, Ptyxis,
+and terminal configuration must remain user-overridable. Keep the live-only
+Calamares lock/suspend policy separate from installed-user settings, and keep
+GDM greeter configuration separate from desktop wallpaper, the in-session lock
+screen, account avatars, and vendor logos.
 
-## Packages and local packaging
+Calamares uses Debian's packaged `calamares-settings-debian` workflow. Preserve
+Debian's module order and installer behavior unless a change is explicitly
+designed and tested. OBLinux overrides identity-facing package-owned files and
+the final APT-source helper; package-ownership checks protect the invariant that
+installer-only files disappear when the settings package is removed. Recheck
+that invariant whenever Debian's package changes.
 
-`desktop.list.chroot` uses `task-gnome-desktop` and adds live integration,
-NetworkManager, `fwupd`, Firefox ESR, Ptyxis, Zsh/Starship/Fastfetch helpers,
-firmware/microcode for AMD and Intel targets, diagnostics, and explicit GLib/GTK
-cache tools needed by hooks. `installer.list.chroot` adds
-`calamares-settings-debian`, UEFI GRUB/shim/`efibootmgr`, and FAT/ext tools.
-APT recommendations are enabled, so package presence does not imply OBLinux
-support for every resulting feature.
+The installed APT policy is Trixie stable, updates, and security with `main`,
+`contrib`, `non-free`, and `non-free-firmware`; backports and `deb-src` are not
+enabled by default. Package availability or a visible Calamares option does not
+make a feature supported. The documented installer baseline is unencrypted
+erase-disk installation to a blank UEFI/GPT/ext4 VM disk. Manual partitioning,
+dual boot, encryption, existing-ESP reuse, alternative storage layouts,
+interrupted-install recovery, and Secure Boot require separate approval and
+tests. Use disposable VM disks for destructive scenarios; never attach host or
+valuable storage.
 
-The `oblinux-icon-theme` package is generated, not checked in. The preparation
-script pins `papirus-icon-theme` `20250501-1` and defaults the OBLinux package to
-`0.1.0-2`; controlled tests may set `PAPIRUS_VERSION` or `PACKAGE_VERSION`.
-It creates complete `OBLinux-Horizon` and `OBLinux-Horizon-Dark` themes under
-`config/packages.chroot/`, with Dark as the unlocked GNOME default. Release
-inputs must be reviewed and documented. The current direct `dpkg-deb` proof
-package must become a normal Debian source package before APT publication.
+Branding and persistent identity span GNOME About, wallpapers, GRUB, Plymouth,
+Calamares, GDM, account defaults, and the Horizon themes. Consult Decisions
+0005–0011 before altering these mechanisms. Preserve Debian package originals
+through the established alternatives/diversion patterns, preserve user choices,
+and keep guarded Debian-file modifications fail-closed when upstream content is
+unexpected.
 
-## GNOME and terminal configuration
+## Build and validation commands
 
-GNOME defaults are deliberately unlocked. The GLib override selects the
-branded Obsidian Horizon wallpaper for light, dark, and session lock screen;
-users may change it. Both clean and branded wallpapers are registered in the
-GNOME background catalog. Hook `0100` recompiles schemas after includes are
-overlaid.
-
-The override named `96_calamares-settings-debian.gschema.override` replaces a
-file owned by that Debian package. It favorites the installer and disables live
-screen locking, idle blanking, and suspend. Package removal during installation
-must remove these live-only policies; do not turn them into installed-system
-defaults.
-
-Ptyxis defaults come from the local dconf database and use the OBLinux Horizon
-palette, login shell, and modest transparency. `/etc/skel` supplies `.zshrc`,
-Starship, Fastfetch, and the palette. Hook `0140` makes Zsh the live, Calamares,
-and future local-account default while retaining Bash, updates Debian account
-defaults and the nested Calamares `user.shell` key, compiles dconf, and tests
-the configuration. The live-config script applies Zsh to the live account.
-
-GDM has its own dconf profile/database and an image-free navy-to-slate gradient;
-keep it separate from desktop wallpaper, session lock screen, account avatar,
-and vendor-logo behavior.
-
-## Calamares integration
-
-Keep Debian's settings, module order, helpers, and install behavior unless a
-change is explicitly designed and tested. OBLinux replaces only identity-facing
-package-owned branding/launcher files and the final APT-source helper. Hook
-`0110` asserts those paths are still owned by `calamares-settings-debian`; this
-ensures uninstalling that package from the target also removes installer-only
-branding. Recheck this invariant whenever Debian's package changes.
-
-The final-source helper writes installed Trixie stable, updates, and security
-entries with `main contrib non-free non-free-firmware`, then removes live/build
-sources. Backports and `deb-src` are intentionally disabled.
-
-The proven installer baseline is erase-disk installation on fresh disposable
-VM disks. UEFI/GPT/ESP/ext4 is the documented first supported path; a legacy
-BIOS VM pass exists, but manual partitioning, dual boot, encryption, reuse of an
-existing ESP, non-ext4/LVM/RAID, interrupted-install recovery, physical-disk
-installation, and Secure Boot remain unsupported or require separate tests.
-Visible Calamares options are not support claims. Never test destructive paths
-on valuable or host-attached storage.
-
-## Branding and installed identity
-
-Follow `branding/BRAND_GUIDE.md`, attribution, and asset READMEs. Preserve the
-approved OB geometry and navy/cyan/mist palette; use outlined wordmarks so Inter
-is not a runtime dependency, and use appropriate monochrome/reversed variants
-at small sizes. Prefer regenerating derived assets with `branding/source/`
-scripts over ad-hoc edits, and preserve third-party licensing notices.
-
-Persistent identity is delivered through includes plus hook `0120`: matching
-`/etc/os-release` and `/usr/lib/os-release`, hicolor logo, GRUB defaults/theme,
-Plymouth theme, Debian `vendor-logos` alternatives, a diverted skeleton avatar,
-login-background alternative, and GDM dconf. The GRUB `10_linux` edit is a
-guarded OBLinux-only adjustment and intentionally fails on unexpected Debian
-content. Preserve Debian alternatives/diverted originals and user-selected
-avatars. Hook `0130` verifies the icon package, rebuilds caches after Debian's
-late cache-removal hook, checks for broken links, and verifies the GNOME default.
-
-## Exact build commands
-
-Run on an up-to-date Debian 13 `amd64` host with root access, a native Linux
-filesystem, and at least 40 GB free (60 GB recommended). Install dependencies:
-
-```bash
-sudo apt update
-sudo apt install \
-  ca-certificates debootstrap dosfstools git grub-efi-amd64-bin grub-pc-bin \
-  isolinux live-build mtools rsync squashfs-tools syslinux-utils xorriso
-```
-
-From the repository root:
+Build on an up-to-date Debian 13 `amd64` host with root access, a native Linux
+filesystem, and at least 40 GB free (60 GB recommended). See
+`docs/BUILDING.md` for dependencies, host setup, wrapper behavior, generated
+files, logs, and artifact inspection. From the repository root, the primary
+sequence is exactly:
 
 ```bash
 lb config
@@ -170,15 +116,14 @@ lb config --validate
 sudo lb build
 ```
 
-Expected output: `oblinux-debian-gnome-amd64.hybrid.iso`. Inspect it with:
+Expected output is `oblinux-debian-gnome-amd64.hybrid.iso`. Inspect it with:
 
 ```bash
 ls -lh *.iso* build-logs/
 sha256sum *.iso
 ```
 
-For a clean rebuild after fundamental configuration changes or suspected stale
-state:
+For a fundamental configuration change or suspected stale state:
 
 ```bash
 sudo lb clean --purge
@@ -186,42 +131,71 @@ lb config
 sudo lb build
 ```
 
-Do not clean immediately after a failure; retain terminal output, timestamped
-log, and generated state for diagnosis. Builds require network access to Debian
-repositories and root for live-build. Never store a sudo password in code,
-environment, logs, or documentation.
+Do not clean immediately after a failure; preserve terminal output, the
+timestamped build log, and generated state for diagnosis. Never store sudo
+passwords or other secrets in scripts, environment, logs, or documentation.
+Do not commit build state, logs, manifests, generated local packages or icon
+trees, ISO/disk images, checksums, or secrets; follow `.gitignore` and
+`docs/BUILDING.md`.
 
-## Testing and validation
+## Testing rules
 
-At minimum, require `lb config --validate`, a successful build, SHA-256, UEFI
-and legacy-BIOS GRUB boot checks where relevant, GNOME live autologin, network,
-Firefox/Ptyxis, icon/default/branding checks, reboot, and shutdown. Use
-`docs/TESTING.md` plus the most relevant focused checklist (icon theme or
-terminal experience) for changed areas.
+Use `docs/TESTING.md` for the least-to-most-destructive progression: static
+inspection, ISO integrity/boot, VM live session, disposable-disk installation,
+installed update/reboot, physical live testing, recoverable physical install,
+then daily-driver trial. Use the focused checklist under `docs/tests/` for each
+changed subsystem and review related prior results and `docs/issues/` before
+troubleshooting a known problem.
 
-Installer validation uses a fresh disposable VM disk, retains the Calamares
-log and partition summary, boots without the ISO, verifies no live autologin or
-live credentials, checks user/sudo/locale/time/network, confirms `apt update`
-and security updates, inspects package/branding cleanup and installed APT
-sources, then reboots. Identity changes must also survive `update-grub` and
-`update-initramfs -u`. Physical testing progresses from live boot to recoverable
-spare-disk installation only after explicit approval and documentation.
+Validation must match the risk and affected surfaces. A configuration check is
+not an ISO boot test; an ISO boot is not an installation test; a VM pass is not
+hardware support. Preserve regression coverage for live boot, GNOME, network,
+Calamares cleanup, installed APT sources and updates, GRUB/Plymouth, user
+defaults and choices, reboot, and shutdown where relevant. Identity changes
+must survive their documented regeneration/update paths.
 
-Record build and test evidence under the existing dated conventions. Binary
-screenshots/logs stay outside Git; reports may record filenames and checksums.
+Never claim a command or test passed unless it was actually executed
+successfully on the stated artifact and environment. Record failures at the
+exact step. Significant build/test evidence belongs in dated records using the
+existing conventions; binary screenshots and logs remain outside Git, with
+filenames and checksums recorded when useful.
 
-## Git and change discipline
+## Change and Git discipline
 
-The active convention is a linear `main` branch with concise Conventional
-Commit-style subjects such as `feat:`, `fix:`, `docs:`, `test:`, `build:`, and
-`design:`. Keep commits scoped; update decisions, build records, tests, and
-licensing when the corresponding behavior changes. Do not commit build state,
-logs, manifests, generated icon trees/local packages, ISO/disk images, secrets,
-or editor files. Release ISOs belong in artifact hosting, not Git history.
+- Inspect `git status` first and preserve unrelated user work. Keep the change
+  narrowly scoped to the request; avoid unrelated refactoring.
+- Consult the relevant authoritative document and accepted decision before
+  editing a subsystem. Do not overturn established architecture unless the
+  task explicitly calls for a new decision.
+- Update documentation when behavior changes architecture, build procedures,
+  installer behavior, support scope, or testing requirements. Record
+  significant architectural/design decisions in `docs/decisions/`; do not
+  leave durable knowledge only in chat.
+- Use scoped commits. Current history uses concise Conventional Commit-style
+  subjects such as `feat:`, `fix:`, `docs:`, `test:`, `build:`, and `design:`.
+  Git history, issues, test/build records, and decision records are the project
+  record. Do not commit or push unless explicitly requested.
+- Keep project-facing documentation professional and free of personal names or
+  unique device identifiers; use project roles and redact serial numbers.
 
-Before editing, inspect `git status` and preserve unrelated user changes. Do
-not rewrite established Debian-managed configuration without checking package
-ownership and cleanup behavior. Documentation contains milestone history and
-occasionally stale “not included yet” lists, so source files and recent Git
-history take precedence. Keep professional project documentation free of
-personal names, and do not describe untested behavior as supported or secure.
+## Documentation routing
+
+- Vision, principles, governance: `docs/PROJECT_CHARTER.md`
+- POC boundaries and completion gates: `docs/POC_SCOPE.md`
+- Base, packaging, repositories, deferred production design:
+  `docs/ARCHITECTURE.md`
+- Exact host setup, build commands, wrappers, artifacts: `docs/BUILDING.md`
+- Calamares architecture, supported baseline, destructive controls:
+  `docs/INSTALLER.md`
+- Validation progression and detailed acceptance checks: `docs/TESTING.md`
+- Current phase and remaining work: `docs/ROADMAP.md`
+- Physical targets and support limits: `docs/HARDWARE_TARGETS.md`
+- Workstation/application requirements: `docs/DAILY_DRIVER_REQUIREMENTS.md`
+- Established choices: `docs/decisions/`
+- Known problems and verification state: `docs/issues/`
+- Reusable checklists and dated results: `docs/tests/`
+- Build provenance and artifact history: `docs/builds/`
+
+When documents conflict, do not silently select one. Verify whether one is a
+historical milestone statement, inspect only the minimal current implementation
+needed to resolve ambiguity, and report the conflict for correction.
