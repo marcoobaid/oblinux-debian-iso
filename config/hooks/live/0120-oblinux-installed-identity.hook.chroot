@@ -12,6 +12,9 @@ default_avatar_link=/etc/skel/.face.icon
 oblinux_default_avatar=/usr/share/oblinux/branding/oblinux-default-avatar.svg
 login_background=/usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg
 login_background_link=/usr/share/images/desktop-base/login-background.svg
+gdm_profile=/etc/dconf/profile/gdm
+gdm_background=/etc/dconf/db/gdm.d/01-oblinux-background
+gdm_database=/etc/dconf/db/gdm
 expected='    Ubuntu|Kubuntu|*GNU/Linux)'
 replacement='    OBLinux|Ubuntu|Kubuntu|*GNU/Linux)'
 
@@ -97,5 +100,22 @@ update-alternatives --install \
     100
 update-alternatives --set desktop-login-background "$login_background"
 test "$(readlink -f "$login_background_link")" = "$login_background"
+
+# Give only the GDM greeter an image-free OBLinux gradient. This dedicated
+# dconf database does not change a user's desktop wallpaper or session lock
+# screen, while the existing vendor-logos alternative continues to provide
+# the product mark at the bottom of the greeter.
+test -r "$gdm_profile"
+test -r "$gdm_background"
+grep -qx 'user-db:user' "$gdm_profile"
+grep -qx 'system-db:gdm' "$gdm_profile"
+grep -qx 'file-db:/usr/share/gdm/greeter-dconf-defaults' "$gdm_profile"
+grep -qx "primary-color='#111820'" "$gdm_background"
+grep -qx "secondary-color='#1B2836'" "$gdm_background"
+grep -qx "color-shading-type='vertical'" "$gdm_background"
+grep -qx "picture-options='none'" "$gdm_background"
+command -v dconf >/dev/null
+dconf update
+test -s "$gdm_database"
 
 gtk-update-icon-cache --force /usr/share/icons/hicolor

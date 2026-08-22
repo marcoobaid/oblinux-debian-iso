@@ -17,5 +17,11 @@ The GDM correction intentionally does not replace user avatars or GNOME's
 session lock-screen setting. It selects the OBLinux vendor-logo directory while
 retaining Debian's packaged artwork as an alternative.
 
+GDM also receives a dedicated dconf profile and system database containing an
+image-free vertical background gradient from Obsidian Navy (`#111820`) to
+Slate Blue (`#1B2836`). The database applies only to the GDM greeter; it does
+not set the desktop wallpaper, the session lock-screen background, or a user's
+account photo, and it preserves the existing OBLinux vendor mark.
+
 OBLinux artwork in this directory is licensed under CC BY-SA 4.0. See
 `../ATTRIBUTION.md`.

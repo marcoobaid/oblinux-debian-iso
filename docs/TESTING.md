@@ -294,6 +294,28 @@ functional. Run `sudo apt update`, reinstall or upgrade `desktop-base` when a
 safe test update is available, and confirm that the OBLinux alternative stays
 selected.
 
+## GDM background acceptance checks
+
+After a clean installation, reboot or log out to GDM. Confirm that the greeter
+uses a subtle vertical dark-navy-to-slate gradient without a background image.
+The existing OBLinux vendor mark must remain visible, and no Debian artwork may
+appear.
+
+Verify the dedicated GDM profile, source values, and compiled database:
+
+```bash
+sed -n '1,80p' /etc/dconf/profile/gdm
+sed -n '1,80p' /etc/dconf/db/gdm.d/01-oblinux-background
+test -s /etc/dconf/db/gdm \
+  && echo "PASS: GDM background database compiled"
+```
+
+Change the user's desktop wallpaper, then lock and unlock the session. Confirm
+that the selected wallpaper and normal GNOME lock screen still work. Log out
+again and confirm that GDM retains its own gradient and existing OBLinux vendor
+mark. This test guards the intended separation between greeter and user-session
+settings.
+
 ## Daily-driver evidence
 
 During the trial, record:

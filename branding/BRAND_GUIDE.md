@@ -100,6 +100,10 @@ variant. Preserve the 16:9 composition when producing lower-resolution copies.
   with a Clear Cyan progress indicator.
 - Calamares uses Slate Blue for the normal sidebar, Deep Ocean Blue for the
   selected step, and Soft White for navigation text.
+- GDM uses an image-free vertical gradient from Obsidian Navy (`#111820`) to
+  Slate Blue (`#1B2836`) behind the existing OBLinux vendor mark. This
+  greeter-only treatment must not alter the user's wallpaper or GNOME session
+  lock screen.
 - Newly created accounts use the neutral Horizon avatar: a Soft White user
   silhouette on a circular Slate Blue and Obsidian Navy field with restrained
   Clear Cyan accents. A user-selected account photo always takes precedence.

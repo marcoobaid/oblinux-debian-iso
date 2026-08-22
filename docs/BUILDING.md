@@ -221,7 +221,10 @@ Build 006 adds installed-system identity through an OBLinux os-release file,
 hicolor icon, GRUB defaults, and Plymouth theme. Unlike the Calamares files,
 these are intentional installed-system defaults and must remain after cleanup.
 The identity hook validates all required fields, updates the icon cache, and
-applies a guarded OBLinux-only branch to Debian's GRUB title logic.
+applies a guarded OBLinux-only branch to Debian's GRUB title logic. It also
+compiles a dedicated GDM dconf database for an image-free Obsidian Navy to
+Slate Blue greeter gradient. That database is isolated from desktop wallpaper,
+session lock-screen, avatar, and vendor-mark settings.
 
 Build 008 adds `quiet splash` to the generated live kernel command line, uses
 the approved transparent Calamares symbol at the package-owned Dash launcher
