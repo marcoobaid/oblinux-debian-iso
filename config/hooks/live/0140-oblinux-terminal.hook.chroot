@@ -4,7 +4,11 @@ set -eu
 
 # Make Zsh the account-creation default without replacing Bash, which remains
 # available for system scripts, recovery, and users who explicitly select it.
-sed -i 's|^DSHELL=.*|DSHELL=/bin/zsh|' /etc/adduser.conf
+if grep -Eq '^#*DSHELL=' /etc/adduser.conf; then
+    sed -i 's|^#*DSHELL=.*|DSHELL=/bin/zsh|' /etc/adduser.conf
+else
+    printf '\nDSHELL=/bin/zsh\n' >> /etc/adduser.conf
+fi
 sed -i 's|^SHELL=.*|SHELL=/bin/zsh|' /etc/default/useradd
 
 # Calamares otherwise supplies /bin/bash independently of Debian's account
