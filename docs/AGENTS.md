@@ -171,6 +171,12 @@ filenames and checksums recorded when useful.
   installer behavior, support scope, or testing requirements. Record
   significant architectural/design decisions in `docs/decisions/`; do not
   leave durable knowledge only in chat.
+- At the completion of each task, decide whether the work introduced or changed
+  a durable instruction, architectural constraint, development convention,
+  build or validation requirement, or other guidance future Codex sessions
+  need. If so, update this file as part of the task. Do not update it for
+  routine implementation changes, bug fixes, test or build results, or details
+  that belong in existing authoritative documentation.
 - Use scoped commits. Current history uses concise Conventional Commit-style
   subjects such as `feat:`, `fix:`, `docs:`, `test:`, `build:`, and `design:`.
   Git history, issues, test/build records, and decision records are the project
