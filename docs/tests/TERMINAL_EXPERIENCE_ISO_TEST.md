@@ -10,10 +10,14 @@ Confirm:
 
 - the live user autologs in as before;
 - Ptyxis opens without an error;
+- when GNOME starts in light appearance, the first Ptyxis window immediately
+  uses a dark readable foreground without requiring an appearance toggle;
 - the shell is Zsh;
 - the Starship prompt is visible and remains readable;
 - Fastfetch displays the OBLinux ASCII wordmark once when the first terminal is opened;
-- Fastfetch follows the terminal foreground in light and dark styles, without bright red fixed styling or an ANSI palette strip;
+- Fastfetch uses a cyan logo and blue title/label accents that remain readable in
+  light and dark styles, without bright red fixed styling or an ANSI palette
+  strip;
 - command completion, autosuggestions, and syntax highlighting work;
 - the terminal uses the OBLinux navy/cyan palette and modest transparency;
 - opening another interactive shell does not print Fastfetch repeatedly.
@@ -58,5 +62,7 @@ Confirm:
 - `bash` starts a usable Bash session and `exit` returns to Zsh;
 - networking, GNOME Settings, Files, and `sudo apt update` still work;
 - the installed system contains no Calamares launcher or live-only GNOME settings.
+- leaving Ptyxis on `system` follows repeated GNOME light/dark changes, while
+  explicitly selecting Ptyxis light or dark remains under user control.
 
 Record the ISO SHA-256, firmware mode, VM or hardware model, and pass/fail result with the build evidence.

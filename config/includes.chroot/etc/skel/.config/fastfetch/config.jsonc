@@ -3,14 +3,14 @@
   "logo": {
     "type": "file",
     "source": "~/.config/fastfetch/oblinux.txt",
-    "color": { "1": "default" },
+    "color": { "1": "cyan" },
     "padding": { "right": 3 }
   },
   "display": {
     "separator": "  ",
     "color": {
-      "keys": "default",
-      "title": "default",
+      "keys": "blue",
+      "title": "blue",
       "output": "default",
       "separator": "default"
     },

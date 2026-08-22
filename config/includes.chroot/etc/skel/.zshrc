@@ -23,6 +23,25 @@ if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
 
+# Debian 13's Ptyxis 48.5 can construct its first terminal before the final
+# system appearance reaches its palette listener. Refresh the system-following
+# style once so a light session cannot retain the dark face's foreground.
+# Explicit user-selected light or dark Ptyxis styles are never changed.
+if [[ -o interactive && -t 1 && ${SHLVL:-1} -eq 1 ]] \
+    && command -v gsettings >/dev/null 2>&1 \
+    && [[ $(gsettings get org.gnome.Ptyxis interface-style 2>/dev/null) \
+        == "'system'" ]]; then
+  case $(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null) in
+    "'prefer-dark'")
+      gsettings set org.gnome.Ptyxis interface-style dark
+      ;;
+    *)
+      gsettings set org.gnome.Ptyxis interface-style light
+      ;;
+  esac
+  gsettings reset org.gnome.Ptyxis interface-style
+fi
+
 # Show the branded system summary once per top-level interactive terminal.
 # Set OBLINUX_FASTFETCH=0 in the environment or comment this block to disable.
 if [[ -o interactive && -t 1 && ${SHLVL:-1} -eq 1 \
