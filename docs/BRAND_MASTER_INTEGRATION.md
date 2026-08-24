@@ -7,11 +7,11 @@ then adopted here through an intentional version update.
 
 ## Current pin
 
-- Release: `v1.0.0`
-- Commit: `5f8e1d89ce69847f4cca60f82741ff0c779b25b3`
+- Release: `v1.0.1`
+- Commit: `4e0ddbc9b8a98b5717c199c33887cc458480afb2`
 - Commit archive SHA-256:
-  `526aadce93f95468b795c2d8c4040b031afb3bea77def98f47e7717fd247785c`
-- Debian package: `oblinux-branding` `1.0.0-1`
+  `1b5e620859250ac3585198ce3e6541c70d979bb29234005872c53cd08fa47116`
+- Debian package: `oblinux-branding` `1.0.1-1`
 
 The machine-readable pin is `branding/brand-master.lock`. Builds never consume
 Brand Master `main` or another moving ref.
@@ -26,13 +26,9 @@ step extracts the package-owned GRUB background for the live-media bootloader;
 the extracted file is ignored by Git and is not an independently maintained
 artwork copy.
 
-Brand Master v1.0.0 combines Debian source format `3.0 (native)` with package
-version `1.0.0-1`. Debian rejects a native source package that has a Debian
-revision, so the preparation script changes only the temporary build tree to
-`3.0 (quilt)` before its binary-only build. The verified archive, locked visual
-files, binary payload, and upstream tag remain unchanged. A future Brand Master
-release should correct its source metadata, after which this compatibility step
-can be removed during an intentional pin update.
+Brand Master v1.0.1 supplies valid `3.0 (quilt)` Debian source metadata, so the
+temporary source-format compatibility adjustment required by v1.0.0 is no
+longer present downstream.
 
 Brand Master owns the R5 masters, colors, wallpapers, hicolor product icons,
 Plymouth theme, GRUB theme, and Calamares presentation. Debian-specific hooks
@@ -46,12 +42,16 @@ it is a full Papirus-derived desktop icon theme, not shared logo artwork.
 
 ## Legacy migration
 
-The previous Obsidian Horizon logos, wallpapers, boot artwork, installer
-rasters, generators, and duplicated runtime payloads were removed. The neutral
-default account avatar, GDM's supported dconf gradient, terminal defaults,
-Calamares installer behavior, and Debian APT/installation policy remain as
-Debian-specific integration. Vendor-logo alternatives now reference icons
-installed by `oblinux-branding` instead of legacy generated logo copies.
+The previous Obsidian-era logos, boot artwork, installer rasters, generators,
+and duplicated shared runtime payloads were removed. OBLinux Debian
+intentionally retains the two established Obsidian Horizon wallpaper JPEGs and
+selects the branded variant through later dconf and schema defaults; this
+Debian-edition choice does not alter Brand Master's cross-distribution
+wallpaper defaults. The neutral default account avatar, GDM's supported dconf
+gradient, terminal defaults, Calamares installer behavior, and Debian
+APT/installation policy also remain Debian-specific. Vendor-logo alternatives
+reference icons installed by `oblinux-branding` instead of legacy generated
+logo copies.
 
 ## Upgrade process
 

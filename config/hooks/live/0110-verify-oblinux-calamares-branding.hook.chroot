@@ -10,7 +10,7 @@ legacy_installer_pixmap=/usr/share/pixmaps/install-debian.png
 
 test "$(dpkg-query -W -f='${Status}' oblinux-branding)" = \
     "install ok installed"
-test "$(dpkg-query -W -f='${Version}' oblinux-branding)" = "1.0.0-1"
+test "$(dpkg-query -W -f='${Version}' oblinux-branding)" = "1.0.1-1"
 test -r "$descriptor"
 test -r "$brand_dir/slideshow.qml"
 test -r "$brand_dir/finished.qml"
@@ -29,6 +29,10 @@ sed -i 's/^branding:[[:space:]].*/branding: oblinux/' "$settings"
 grep -qx 'branding: oblinux' "$settings"
 grep -qx '  productName: OBLinux' "$descriptor"
 grep -qx '  bootloaderEntryName: OBLinux' "$descriptor"
+grep -qx '  productLogo: icon.svg' "$descriptor"
+grep -qx '  SidebarBackground: "#0D2742"' "$descriptor"
+grep -qx '  SidebarText: "#FFFFFF"' "$descriptor"
+grep -qx '  SidebarTextCurrent: "#FF8A00"' "$descriptor"
 
 for slide in 01-welcome 02-freedom 03-open 04-secure 05-creative 06-built 07-ready; do
     test -r "$brand_dir/slideshow/$slide.svg"

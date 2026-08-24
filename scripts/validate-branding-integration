@@ -7,10 +7,10 @@ cd "$repository_root"
 
 . branding/brand-master.lock
 
-test "$BRAND_MASTER_VERSION" = v1.0.0
-test "$BRAND_MASTER_COMMIT" = 5f8e1d89ce69847f4cca60f82741ff0c779b25b3
-test "$BRAND_MASTER_ARCHIVE_SHA256" = 526aadce93f95468b795c2d8c4040b031afb3bea77def98f47e7717fd247785c
-test "$BRANDING_PACKAGE_VERSION" = 1.0.0-1
+test "$BRAND_MASTER_VERSION" = v1.0.1
+test "$BRAND_MASTER_COMMIT" = 4e0ddbc9b8a98b5717c199c33887cc458480afb2
+test "$BRAND_MASTER_ARCHIVE_SHA256" = 1b5e620859250ac3585198ce3e6541c70d979bb29234005872c53cd08fa47116
+test "$BRANDING_PACKAGE_VERSION" = 1.0.1-1
 
 grep -Fq 'scripts/prepare-branding-package' auto/build
 grep -Fq 'scripts/validate-branding-integration' auto/build
@@ -20,11 +20,13 @@ grep -Fq 'oblinux-default-light.svg' \
     config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
 grep -Fq 'oblinux-default-dark.svg' \
     config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq 'update-initramfs -u -k all' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
 grep -Fq "dpkg-query -W -f='\${Version}' oblinux-branding" \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
 grep -Fq '"install ok installed"' \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
-grep -Fq '"1.0.0-1"' \
+grep -Fq '"1.0.1-1"' \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
 grep -Fq 'branding: oblinux' \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
@@ -41,19 +43,29 @@ grep -qx 'ID_LIKE=debian' config/includes.chroot/etc/os-release
 cmp config/includes.chroot/etc/os-release config/includes.chroot/usr/lib/os-release
 grep -qx 'Icon=oblinux-installer' \
     config/includes.chroot/usr/share/applications/calamares-install-debian.desktop
-grep -Fq 'desktop-image: "background.png"' \
-    config/bootloaders/grub-pc/live-theme/theme.txt
-grep -Fq 'selected_item_color = "#ff8a00"' \
-    config/bootloaders/grub-pc/live-theme/theme.txt
+grep -Fq 'for file in background.png logo.png theme.txt' \
+    scripts/prepare-branding-package
+grep -Fq "picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'" \
+    config/includes.chroot/usr/share/glib-2.0/schemas/95_oblinux-background.gschema.override
+grep -Fq "picture-uri-dark='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'" \
+    config/includes.chroot/usr/share/glib-2.0/schemas/95_oblinux-background.gschema.override
+grep -Fq "picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'" \
+    config/includes.chroot/etc/dconf/db/local.d/95-oblinux-debian-backgrounds
+test -r config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg
+test -r config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-clean-3840x2160.jpg
+test "$(sha256sum config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg | awk '{print $1}')" = \
+    429f302ec916322a240a4e9f05cffb491bf541e130d2aedafc38a59993af47b2
+test "$(sha256sum config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-clean-3840x2160.jpg | awk '{print $1}')" = \
+    b8073c48afb64843b1b96114915f29116e3b770e7acd9cb181dbc2f0474d1a5b
+test -r config/includes.chroot/usr/share/doc/oblinux-branding/OBSIDIAN-HORIZON.md
+test -r config/includes.chroot/usr/share/doc/oblinux-branding/LICENSE-CC-BY-SA-4.0.txt
 
 legacy_paths='branding/assets
 branding/installer
 branding/source
 branding/system
-branding/wallpapers
 config/bootloaders/splash.svg
 config/includes.chroot/etc/calamares/branding/debian
-config/includes.chroot/usr/share/backgrounds/oblinux
 config/includes.chroot/usr/share/grub/themes/oblinux
 config/includes.chroot/usr/share/plymouth/themes/oblinux
 config/includes.chroot/usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg
@@ -95,4 +107,4 @@ if grep -RIlE 'BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY|gh[pousr]_[A-Za-z0-9]{20,}
     exit 1
 fi
 
-echo "OBLinux Brand Master v1.0.0 downstream integration validation passed"
+echo "OBLinux Brand Master v1.0.1 downstream integration validation passed"

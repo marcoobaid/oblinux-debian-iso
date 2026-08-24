@@ -24,6 +24,13 @@ experience have source changes and focused acceptance procedures but no newer
 documented full-ISO/clean-install result; do not describe them as runtime-passed
 until those tests actually succeed.
 
+This repository is the Debian development and staging implementation. Its
+push-capable `origin` must be `oblinux-debian-iso-dev`; the stable
+`oblinux-debian-iso` repository is read-only reference material and promotion
+to it requires separate explicit owner authorization. Shared visual identity
+is released by `oblinux-brand-master`; consume immutable releases here and do
+not patch shared R5 artwork downstream.
+
 Core principles from the project charter:
 
 - Stay close to Debian stable; prefer upstream solutions and small, visible,
@@ -78,6 +85,11 @@ and terminal configuration must remain user-overridable. Keep the live-only
 Calamares lock/suspend policy separate from installed-user settings, and keep
 GDM greeter configuration separate from desktop wallpaper, the in-session lock
 screen, account avatars, and vendor logos.
+
+OBLinux Debian intentionally selects the established Obsidian Horizon image as
+its desktop and lock-screen default, overriding Brand Master's generic paired
+wallpaper default without modifying the shared package. Preserve both live and
+installed behavior and the user's ability to choose another wallpaper.
 
 Calamares uses Debian's packaged `calamares-settings-debian` workflow. Preserve
 Debian's module order and installer behavior unless a change is explicitly

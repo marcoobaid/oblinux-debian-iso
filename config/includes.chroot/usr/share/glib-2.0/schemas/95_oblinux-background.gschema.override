@@ -1,0 +1,16 @@
+# OBLinux Debian desktop defaults. Obsidian Horizon is intentionally selected
+# downstream instead of changing Brand Master's cross-distribution defaults.
+# These are unlocked defaults; users can change desktop and lock-screen images.
+
+[org.gnome.desktop.background]
+picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'
+picture-uri-dark='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'
+picture-options='zoom'
+primary-color='#111820'
+secondary-color='#1B2836'
+
+[org.gnome.desktop.screensaver]
+picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'
+picture-options='zoom'
+primary-color='#111820'
+secondary-color='#1B2836'

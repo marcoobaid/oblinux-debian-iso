@@ -44,13 +44,7 @@ test -d "$source_dir"
 
 cp -a "$source_dir/packaging/debian" "$source_dir/debian"
 
-# Brand Master v1.0.0 shipped its Debian revision with source format 3.0
-# (native), a combination rejected by dpkg-source. Treat the immutable upstream
-# tree as a non-native source while building the binary package. This changes
-# packaging metadata only; the verified source tree and installed payload stay
-# untouched.
-test "$(cat "$source_dir/debian/source/format")" = "3.0 (native)"
-sed -i 's/3\.0 (native)/3.0 (quilt)/' "$source_dir/debian/source/format"
+test "$(cat "$source_dir/debian/source/format")" = "3.0 (quilt)"
 (
     cd "$source_dir"
     dpkg-buildpackage --build=binary --no-sign
@@ -67,8 +61,10 @@ install -m 0644 "$built_package" "$package_path"
 
 package_root=$work_dir/package-root
 dpkg-deb --extract "$built_package" "$package_root"
-install -m 0644 \
-    "$package_root/usr/share/grub/themes/oblinux/background.png" \
-    "$live_grub_dir/background.png"
+for file in background.png logo.png theme.txt; do
+    install -m 0644 \
+        "$package_root/usr/share/grub/themes/oblinux/$file" \
+        "$live_grub_dir/$file"
+done
 
 echo "Prepared $package_name from Brand Master $BRAND_MASTER_VERSION ($BRAND_MASTER_COMMIT)"

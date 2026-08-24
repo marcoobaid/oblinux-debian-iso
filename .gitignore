@@ -70,3 +70,5 @@ SHA256SUMS.sign
 
 # Extracted from the pinned oblinux-branding package for live-media GRUB.
 /config/bootloaders/grub-pc/live-theme/background.png
+/config/bootloaders/grub-pc/live-theme/logo.png
+/config/bootloaders/grub-pc/live-theme/theme.txt
