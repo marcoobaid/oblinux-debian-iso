@@ -5,3 +5,4 @@ set -eu
 # Package schema compilation occurs before includes.chroot is overlaid. Compile
 # again so the OBLinux live-session overrides are present in the final image.
 glib-compile-schemas /usr/share/glib-2.0/schemas
+dconf update

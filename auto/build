@@ -6,6 +6,8 @@ mkdir -p build-logs
 log="build-logs/build-$(date -u +%Y%m%dT%H%M%SZ).log"
 
 {
+    scripts/validate-branding-integration
+    scripts/prepare-branding-package
     scripts/prepare-icon-theme-package
     lb build noauto
 } 2>&1 | tee "${log}"

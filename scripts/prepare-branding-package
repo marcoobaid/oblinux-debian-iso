@@ -1,0 +1,74 @@
+#!/bin/sh
+
+set -eu
+
+repository_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+lock_file=$repository_root/branding/brand-master.lock
+
+test -r "$lock_file"
+# shellcheck disable=SC1090
+. "$lock_file"
+
+case "$BRAND_MASTER_COMMIT" in
+    *[!0-9a-f]*|'') echo "Invalid Brand Master commit" >&2; exit 1 ;;
+esac
+test "${#BRAND_MASTER_COMMIT}" -eq 40
+case "$BRAND_MASTER_ARCHIVE_SHA256" in
+    *[!0-9a-f]*|'') echo "Invalid Brand Master SHA-256" >&2; exit 1 ;;
+esac
+test "${#BRAND_MASTER_ARCHIVE_SHA256}" -eq 64
+
+for command in curl sha256sum tar dpkg-buildpackage dpkg-deb; do
+    command -v "$command" >/dev/null || {
+        echo "Missing build dependency: $command" >&2
+        exit 1
+    }
+done
+
+archive_url="https://github.com/marcoobaid/oblinux-brand-master/archive/$BRAND_MASTER_COMMIT.tar.gz"
+source_dir_name="oblinux-brand-master-$BRAND_MASTER_COMMIT"
+package_dir=$repository_root/config/packages.chroot
+package_name="oblinux-branding_${BRANDING_PACKAGE_VERSION}_all.deb"
+package_path=$package_dir/$package_name
+live_grub_dir=$repository_root/config/bootloaders/grub-pc/live-theme
+
+work_dir=$(mktemp -d)
+trap 'rm -rf "$work_dir"' EXIT HUP INT TERM
+archive=$work_dir/brand-master.tar.gz
+
+curl --fail --location --retry 3 --output "$archive" "$archive_url"
+printf '%s  %s\n' "$BRAND_MASTER_ARCHIVE_SHA256" "$archive" | sha256sum --check --status
+tar -xzf "$archive" -C "$work_dir"
+source_dir=$work_dir/$source_dir_name
+test -d "$source_dir"
+
+cp -a "$source_dir/packaging/debian" "$source_dir/debian"
+
+# Brand Master v1.0.0 shipped its Debian revision with source format 3.0
+# (native), a combination rejected by dpkg-source. Treat the immutable upstream
+# tree as a non-native source while building the binary package. This changes
+# packaging metadata only; the verified source tree and installed payload stay
+# untouched.
+test "$(cat "$source_dir/debian/source/format")" = "3.0 (native)"
+sed -i 's/3\.0 (native)/3.0 (quilt)/' "$source_dir/debian/source/format"
+(
+    cd "$source_dir"
+    dpkg-buildpackage --build=binary --no-sign
+)
+
+built_package=$work_dir/$package_name
+test -r "$built_package"
+test "$(dpkg-deb -f "$built_package" Package)" = oblinux-branding
+test "$(dpkg-deb -f "$built_package" Version)" = "$BRANDING_PACKAGE_VERSION"
+test "$(dpkg-deb -f "$built_package" Architecture)" = all
+
+install -d -m 0755 "$package_dir" "$live_grub_dir"
+install -m 0644 "$built_package" "$package_path"
+
+package_root=$work_dir/package-root
+dpkg-deb --extract "$built_package" "$package_root"
+install -m 0644 \
+    "$package_root/usr/share/grub/themes/oblinux/background.png" \
+    "$live_grub_dir/background.png"
+
+echo "Prepared $package_name from Brand Master $BRAND_MASTER_VERSION ($BRAND_MASTER_COMMIT)"

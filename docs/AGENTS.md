@@ -51,9 +51,10 @@ Core principles from the project charter:
   Preserve hook ordering and explicit package dependencies.
 - `config/bootloaders/`: live-build GRUB presentation overrides; live-build
   retains kernel discovery, menu generation, and boot mechanics.
-- `branding/`: approved identity sources, generated consumer assets, licensing,
-  attribution, and generators. Follow `branding/BRAND_GUIDE.md` and asset
-  READMEs; regenerate derived assets and preserve third-party notices.
+- `branding/`: the immutable Brand Master package pin plus the separately
+  maintained Horizon application icon theme. Shared R5 visual assets come from
+  the pinned `oblinux-branding` package; do not duplicate or regenerate them in
+  this repository.
 - `packaging/` and `scripts/`: OBLinux-owned package recipes and build helpers.
   The Horizon theme is an independently versioned, locally generated Debian
   package derived reproducibly from pinned Debian Papirus input.
@@ -97,7 +98,7 @@ valuable storage.
 
 Branding and persistent identity span GNOME About, wallpapers, GRUB, Plymouth,
 Calamares, GDM, account defaults, and the Horizon themes. Consult Decisions
-0005–0011 before altering these mechanisms. Preserve Debian package originals
+0005–0012 before altering these mechanisms. Preserve Debian package originals
 through the established alternatives/diversion patterns, preserve user choices,
 and keep guarded Debian-file modifications fail-closed when upstream content is
 unexpected.
@@ -111,6 +112,7 @@ files, logs, and artifact inspection. From the repository root, the primary
 sequence is exactly:
 
 ```bash
+scripts/validate-branding-integration
 lb config
 lb config --validate
 sudo lb build

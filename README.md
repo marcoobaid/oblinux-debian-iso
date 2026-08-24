@@ -23,7 +23,10 @@ installer icon, and GNOME About logo sizing. POC Build 008 passed functional
 and targeted presentation acceptance with one dark-theme About-logo contrast
 follow-up. POC Build 009 passed complete runtime acceptance with a
 theme-neutral About badge, closing the foundational OBLinux theming milestone.
-There is no supported public release yet.
+The development repository now consumes the locked OBLinux Brand Master
+v1.0.0 package for shared R5 assets; that integration still requires a complete
+Debian 13 ISO build and runtime acceptance. There is no supported public
+release yet.
 
 ## Documentation
 
@@ -33,6 +36,8 @@ There is no supported public release yet.
 - [Initial architecture](docs/ARCHITECTURE.md)
 - [Testing strategy](docs/TESTING.md)
 - [Build instructions](docs/BUILDING.md)
+- [Brand Master integration](docs/BRAND_MASTER_INTEGRATION.md)
+- [Brand Master runtime test](docs/tests/BRAND_MASTER_RUNTIME_TEST.md)
 - [Installer integration and test plan](docs/INSTALLER.md)
 - [POC build 001 record](docs/builds/2026-08-17-poc-001.md)
 - [POC build 002 installer record](docs/builds/2026-08-18-poc-002.md)
@@ -64,7 +69,7 @@ There is no supported public release yet.
 - [Decision 0007: Identity asset polish](docs/decisions/0007-identity-asset-polish.md)
 - [Decision 0008: Presentation follow-ups](docs/decisions/0008-presentation-follow-ups.md)
 - [Decision 0009: GNOME About badge](docs/decisions/0009-about-badge.md)
-- [OBLinux brand guide](branding/BRAND_GUIDE.md)
+- [Branding integration](branding/README.md)
 
 ## Project principles
 

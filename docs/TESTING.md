@@ -135,6 +135,10 @@ lock and suspend policy that Calamares removes.
 
 ## Build 005 boot and installer branding acceptance checks
 
+These Build 005–009 sections are historical acceptance records for the legacy
+repository-owned identity. Current Brand Master v1.0.0 acceptance is defined in
+`docs/tests/BRAND_MASTER_RUNTIME_TEST.md`; use that checklist for new images.
+
 Build 005 must retain all Build 004 checks and verify the new identity-facing
 integration without changing installer behavior.
 

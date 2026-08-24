@@ -1,0 +1,41 @@
+#!/bin/sh
+
+set -eu
+
+test "$(dpkg-query -W -f='${Status}' oblinux-branding)" = \
+    "install ok installed"
+test "$(dpkg-query -W -f='${Version}' oblinux-branding)" = "1.0.0-1"
+
+test -r /usr/share/oblinux/brand/master/oblinux-symbol.svg
+test -r /usr/share/oblinux/brand/tokens/colors.json
+test -r /usr/share/gnome-background-properties/oblinux-backgrounds.xml
+test -r /etc/dconf/db/local.d/00-oblinux-backgrounds
+test -r /usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg
+test -r /usr/share/icons/hicolor/scalable/apps/oblinux-installer.svg
+test -r /usr/share/plymouth/themes/oblinux/oblinux.plymouth
+test -r /usr/share/grub/themes/oblinux/theme.txt
+test -r /usr/share/calamares/branding/oblinux/branding.desc
+
+for wallpaper in default-light default-dark flow air orbit horizon; do
+    test -r "/usr/share/backgrounds/oblinux/oblinux-$wallpaper.svg"
+done
+for size in 16 24 32 48 64 96 128 256 512 1024; do
+    test -r "/usr/share/icons/hicolor/${size}x${size}/apps/oblinux-logo.png"
+    test -r "/usr/share/icons/hicolor/${size}x${size}/apps/oblinux-installer.png"
+done
+
+grep -Fq "picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-default-light.svg'" \
+    /etc/dconf/db/local.d/00-oblinux-backgrounds
+grep -Fq "picture-uri-dark='file:///usr/share/backgrounds/oblinux/oblinux-default-dark.svg'" \
+    /etc/dconf/db/local.d/00-oblinux-backgrounds
+
+plymouth-set-default-theme oblinux
+grep -qx 'Theme=oblinux' /etc/plymouth/plymouthd.conf
+
+install -m 0644 /usr/share/oblinux/templates/issue /etc/issue
+install -m 0644 /usr/share/oblinux/templates/issue.net /etc/issue.net
+install -m 0644 /usr/share/oblinux/templates/motd /etc/motd
+
+gtk-update-icon-cache --force /usr/share/icons/hicolor
+
+echo "OBLinux Brand Master v1.0.0 activation passed"
