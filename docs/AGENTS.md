@@ -24,6 +24,31 @@ experience have source changes and focused acceptance procedures but no newer
 documented full-ISO/clean-install result; do not describe them as runtime-passed
 until those tests actually succeed.
 
+## Stable repository protection
+
+This repository, `oblinux-debian-iso`, is the stable/production OBLinux Debian
+baseline. It preserves the last accepted implementation and is not the normal
+workspace for feature development, experimentation, or branding integration.
+
+- Debian development, integration, ISO builds for proposed changes, and
+  validation occur first in `oblinux-debian-iso-dev`.
+- Shared visual identity and common branding assets are owned upstream by
+  `oblinux-brand-master`. Do not redesign or independently implement shared
+  branding in this repository, and do not consume unreleased Brand Master
+  changes or its `main` branch directly here.
+- Stable receives changes only through a separate promotion after the proposed
+  ISO has built successfully, passed automated validation, runtime testing,
+  and visual/manual review, and received explicit owner authorization.
+- Do not merge, rebase, reset, cherry-pick, copy, or otherwise synchronize dev
+  changes into stable without that explicit promotion authorization. A
+  successful development build alone is not approval.
+- Preserve history, traceability, release boundaries, rollback capability, and
+  the existing known-good branding (including Obsidian Horizon) during any
+  future authorized promotion.
+- Never fabricate build or runtime validation results. A successful ISO build
+  is required before release, and every claimed test result must identify work
+  that was actually executed against the stated artifact and environment.
+
 Core principles from the project charter:
 
 - Stay close to Debian stable; prefer upstream solutions and small, visible,
