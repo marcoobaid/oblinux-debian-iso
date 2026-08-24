@@ -18,6 +18,7 @@ test -r "$brand_dir/icon.svg"
 test -r "$brand_dir/logo.svg"
 
 sed -i \
+    -e 's/^welcomeExpandingLogo:[[:space:]]*false$/welcomeExpandingLogo: true/' \
     -e 's/@VERSION@/Debian 13/g' \
     -e 's#@HOME_URL@#https://github.com/marcoobaid/oblinux-debian-iso-dev#g' \
     -e 's#@SUPPORT_URL@#https://github.com/marcoobaid/oblinux-debian-iso-dev/issues#g' \
@@ -30,6 +31,7 @@ grep -qx 'branding: oblinux' "$settings"
 grep -qx '  productName: OBLinux' "$descriptor"
 grep -qx '  bootloaderEntryName: OBLinux' "$descriptor"
 grep -qx '  productLogo: icon.svg' "$descriptor"
+grep -qx 'welcomeExpandingLogo: true' "$descriptor"
 grep -qx '  SidebarBackground: "#0D2742"' "$descriptor"
 grep -qx '  SidebarText: "#FFFFFF"' "$descriptor"
 grep -qx '  SidebarTextCurrent: "#FF8A00"' "$descriptor"

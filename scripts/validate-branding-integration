@@ -37,6 +37,12 @@ grep -Fq 'rm -f "$legacy_installer_pixmap"' \
 grep -qx 'Theme=oblinux' config/includes.chroot/etc/plymouth/plymouthd.conf
 grep -qx 'GRUB_THEME="/usr/share/grub/themes/oblinux/theme.txt"' \
     config/includes.chroot/etc/default/grub.d/99-oblinux.cfg
+grep -qx 'GRUB_BACKGROUND="/usr/share/grub/themes/oblinux/background.png"' \
+    config/includes.chroot/etc/default/grub.d/99-oblinux.cfg
+grep -Fq "welcomeExpandingLogo:[[:space:]]*false" \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
+grep -Fq "welcomeExpandingLogo: true" \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
 grep -qx 'LOGO=oblinux-logo' config/includes.chroot/etc/os-release
 grep -qx 'ID=oblinux' config/includes.chroot/etc/os-release
 grep -qx 'ID_LIKE=debian' config/includes.chroot/etc/os-release
@@ -54,7 +60,7 @@ grep -Fq "picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-horizon-bra
 test -r config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg
 test -r config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-clean-3840x2160.jpg
 test "$(sha256sum config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg | awk '{print $1}')" = \
-    429f302ec916322a240a4e9f05cffb491bf541e130d2aedafc38a59993af47b2
+    1437f1b4c9b6bec4ab767e22713ccf575abb34a648e10e7918105b575b63a76c
 test "$(sha256sum config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-clean-3840x2160.jpg | awk '{print $1}')" = \
     b8073c48afb64843b1b96114915f29116e3b770e7acd9cb181dbc2f0474d1a5b
 test -r config/includes.chroot/usr/share/doc/oblinux-branding/OBSIDIAN-HORIZON.md

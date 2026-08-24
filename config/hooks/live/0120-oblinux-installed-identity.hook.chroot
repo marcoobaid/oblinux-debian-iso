@@ -36,6 +36,8 @@ cmp /etc/os-release /usr/lib/os-release
 grep -qx 'Theme=oblinux' /etc/plymouth/plymouthd.conf
 grep -qx 'GRUB_THEME="/usr/share/grub/themes/oblinux/theme.txt"' \
     /etc/default/grub.d/99-oblinux.cfg
+grep -qx 'GRUB_BACKGROUND="/usr/share/grub/themes/oblinux/background.png"' \
+    /etc/default/grub.d/99-oblinux.cfg
 
 # Debian resolves both GNOME Control Center's emblem and GDM's bottom vendor
 # mark through one vendor-logos alternatives group. Register a complete
