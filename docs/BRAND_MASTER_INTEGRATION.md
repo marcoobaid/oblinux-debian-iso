@@ -7,11 +7,11 @@ then adopted here through an intentional version update.
 
 ## Current pin
 
-- Release: `v1.0.1`
-- Commit: `4e0ddbc9b8a98b5717c199c33887cc458480afb2`
+- Release: `v1.0.2`
+- Commit: `c68c76d3847714ac66f0e3ebea1fc61984dd556d`
 - Commit archive SHA-256:
-  `1b5e620859250ac3585198ce3e6541c70d979bb29234005872c53cd08fa47116`
-- Debian package: `oblinux-branding` `1.0.1-1`
+  `d6fe90702787ce13e9eb67883dd6e2488f269af2a888a875fcc096f27e93e5f5`
+- Debian package: `oblinux-branding` `1.0.2-1`
 
 The machine-readable pin is `branding/brand-master.lock`. Builds never consume
 Brand Master `main` or another moving ref.
@@ -26,7 +26,7 @@ step extracts the package-owned GRUB background for the live-media bootloader;
 the extracted file is ignored by Git and is not an independently maintained
 artwork copy.
 
-Brand Master v1.0.1 supplies valid `3.0 (quilt)` Debian source metadata, so the
+Brand Master v1.0.2 supplies valid `3.0 (quilt)` Debian source metadata, so the
 temporary source-format compatibility adjustment required by v1.0.0 is no
 longer present downstream.
 
@@ -34,6 +34,12 @@ Brand Master owns the R5 masters, colors, wallpapers, hicolor product icons,
 Plymouth theme, GRUB theme, and Calamares presentation. Debian-specific hooks
 select those assets, render release metadata into Calamares, configure GNOME,
 select Plymouth and GRUB, provide system identity, and verify package payloads.
+The dedicated package-owned `oblinux-about.svg` is the source for GNOME's
+scalable vendor emblem. Debian generates a presentation wrapper with the
+256-by-256 intrinsic dimensions calibrated from the stable repository's
+runtime-tested 128-by-128 baseline while keeping the source viewBox and
+geometry unchanged. The normal `oblinux-logo` hicolor
+application icon remains unchanged for every other consumer.
 The live hook removes the inactive presentation files shipped by
 `calamares-settings-debian` after selecting Brand Master's Calamares theme;
 Debian's installer modules, settings, and cleanup behavior remain intact.

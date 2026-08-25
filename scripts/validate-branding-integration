@@ -7,10 +7,10 @@ cd "$repository_root"
 
 . branding/brand-master.lock
 
-test "$BRAND_MASTER_VERSION" = v1.0.1
-test "$BRAND_MASTER_COMMIT" = 4e0ddbc9b8a98b5717c199c33887cc458480afb2
-test "$BRAND_MASTER_ARCHIVE_SHA256" = 1b5e620859250ac3585198ce3e6541c70d979bb29234005872c53cd08fa47116
-test "$BRANDING_PACKAGE_VERSION" = 1.0.1-1
+test "$BRAND_MASTER_VERSION" = v1.0.2
+test "$BRAND_MASTER_COMMIT" = c68c76d3847714ac66f0e3ebea1fc61984dd556d
+test "$BRAND_MASTER_ARCHIVE_SHA256" = d6fe90702787ce13e9eb67883dd6e2488f269af2a888a875fcc096f27e93e5f5
+test "$BRANDING_PACKAGE_VERSION" = 1.0.2-1
 
 grep -Fq 'scripts/prepare-branding-package' auto/build
 grep -Fq 'scripts/validate-branding-integration' auto/build
@@ -22,11 +22,17 @@ grep -Fq 'oblinux-default-dark.svg' \
     config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
 grep -Fq 'update-initramfs -u -k all' \
     config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq 'dot.frame = (dot.frame + 1) % 5;' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq "grep -Fq '384 x 384'" \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq "grep -Fq '24 x 24'" \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
 grep -Fq "dpkg-query -W -f='\${Version}' oblinux-branding" \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
 grep -Fq '"install ok installed"' \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
-grep -Fq '"1.0.1-1"' \
+grep -Fq '"1.0.2-1"' \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
 grep -Fq 'branding: oblinux' \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
@@ -113,4 +119,11 @@ if grep -RIlE 'BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY|gh[pousr]_[A-Za-z0-9]{20,}
     exit 1
 fi
 
-echo "OBLinux Brand Master v1.0.1 downstream integration validation passed"
+grep -Fq 'oblinux_about_source=/usr/share/oblinux/vendor/oblinux-about.svg' \
+    config/hooks/live/0120-oblinux-installed-identity.hook.chroot
+grep -Fq 'oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-about-gnome.svg' \
+    config/hooks/live/0120-oblinux-installed-identity.hook.chroot
+grep -Fq "width=\"256\" height=\"256\"" \
+    config/hooks/live/0120-oblinux-installed-identity.hook.chroot
+
+echo "OBLinux Brand Master v1.0.2 downstream integration validation passed"

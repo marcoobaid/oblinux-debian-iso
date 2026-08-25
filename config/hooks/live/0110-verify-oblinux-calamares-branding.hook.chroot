@@ -10,7 +10,7 @@ legacy_installer_pixmap=/usr/share/pixmaps/install-debian.png
 
 test "$(dpkg-query -W -f='${Status}' oblinux-branding)" = \
     "install ok installed"
-test "$(dpkg-query -W -f='${Version}' oblinux-branding)" = "1.0.1-1"
+test "$(dpkg-query -W -f='${Version}' oblinux-branding)" = "1.0.2-1"
 test -r "$descriptor"
 test -r "$brand_dir/slideshow.qml"
 test -r "$brand_dir/finished.qml"

@@ -6,7 +6,7 @@ wallpaper as a Debian-edition default.
 The clean wallpaper master was generated for the OBLinux Project with OpenAI's
 built-in image-generation tool from a project-authored visual specification.
 The branded composition was assembled from that master and the authoritative
-R5 v1.0.1 white lockup through deterministic project tooling. Its established
+R5 white lockup through deterministic project tooling. Its established
 lower-right footprint and the underlying Obsidian Horizon composition are
 retained; only the superseded logo was replaced.
 

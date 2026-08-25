@@ -180,6 +180,9 @@ cat /etc/os-release
 ```
 
 Confirm `ID=oblinux`, `ID_LIKE=debian`, and `LOGO=oblinux-logo` are present.
+Open GNOME Settings System/About and confirm that the centered R5 symbol uses
+the dedicated 256-by-256 intrinsic-size vendor emblem rather than expanding to
+fill the page.
 
 After installation, confirm the GRUB background uses Obsidian Horizon and the
 primary entry is exactly `OBLinux`. The advanced submenu must be

@@ -4,7 +4,7 @@ set -eu
 
 test "$(dpkg-query -W -f='${Status}' oblinux-branding)" = \
     "install ok installed"
-test "$(dpkg-query -W -f='${Version}' oblinux-branding)" = "1.0.1-1"
+test "$(dpkg-query -W -f='${Version}' oblinux-branding)" = "1.0.2-1"
 
 test -r /usr/share/oblinux/brand/master/oblinux-symbol.svg
 test -r /usr/share/oblinux/brand/tokens/colors.json
@@ -14,10 +14,13 @@ test -r /usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg
 test -r /usr/share/icons/hicolor/scalable/apps/oblinux-installer.svg
 test -r /usr/share/plymouth/themes/oblinux/oblinux.plymouth
 test -r /usr/share/plymouth/themes/oblinux/oblinux.script
+test -r /usr/share/plymouth/themes/oblinux/symbol.png
+test -r /usr/share/plymouth/themes/oblinux/dot.png
 test -r /usr/share/plymouth/themes/oblinux/dot-white.png
 test -r /usr/share/grub/themes/oblinux/theme.txt
 test -r /usr/share/grub/themes/oblinux/logo.png
 test -r /usr/share/calamares/branding/oblinux/branding.desc
+test -r /usr/share/oblinux/vendor/oblinux-about.svg
 
 for wallpaper in default-light default-dark flow air orbit horizon; do
     test -r "/usr/share/backgrounds/oblinux/oblinux-$wallpaper.svg"
@@ -34,8 +37,13 @@ grep -Fq "picture-uri-dark='file:///usr/share/backgrounds/oblinux/oblinux-defaul
 
 plymouth-set-default-theme oblinux
 grep -qx 'Theme=oblinux' /etc/plymouth/plymouthd.conf
-grep -Fq 'Math.Int(Time() * 2.5) % 5' \
+grep -Fq 'dot.frame = (dot.frame + 1) % 5;' \
     /usr/share/plymouth/themes/oblinux/oblinux.script
+grep -Fq 'dot.sprite.SetPosition(dot.positions[dot.frame], dot.y, 10);' \
+    /usr/share/plymouth/themes/oblinux/oblinux.script
+file /usr/share/plymouth/themes/oblinux/symbol.png | grep -Fq '384 x 384'
+file /usr/share/plymouth/themes/oblinux/dot.png | grep -Fq '24 x 24'
+file /usr/share/plymouth/themes/oblinux/dot-white.png | grep -Fq '24 x 24'
 update-initramfs -u -k all
 
 install -m 0644 /usr/share/oblinux/templates/issue /etc/issue
@@ -44,4 +52,4 @@ install -m 0644 /usr/share/oblinux/templates/motd /etc/motd
 
 gtk-update-icon-cache --force /usr/share/icons/hicolor
 
-echo "OBLinux Brand Master v1.0.1 activation passed"
+echo "OBLinux Brand Master v1.0.2 activation passed"
