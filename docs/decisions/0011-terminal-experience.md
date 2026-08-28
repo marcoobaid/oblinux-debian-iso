@@ -17,7 +17,7 @@ OBLinux will provide the following terminal defaults:
 - Bash remains installed and available as a recovery and compatibility shell.
 - Starship supplies a compact developer prompt with Git state, command duration, exit status, and the OBLinux navy/cyan palette.
 - Debian-packaged `zsh-autosuggestions` and `zsh-syntax-highlighting` provide interactive assistance.
-- Fastfetch displays a small OBLinux ASCII wordmark and a concise system summary when the first interactive shell starts. Normal values follow the terminal foreground for light/dark readability, while the logo, title, and labels use restrained adaptive colors from the Ptyxis palette. The generic ANSI palette strip is omitted.
+- Fastfetch displays Brand Master's compact shared R5 symbol and a concise system summary when the first interactive shell starts. The new-user Debian configuration references the package-owned logo directly, retains the package-count module, and remains user-editable. Normal values follow the terminal foreground for light/dark readability, while the logo uses canonical OBLinux blue and orange and the title and labels use restrained OBLinux blue. The generic ANSI palette strip is omitted.
 - Ptyxis receives an OBLinux Horizon palette with modest transparency and uses the user's login shell.
 
 Reusable user defaults live under `/etc/skel`. The build explicitly configures Calamares's nested `user.shell` setting to assign `/bin/zsh`; it does not rely on a live-session side effect. System dconf defaults establish the initial Ptyxis profile but remain user-overridable.

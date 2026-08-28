@@ -1,4 +1,4 @@
-# Brand Master v1.0.1 runtime test
+# Brand Master v1.0.3 runtime test
 
 Use a disposable VM with UEFI, a blank virtual disk, and the generated dev ISO.
 Record the ISO SHA-256 and tested commit before beginning.
@@ -16,6 +16,10 @@ Record the ISO SHA-256 and tested commit before beginning.
 - The installer launcher uses the R5 installer icon.
 - Calamares shows the proportional R5 lockup, navy/blue sidebar with readable
   white/orange navigation, seven canonical R5 slides, and completion state.
+- FastFetch displays the compact shared R5 symbol in OBLinux blue and orange,
+  without the legacy OB wordmark, missing-file errors, or alignment problems.
+- FastFetch retains the concise Debian system summary, including package count,
+  and remains readable at normal terminal dimensions.
 
 ## Installed journey
 
@@ -27,6 +31,11 @@ Record the ISO SHA-256 and tested commit before beginning.
 - GNOME retains Obsidian Horizon as its light/dark and lock-screen default and
   retains the hicolor icons.
 - `/etc/issue`, `/etc/issue.net`, and `/etc/motd` use restrained OBLinux text.
+- A newly created user's FastFetch configuration references
+  `/usr/share/oblinux/terminal/fastfetch/logo.txt`; no legacy `oblinux.txt`
+  exists in the user's seeded configuration.
+- An existing user's customized FastFetch configuration is not overwritten by
+  the package upgrade.
 - No legacy OBLinux or unintended Debian product artwork appears.
 
 Do not record a pass for any surface that was not directly observed.

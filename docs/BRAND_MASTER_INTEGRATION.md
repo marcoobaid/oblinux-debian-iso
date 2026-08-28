@@ -7,11 +7,11 @@ then adopted here through an intentional version update.
 
 ## Current pin
 
-- Release: `v1.0.2`
-- Commit: `c68c76d3847714ac66f0e3ebea1fc61984dd556d`
+- Release: `v1.0.3`
+- Commit: `46e3ed6986d3785c28639bd2dd6656203e2758c7`
 - Commit archive SHA-256:
-  `d6fe90702787ce13e9eb67883dd6e2488f269af2a888a875fcc096f27e93e5f5`
-- Debian package: `oblinux-branding` `1.0.2-1`
+  `d3f0f8ef1a7ec80e18e379efad992ab917c90e898ca75aee6a89e3dcbf6af83c`
+- Debian package: `oblinux-branding` `1.0.3-1`
 
 The machine-readable pin is `branding/brand-master.lock`. Builds never consume
 Brand Master `main` or another moving ref.
@@ -26,7 +26,7 @@ step extracts the package-owned GRUB background for the live-media bootloader;
 the extracted file is ignored by Git and is not an independently maintained
 artwork copy.
 
-Brand Master v1.0.2 supplies valid `3.0 (quilt)` Debian source metadata, so the
+Brand Master v1.0.3 supplies valid `3.0 (quilt)` Debian source metadata, so the
 temporary source-format compatibility adjustment required by v1.0.0 is no
 longer present downstream.
 
@@ -45,6 +45,10 @@ The live hook removes the inactive presentation files shipped by
 Debian's installer modules, settings, and cleanup behavior remain intact.
 The separate OBLinux Horizon application icon theme remains downstream because
 it is a full Papirus-derived desktop icon theme, not shared logo artwork.
+Brand Master also supplies the shared FastFetch logo and reusable configuration
+under `/usr/share/oblinux/terminal/fastfetch/`. Debian retains its module policy
+in the new-user default under `/etc/skel`, which references the package-owned
+logo directly. Existing users' FastFetch configuration remains untouched.
 
 ## Legacy migration
 

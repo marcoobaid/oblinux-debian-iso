@@ -79,7 +79,11 @@ awk '
 test -r /etc/skel/.zshrc
 test -r /etc/skel/.config/starship.toml
 test -r /etc/skel/.config/fastfetch/config.jsonc
-test -r /etc/skel/.config/fastfetch/oblinux.txt
+test -r /usr/share/oblinux/terminal/fastfetch/logo.txt
+test -r /usr/share/oblinux/terminal/fastfetch/config.jsonc
+test ! -e /etc/skel/.config/fastfetch/oblinux.txt
+grep -Fq '"source": "/usr/share/oblinux/terminal/fastfetch/logo.txt"' \
+    /etc/skel/.config/fastfetch/config.jsonc
 test -r /etc/skel/.local/share/org.gnome.Ptyxis/palettes/oblinux.palette
 test -x /usr/lib/live/config/0035-oblinux-zsh
 test -s /etc/dconf/db/local

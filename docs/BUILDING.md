@@ -250,10 +250,10 @@ timestamped log under `build-logs/`, validates the branding pin, prepares the
 pinned `oblinux-branding` package and independently versioned
 `oblinux-icon-theme` package, and then executes `lb build noauto`.
 
-Brand Master is pinned to release `v1.0.1`, commit
-`4e0ddbc9b8a98b5717c199c33887cc458480afb2`, and a reviewed commit-archive
+Brand Master is pinned to release `v1.0.3`, commit
+`46e3ed6986d3785c28639bd2dd6656203e2758c7`, and a reviewed commit-archive
 SHA-256 in `branding/brand-master.lock`. The preparation script never consumes
-a moving branch. It verifies and builds `oblinux-branding` `1.0.1-1`, then
+a moving branch. It verifies and builds `oblinux-branding` `1.0.3-1`, then
 validates its metadata before making it available to live-build. See
 `docs/BRAND_MASTER_INTEGRATION.md` for the immutable dependency and upgrade
 process.
@@ -440,7 +440,7 @@ failure.
 - NetworkManager establishes network connectivity.
 - Firefox ESR and Ptyxis launch.
 - `oblinux-icon-theme` is installed and Horizon Dark is the GNOME default.
-- `oblinux-branding` `1.0.1-1` is installed and its GNOME, Calamares, GRUB,
+- `oblinux-branding` `1.0.3-1` is installed and its GNOME, Calamares, GRUB,
   Plymouth, product-icon, and system-template payloads pass the integration
   checks in `docs/tests/BRAND_MASTER_RUNTIME_TEST.md`.
 - Reboot and shutdown work.

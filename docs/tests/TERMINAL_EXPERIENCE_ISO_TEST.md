@@ -14,10 +14,11 @@ Confirm:
   uses a dark readable foreground without requiring an appearance toggle;
 - the shell is Zsh;
 - the Starship prompt is visible and remains readable;
-- Fastfetch displays the OBLinux ASCII wordmark once when the first terminal is opened;
-- Fastfetch uses a cyan logo and blue title/label accents that remain readable in
-  light and dark styles, without bright red fixed styling or an ANSI palette
-  strip;
+- Fastfetch displays the compact shared R5 symbol once when the first terminal
+  is opened, with no legacy OB wordmark;
+- Fastfetch uses the canonical OBLinux blue/orange logo and blue title/label
+  accents that remain readable in light and dark styles, without an ANSI
+  palette strip;
 - command completion, autosuggestions, and syntax highlighting work;
 - the terminal uses the OBLinux navy/cyan palette and modest transparency;
 - opening another interactive shell does not print Fastfetch repeatedly.
@@ -48,6 +49,9 @@ command -v bash zsh starship fastfetch
 test -r ~/.zshrc && echo 'PASS: Zsh configuration present'
 test -r ~/.config/starship.toml && echo 'PASS: Starship configuration present'
 test -r ~/.config/fastfetch/config.jsonc && echo 'PASS: Fastfetch configuration present'
+grep -Fq '"source": "/usr/share/oblinux/terminal/fastfetch/logo.txt"' \
+  ~/.config/fastfetch/config.jsonc && echo 'PASS: package-owned R5 logo selected'
+test ! -e ~/.config/fastfetch/oblinux.txt && echo 'PASS: legacy Fastfetch logo absent'
 ```
 
 Expected: the installed account and active session use `/bin/zsh`; Bash remains available; all three user configuration checks pass.

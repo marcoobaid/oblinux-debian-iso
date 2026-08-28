@@ -24,11 +24,11 @@ and targeted presentation acceptance with one dark-theme About-logo contrast
 follow-up. POC Build 009 passed complete runtime acceptance with a
 theme-neutral About badge, closing the foundational OBLinux theming milestone.
 The development repository now consumes the locked OBLinux Brand Master
-v1.0.1 package for corrected shared R5 boot and installer assets. OBLinux
+v1.0.3 package, including shared R5 FastFetch branding. OBLinux
 Debian independently retains Obsidian Horizon as its unlocked desktop and
-lock-screen default. The v1.0.1 integration completed a clean Debian 13 ISO
-build and static payload inspection; owner runtime and visual acceptance remain
-required. There is no supported public release yet.
+lock-screen default. Previously accepted R5 surfaces have passed VM and
+physical-hardware testing; the v1.0.3 FastFetch correction requires owner
+runtime and visual acceptance. There is no supported public release yet.
 
 ## Documentation
 
@@ -40,7 +40,8 @@ required. There is no supported public release yet.
 - [Build instructions](docs/BUILDING.md)
 - [Brand Master integration](docs/BRAND_MASTER_INTEGRATION.md)
 - [Brand Master runtime test](docs/tests/BRAND_MASTER_RUNTIME_TEST.md)
-- [Brand Master v1.0.1 development build](docs/builds/2026-08-24-r5-v1.0.1.md)
+- [Brand Master v1.0.2 development build](docs/builds/2026-08-24-r5-v1.0.2.md)
+- [Brand Master v1.0.3 FastFetch integration](docs/builds/2026-08-28-r5-v1.0.3.md)
 - [Installer integration and test plan](docs/INSTALLER.md)
 - [POC build 001 record](docs/builds/2026-08-17-poc-001.md)
 - [POC build 002 installer record](docs/builds/2026-08-18-poc-002.md)
