@@ -429,12 +429,38 @@ sudo lb build
 reproducibility matters or stale state is suspected, not reflexively after every
 failure.
 
-Branding-package updates require this purged rebuild. `lb clean --binary` only
-regenerates the binary image from the retained chroot; it does not guarantee
-that the live hooks which activate and validate package-owned Calamares
-branding run again. Do not accept a branding-update ISO until direct SquashFS
-inspection confirms that the Calamares descriptor contains no template tokens
-and has the expected downstream settings.
+Use the following complete procedure whenever the pinned `oblinux-branding`
+version, its packaged payload, or package-owned branding assets change, or when
+hooks and downstream transformations that depend on package defaults must run
+again:
+
+```bash
+sudo lb clean --purge
+scripts/validate-branding-integration
+lb config
+lb config --validate
+sudo lb build
+```
+
+This is the supported branding-package rebuild procedure confirmed during the
+Brand Master v1.0.4 recovery. It regenerates the live filesystem and retained
+chroot state, reinstalls the package, reruns applicable live hooks and
+downstream transformations, and rebuilds the final binary/ISO stage.
+`lb clean --binary` may be used for a change confined to binary assembly, but
+it is insufficient when a branding package must be reinstalled or processed
+inside the live filesystem.
+
+After the build, inspect the final ISO's SquashFS rather than trusting build
+success alone. Confirm the installed `oblinux-branding` version, expected
+package-owned files, downstream-transformed configuration, and absence of
+stale assets or obsolete downstream copies. Apparent branding regressions must
+first be checked for retained build state; do not edit or duplicate Brand
+Master artwork downstream to compensate for a stale chroot.
+
+Payload inspection does not replace runtime visual acceptance. Boot the ISO
+and validate affected visual surfaces such as GRUB, Plymouth, GNOME,
+FastFetch, and Calamares according to the applicable checklist under
+`docs/tests/`.
 
 ## Image acceptance criteria
 

@@ -145,9 +145,32 @@ lb config
 sudo lb build
 ```
 
-Branding-package updates require the purged rebuild; `lb clean --binary` does
-not guarantee that downstream activation hooks rerun against a retained chroot.
-Inspect the resulting SquashFS branding descriptor before accepting the ISO.
+### Branding Package Rebuild Safety
+
+Changes to the `oblinux-branding` package or its packaged payload must not
+be validated using only a retained live-build chroot with:
+
+    lb clean --binary
+
+A binary-only clean regenerates the binary/ISO stage but may preserve an
+existing chroot and therefore may not rerun live hooks or downstream
+transformations that operate on branding-package defaults. This can produce
+a successfully built ISO containing stale branding or configuration.
+
+When the pinned `oblinux-branding` version or packaged branding payload
+changes, perform a clean/rebuild that forces the affected live filesystem,
+chroot package installation, and applicable hooks to be regenerated.
+
+After rebuilding, inspect the resulting ISO/live filesystem to confirm that
+the expected branding package version and transformed runtime assets are
+actually present.
+
+A successful ISO build alone is not evidence that a branding-package update
+was incorporated correctly. Runtime or payload validation is required.
+
+Do not work around stale build-state problems by modifying Brand Master
+artwork or introducing downstream branding copies. First rule out retained
+live-build state and verify the generated payload.
 
 Do not clean immediately after a failure; preserve terminal output, the
 timestamped build log, and generated state for diagnosis. Never store sudo
