@@ -48,7 +48,10 @@ it is a full Papirus-derived desktop icon theme, not shared logo artwork.
 Brand Master also supplies the shared FastFetch logo and reusable configuration
 under `/usr/share/oblinux/terminal/fastfetch/`. Debian retains its module policy
 in the new-user default under `/etc/skel`, which references the package-owned
-logo directly. Existing users' FastFetch configuration remains untouched.
+logo directly. Debian 13's FastFetch 2.40.4 requires ANSI true-color expressions
+instead of hexadecimal color strings, so the downstream configuration expresses
+the canonical blue and orange as `38;2;30;77;140` and `38;2;255;138;0`.
+Existing users' FastFetch configuration remains untouched.
 
 ## Legacy migration
 

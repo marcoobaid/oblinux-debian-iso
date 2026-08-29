@@ -75,9 +75,9 @@ test -r config/includes.chroot/etc/skel/.config/fastfetch/config.jsonc
 test ! -e config/includes.chroot/etc/skel/.config/fastfetch/oblinux.txt
 grep -Fq '"source": "/usr/share/oblinux/terminal/fastfetch/logo.txt"' \
     config/includes.chroot/etc/skel/.config/fastfetch/config.jsonc
-grep -Fq '"1": "#1E4D8C"' \
+grep -Fq '"1": "38;2;30;77;140"' \
     config/includes.chroot/etc/skel/.config/fastfetch/config.jsonc
-grep -Fq '"2": "#FF8A00"' \
+grep -Fq '"2": "38;2;255;138;0"' \
     config/includes.chroot/etc/skel/.config/fastfetch/config.jsonc
 grep -Fq '"packages"' \
     config/includes.chroot/etc/skel/.config/fastfetch/config.jsonc

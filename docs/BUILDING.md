@@ -123,7 +123,7 @@ What these packages provide:
 | `dosfstools` and `mtools` | Create and populate FAT filesystems used by EFI boot media. |
 | `isolinux` and `syslinux-utils` | Supporting boot-media utilities; Syslinux is not currently the selected bootloader. |
 | `ca-certificates` | Validates HTTPS certificates while downloading packages. |
-| `curl`, `dpkg-dev`, `debhelper`, `python3`, and `librsvg2-bin` | Fetch, validate, and build the pinned Brand Master Debian package. |
+| `curl`, `dpkg-dev`, `debhelper`, `python3`, `python3-pil`, and `librsvg2-bin` | Fetch, validate, and build the pinned Brand Master Debian package. |
 | `git` and `rsync` | Version-control and file-transfer tools used by the workflow. |
 
 `sudo apt update` refreshes local repository indexes; it does not upgrade the
