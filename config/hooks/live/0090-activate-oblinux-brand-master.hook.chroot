@@ -4,7 +4,7 @@ set -eu
 
 test "$(dpkg-query -W -f='${Status}' oblinux-branding)" = \
     "install ok installed"
-test "$(dpkg-query -W -f='${Version}' oblinux-branding)" = "1.0.3-1"
+test "$(dpkg-query -W -f='${Version}' oblinux-branding)" = "1.0.4-1"
 
 test -r /usr/share/oblinux/brand/master/oblinux-symbol.svg
 test -r /usr/share/oblinux/brand/tokens/colors.json
@@ -24,6 +24,13 @@ test -r /usr/share/oblinux/vendor/oblinux-about.svg
 test -r /usr/share/oblinux/terminal/fastfetch/logo.txt
 test -r /usr/share/oblinux/terminal/fastfetch/config.jsonc
 test -r /usr/share/doc/oblinux-branding/fastfetch/README.md
+test "$(sha256sum /usr/share/oblinux/terminal/fastfetch/logo.txt | awk '{print $1}')" = \
+    a0d28b2b48ec680768694cacb8707d77c79b3bf8102094f686c76ea739642696
+test "$(wc -l < /usr/share/oblinux/terminal/fastfetch/logo.txt)" -eq 15
+grep -Fq '"1": "38;2;30;77;140"' \
+    /usr/share/oblinux/terminal/fastfetch/config.jsonc
+grep -Fq '"2": "38;2;255;138;0"' \
+    /usr/share/oblinux/terminal/fastfetch/config.jsonc
 
 for wallpaper in default-light default-dark flow air orbit horizon; do
     test -r "/usr/share/backgrounds/oblinux/oblinux-$wallpaper.svg"
@@ -55,4 +62,4 @@ install -m 0644 /usr/share/oblinux/templates/motd /etc/motd
 
 gtk-update-icon-cache --force /usr/share/icons/hicolor
 
-echo "OBLinux Brand Master v1.0.3 activation passed"
+echo "OBLinux Brand Master v1.0.4 activation passed"

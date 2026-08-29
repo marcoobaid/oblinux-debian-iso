@@ -1,4 +1,4 @@
-# Brand Master v1.0.3 runtime test
+# Brand Master v1.0.4 runtime test
 
 Use a disposable VM with UEFI, a blank virtual disk, and the generated dev ISO.
 Record the ISO SHA-256 and tested commit before beginning.
@@ -16,8 +16,10 @@ Record the ISO SHA-256 and tested commit before beginning.
 - The installer launcher uses the R5 installer icon.
 - Calamares shows the proportional R5 lockup, navy/blue sidebar with readable
   white/orange navigation, seven canonical R5 slides, and completion state.
-- FastFetch displays the compact shared R5 symbol in OBLinux blue and orange,
-  without the legacy OB wordmark, missing-file errors, or alignment problems.
+- FastFetch displays the higher-fidelity 30×15 shared R5 symbol in OBLinux blue
+  and orange, without the legacy OB wordmark, missing-file errors, or alignment
+  problems. Its curved outer geometry, orange internal form, and negative
+  spaces should read more clearly as R5 than the v1.0.3 rendition.
 - FastFetch retains the concise Debian system summary, including package count,
   and remains readable at normal terminal dimensions.
 

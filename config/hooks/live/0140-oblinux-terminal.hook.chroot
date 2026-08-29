@@ -82,6 +82,9 @@ test -r /etc/skel/.config/fastfetch/config.jsonc
 test -r /usr/share/oblinux/terminal/fastfetch/logo.txt
 test -r /usr/share/oblinux/terminal/fastfetch/config.jsonc
 test ! -e /etc/skel/.config/fastfetch/oblinux.txt
+test "$(sha256sum /usr/share/oblinux/terminal/fastfetch/logo.txt | awk '{print $1}')" = \
+    a0d28b2b48ec680768694cacb8707d77c79b3bf8102094f686c76ea739642696
+test "$(wc -l < /usr/share/oblinux/terminal/fastfetch/logo.txt)" -eq 15
 grep -Fq '"source": "/usr/share/oblinux/terminal/fastfetch/logo.txt"' \
     /etc/skel/.config/fastfetch/config.jsonc
 test -r /etc/skel/.local/share/org.gnome.Ptyxis/palettes/oblinux.palette

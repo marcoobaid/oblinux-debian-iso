@@ -7,10 +7,10 @@ cd "$repository_root"
 
 . branding/brand-master.lock
 
-test "$BRAND_MASTER_VERSION" = v1.0.3
-test "$BRAND_MASTER_COMMIT" = 46e3ed6986d3785c28639bd2dd6656203e2758c7
-test "$BRAND_MASTER_ARCHIVE_SHA256" = d3f0f8ef1a7ec80e18e379efad992ab917c90e898ca75aee6a89e3dcbf6af83c
-test "$BRANDING_PACKAGE_VERSION" = 1.0.3-1
+test "$BRAND_MASTER_VERSION" = v1.0.4
+test "$BRAND_MASTER_COMMIT" = 13e211da2ccd43156fcc7dc7e57c3be7bb5ee47d
+test "$BRAND_MASTER_ARCHIVE_SHA256" = 48e2985de37567838802d4d6346bb846ff8135b5488ae65d56205ed7fe85d9e1
+test "$BRANDING_PACKAGE_VERSION" = 1.0.4-1
 
 grep -Fq 'scripts/prepare-branding-package' auto/build
 grep -Fq 'scripts/validate-branding-integration' auto/build
@@ -32,7 +32,7 @@ grep -Fq "dpkg-query -W -f='\${Version}' oblinux-branding" \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
 grep -Fq '"install ok installed"' \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
-grep -Fq '"1.0.3-1"' \
+grep -Fq '"1.0.4-1"' \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
 grep -Fq 'branding: oblinux' \
     config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
@@ -84,6 +84,10 @@ grep -Fq '"packages"' \
 grep -Fq '/usr/share/oblinux/terminal/fastfetch/logo.txt' \
     config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
 grep -Fq '/usr/share/oblinux/terminal/fastfetch/config.jsonc' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq 'a0d28b2b48ec680768694cacb8707d77c79b3bf8102094f686c76ea739642696' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq 'wc -l < /usr/share/oblinux/terminal/fastfetch/logo.txt' \
     config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
 
 legacy_paths='branding/assets
@@ -140,4 +144,4 @@ grep -Fq 'oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-about-gnome.sv
 grep -Fq "width=\"256\" height=\"256\"" \
     config/hooks/live/0120-oblinux-installed-identity.hook.chroot
 
-echo "OBLinux Brand Master v1.0.3 downstream integration validation passed"
+echo "OBLinux Brand Master v1.0.4 downstream integration validation passed"
