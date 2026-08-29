@@ -413,6 +413,58 @@ sudo lb build
 reproducibility matters or stale state is suspected, not reflexively after every
 failure.
 
+### Branding package rebuild safety
+
+Use a purge rebuild when the pinned `oblinux-branding` version changes, its
+packaged payload or package-owned branding assets change, or live hooks and
+downstream transformations that depend on package defaults must rerun:
+
+```bash
+sudo lb clean --purge
+lb config
+lb config --validate
+sudo lb build
+```
+
+This stable repository does not contain a separate
+`scripts/validate-branding-integration` command. Its supported pre-build static
+validation is `lb config --validate`; package and branding assertions provided
+by the tracked build hooks run as part of `sudo lb build`.
+
+`lb clean --binary` may be appropriate when only the final binary/ISO stage
+needs regeneration. It is not sufficient for a branding-package change that
+requires the live filesystem or chroot to be recreated, the package to be
+installed again, hooks to rerun, or downstream transformations to be
+regenerated. A binary-only clean may retain the chroot and produce a successful
+ISO with stale branding or configuration. For branding-package or payload
+changes, the safe default is a purge rebuild.
+
+After the rebuild, inspect the generated ISO and live filesystem rather than
+treating build success as proof that the package update was incorporated.
+Validation should confirm, as applicable:
+
+- the expected `oblinux-branding` package version;
+- the expected package-owned branding files;
+- the expected downstream-transformed runtime files;
+- the absence of stale branding assets or configuration;
+- the absence of obsolete downstream copies of package-owned branding; and
+- the resulting live filesystem and ISO payload.
+
+Static and payload validation establish what the artifact contains; they do
+not prove that branding renders correctly at runtime. Perform the applicable
+runtime and visual checks described in `docs/TESTING.md` and the focused
+checklists under `docs/tests/` for surfaces such as GRUB, Plymouth, GNOME,
+FastFetch, and Calamares.
+
+Brand Master owns the shared OBLinux visual identity and shared R5 assets. This
+Debian ISO repository owns consumption of released Brand Master packages,
+Debian-specific integration, live-build behavior, downstream transformations,
+activation, and runtime validation. If branding appears to regress after a
+package upgrade, first rule out retained live-build state and inspect the
+generated payload. Do not respond by editing Brand Master artwork downstream,
+copying package-owned shared artwork into Debian, creating a Debian-specific
+shared R5 asset, or changing canonical R5 geometry.
+
 ## Image acceptance criteria
 
 - `lb config` and `lb config --validate` complete without errors.
