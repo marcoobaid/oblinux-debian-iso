@@ -19,7 +19,10 @@ test -r "$brand_dir/logo.svg"
 
 sed -i \
     -e 's/^welcomeExpandingLogo:[[:space:]]*false$/welcomeExpandingLogo: true/' \
-    -e 's/@VERSION@/Debian 13/g' \
+    -e 's/^[[:space:]]*version:[[:space:]].*/  version: ""/' \
+    -e 's/^[[:space:]]*shortVersion:[[:space:]].*/  shortVersion: ""/' \
+    -e 's/^[[:space:]]*versionedName:[[:space:]].*/  versionedName: OBLinux/' \
+    -e 's/^[[:space:]]*shortVersionedName:[[:space:]].*/  shortVersionedName: OBLinux/' \
     -e 's#@HOME_URL@#https://github.com/marcoobaid/oblinux-debian-iso-dev#g' \
     -e 's#@SUPPORT_URL@#https://github.com/marcoobaid/oblinux-debian-iso-dev/issues#g' \
     -e 's#@BUG_REPORT_URL@#https://github.com/marcoobaid/oblinux-debian-iso-dev/issues#g' \
@@ -29,6 +32,10 @@ sed -i \
 sed -i 's/^branding:[[:space:]].*/branding: oblinux/' "$settings"
 grep -qx 'branding: oblinux' "$settings"
 grep -qx '  productName: OBLinux' "$descriptor"
+grep -qx '  version: ""' "$descriptor"
+grep -qx '  shortVersion: ""' "$descriptor"
+grep -qx '  versionedName: OBLinux' "$descriptor"
+grep -qx '  shortVersionedName: OBLinux' "$descriptor"
 grep -qx '  bootloaderEntryName: OBLinux' "$descriptor"
 grep -qx '  productLogo: icon.svg' "$descriptor"
 grep -qx 'welcomeExpandingLogo: true' "$descriptor"

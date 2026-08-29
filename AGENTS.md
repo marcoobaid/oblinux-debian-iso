@@ -145,6 +145,10 @@ lb config
 sudo lb build
 ```
 
+Branding-package updates require the purged rebuild; `lb clean --binary` does
+not guarantee that downstream activation hooks rerun against a retained chroot.
+Inspect the resulting SquashFS branding descriptor before accepting the ISO.
+
 Do not clean immediately after a failure; preserve terminal output, the
 timestamped build log, and generated state for diagnosis. Never store sudo
 passwords or other secrets in scripts, environment, logs, or documentation.

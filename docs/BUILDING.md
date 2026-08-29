@@ -429,6 +429,13 @@ sudo lb build
 reproducibility matters or stale state is suspected, not reflexively after every
 failure.
 
+Branding-package updates require this purged rebuild. `lb clean --binary` only
+regenerates the binary image from the retained chroot; it does not guarantee
+that the live hooks which activate and validate package-owned Calamares
+branding run again. Do not accept a branding-update ISO until direct SquashFS
+inspection confirms that the Calamares descriptor contains no template tokens
+and has the expected downstream settings.
+
 ## Image acceptance criteria
 
 - `lb config` and `lb config --validate` complete without errors.
@@ -440,7 +447,7 @@ failure.
 - NetworkManager establishes network connectivity.
 - Firefox ESR and Ptyxis launch.
 - `oblinux-icon-theme` is installed and Horizon Dark is the GNOME default.
-- `oblinux-branding` `1.0.3-1` is installed and its GNOME, Calamares, GRUB,
+- `oblinux-branding` `1.0.4-1` is installed and its GNOME, Calamares, GRUB,
   Plymouth, product-icon, and system-template payloads pass the integration
   checks in `docs/tests/BRAND_MASTER_RUNTIME_TEST.md`.
 - Reboot and shutdown work.
