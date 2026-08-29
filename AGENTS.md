@@ -225,6 +225,25 @@ filenames and checksums recorded when useful.
 - Keep project-facing documentation professional and free of personal names or
   unique device identifiers; use project roles and redact serial numbers.
 
+### Release and tagging policy
+
+Release tags are always the final step of the release process:
+
+`Change → Validate → Commit → Push main → CI passes → Tag`
+
+- Never create, move, delete, or push a release tag during normal development.
+- Before declaring a release ready, ensure all intended changes are committed,
+  the working tree is clean, release and package metadata are consistent,
+  repository validation passes, the changes are pushed to `main`, and CI passes
+  on that final `main` commit.
+- After those checks pass, stop and report that the repository is
+  **release-ready**. Do not create or push the release tag unless the owner
+  explicitly authorizes it after that declaration.
+- Never tag an intermediate release-preparation commit while validation,
+  metadata, packaging, or corrective commits remain.
+- If a published tag is found to be wrong, do not move or replace it
+  automatically; stop and ask the owner how to proceed.
+
 ## Documentation routing
 
 - Vision, principles, governance: `docs/PROJECT_CHARTER.md`
