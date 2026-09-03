@@ -67,6 +67,8 @@ SHA256SUMS.sign
 /config/hooks/live/0010-disable-kexec-tools.hook.chroot
 /config/hooks/live/0050-disable-sysvinit-tmpfs.hook.chroot
 /config/hooks/normal/
+/config/includes.chroot/etc/os-release
+/config/includes.chroot/usr/lib/os-release
 
 # Extracted from the pinned oblinux-branding package for live-media GRUB.
 /config/bootloaders/grub-pc/live-theme/background.png

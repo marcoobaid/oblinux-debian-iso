@@ -93,6 +93,13 @@ The packaged workflow:
 9. Regenerates the initramfs and unmounts the target.
 10. Offers to restart into the installed system.
 
+The live SquashFS contains the two generated OBLinux `os-release` files. They
+are OBLinux-owned image content, not files owned by
+`calamares-settings-debian`, so unpacking copies the exact `VERSION` and
+`BUILD_ID` to the target and the installer cleanup does not remove them. Every
+installer regression must verify the installed values against the source ISO;
+see [VERSIONING.md](VERSIONING.md) and [TESTING.md](TESTING.md).
+
 Builds 002 through 004 deliberately retained Debian branding and the
 `Install Debian` launcher while the unmodified Debian-maintained workflow was
 being proven. Build 005 replaces only the identity-facing branding content,

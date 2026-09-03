@@ -38,6 +38,7 @@ runtime and visual acceptance. There is no supported public release yet.
 - [Initial architecture](docs/ARCHITECTURE.md)
 - [Testing strategy](docs/TESTING.md)
 - [Build instructions](docs/BUILDING.md)
+- [Versioning and build identification](docs/VERSIONING.md)
 - [Brand Master integration](docs/BRAND_MASTER_INTEGRATION.md)
 - [Brand Master runtime test](docs/tests/BRAND_MASTER_RUNTIME_TEST.md)
 - [Brand Master v1.0.2 development build](docs/builds/2026-08-24-r5-v1.0.2.md)

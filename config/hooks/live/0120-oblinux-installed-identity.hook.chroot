@@ -29,7 +29,10 @@ elif ! grep -Fqx "$replacement" "$grub_linux"; then
     exit 1
 fi
 
-grep -qx 'PRETTY_NAME="OBLinux (Debian 13)"' /etc/os-release
+grep -Eq '^PRETTY_NAME="OBLinux [0-9]{2}\.[1-4]\.[0-9]+(-dev)?"$' /etc/os-release
+grep -Eq '^VERSION="[0-9]{2}\.[1-4]\.[0-9]+(-dev)?"$' /etc/os-release
+grep -Eq '^VERSION_ID="[0-9]{2}\.[1-4]\.[0-9]+(-dev)?"$' /etc/os-release
+grep -Eq '^BUILD_ID="[0-9]{8}-[0-9]{4}"$' /etc/os-release
 grep -qx 'ID=oblinux' /etc/os-release
 grep -qx 'ID_LIKE=debian' /etc/os-release
 grep -qx 'LOGO=oblinux-logo' /etc/os-release

@@ -43,6 +43,20 @@ Core principles from the project charter:
   manual intervention. Scope expands only after the GNOME edition is
   maintainable.
 
+## Release version and build identity
+
+`docs/VERSIONING.md` is the authoritative release/version policy shared with
+OBLinux Arch. The root `VERSION` file is the authoritative current repository
+version; do not invent, infer, independently increment, or modify it during
+unrelated work. Development versions use `-dev`; stable versions do not.
+Promotion intentionally removes `-dev`, and the development repository advances
+to the next quarter only after promotion.
+
+`BUILD_ID` is generated automatically once per build and propagated unchanged
+to the ISO name and live/installed `os-release`. It is not part of the release
+version or Git tag. Stable tags use forms such as `v26.3.0`. See
+`docs/VERSIONING.md` for the complete lifecycle and policy.
+
 ## Architecture and repository map
 
 - `auto/`: authoritative `live-build` configure/build/clean wrappers.
@@ -130,7 +144,7 @@ lb config --validate
 sudo lb build
 ```
 
-Expected output is `oblinux-debian-gnome-amd64.hybrid.iso`. Inspect it with:
+Output follows `oblinux-debian-${VERSION}-${BUILD_ID}-amd64.iso`. Inspect it with:
 
 ```bash
 ls -lh *.iso* build-logs/

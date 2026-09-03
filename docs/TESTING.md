@@ -22,6 +22,8 @@ Tests move from least destructive to most destructive:
 
 ## Initial smoke tests
 
+- Root `VERSION` uses the policy in [VERSIONING.md](VERSIONING.md)
+- Generated ISO name contains that exact version and one `BUILD_ID`
 - ISO boots in UEFI mode
 - GNOME reaches the desktop without manual login
 - Live user is not privileged by default
@@ -35,6 +37,42 @@ Tests move from least destructive to most destructive:
 - `apt update` succeeds
 - Debian security updates install successfully
 - The system survives update and reboot
+
+## Release and build identity regression
+
+Run this for every normal development, stable, and maintenance image. Before
+building, inspect the authoritative release identity:
+
+```bash
+cat VERSION
+```
+
+Require `YY.QUARTER.MAINTENANCE-dev` for a development build and the same form
+without `-dev` for a stable or maintenance release. After building, compare
+the generated filename with `.build/oblinux-release`. It must have the form:
+
+```text
+oblinux-debian-${VERSION}-${BUILD_ID}-amd64.iso
+```
+
+Boot that exact ISO and run:
+
+```bash
+cat /etc/os-release
+```
+
+Require all of the following:
+
+- `VERSION` exactly equals the root `VERSION` file.
+- `VERSION_ID` exactly equals the root `VERSION` file.
+- `BUILD_ID` uses `YYYYMMDD-HHMM` and exactly matches the ISO filename.
+- Development versions include `-dev`; stable and maintenance versions do not.
+
+Install that ISO with Calamares onto a new disposable VM disk, detach the ISO,
+boot the installed system, and run `cat /etc/os-release` again. Its `VERSION`,
+`VERSION_ID`, and `BUILD_ID` must exactly match the live system and the ISO
+used for installation. A matching release version with a different build ID is
+a failure because it cannot identify the tested image exactly.
 
 ## Physical hardware checklist
 
