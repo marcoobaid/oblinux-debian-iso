@@ -45,9 +45,10 @@ grep -qx '  SidebarText: "#FFFFFF"' "$descriptor"
 grep -qx '  SidebarTextCurrent: "#FF8A00"' "$descriptor"
 
 # Keep Debian's offline fallback but enable the same automatic, location-aware
-# KDE GeoIP lookup used by the Arch edition.
-test "$(dpkg-query -S "$locale_config" | cut -d: -f1)" = \
-    calamares-settings-debian
+# KDE GeoIP lookup used by the Arch edition. Debian does not ship locale.conf,
+# so this is deliberately OBLinux-owned live-image content.
+test -r "$locale_config"
+! dpkg-query -S "$locale_config" >/dev/null 2>&1
 grep -qx '    style:    "json"' "$locale_config"
 grep -qx '    url:      "https://geoip.kde.org/v1/calamares"' "$locale_config"
 grep -qx '    selector: ""' "$locale_config"

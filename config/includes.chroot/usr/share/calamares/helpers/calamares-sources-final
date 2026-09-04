@@ -25,4 +25,9 @@ EOF
 rm -f "${CHROOT}/etc/apt/sources.list.d/base.list"
 rm -f "${CHROOT}/etc/apt/sources.list.d/debian-live-media.list"
 
+# locale.conf is OBLinux-owned live-image content because Debian's Calamares
+# settings package does not ship it. Do not leave this installer-only GeoIP
+# configuration in the installed target.
+rm -f "${CHROOT}/etc/calamares/modules/locale.conf"
+
 exit 0
