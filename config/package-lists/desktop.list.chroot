@@ -24,10 +24,47 @@ firefox-esr
 ptyxis
 gimp
 
-# GNOME-friendly storage and screenshot utilities
+# Arch-parity GNOME applications and desktop utilities
+# Impression is not packaged by Debian; GNOME Disks supplies the equivalent
+# Restore Disk Image workflow without an external repository.
+gnome-calendar
+gnome-calculator
+gnome-characters
+gnome-clocks
+gnome-contacts
+gnome-control-center
+gnome-firmware
+gnome-shell-extension-prefs
+gnome-software
+gnome-system-monitor
+gnome-text-editor
+gnome-tour
+gnome-tweaks
+gnome-weather
+baobab
+eog
+evince
+file-roller
+gnome-sushi
+simple-scan
+totem
+
+# Screenshot, removable-media, network, and hardware utilities shown by Arch
 # GNOME Disks can restore ISO images directly to removable drives.
 gnome-disk-utility
 flameshot
+avahi-ui-utils
+btop
+gufw
+hwloc
+lftp
+qv4l2
+stoken
+system-config-printer
+ufw
+
+# Complete office suite matching the Arch LibreOffice application set
+libreoffice
 
 # Curated lightweight games matching the Arch edition
 quadrapassel
@@ -40,7 +77,7 @@ gnome-shell-extension-desktop-icons-ng
 
 # OBLinux developer terminal experience
 nano
-vim
+vim-gtk3
 zsh
 zsh-autosuggestions
 zsh-syntax-highlighting

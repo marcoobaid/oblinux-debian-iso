@@ -8,6 +8,8 @@ settings=/etc/calamares/settings.conf
 legacy_brand_dir=/etc/calamares/branding/debian
 legacy_installer_pixmap=/usr/share/pixmaps/install-debian.png
 locale_config=/etc/calamares/modules/locale.conf
+partition_config=/etc/calamares/modules/partition.conf
+desktop_icon_autostart=/etc/xdg/autostart/calamares-desktop-icon.desktop
 
 test "$(dpkg-query -W -f='${Status}' oblinux-branding)" = \
     "install ok installed"
@@ -53,6 +55,18 @@ grep -qx '    style:    "json"' "$locale_config"
 grep -qx '    url:      "https://geoip.kde.org/v1/calamares"' "$locale_config"
 grep -qx '    selector: ""' "$locale_config"
 
+# Debian supplies no partition.conf, which leaves Calamares with one implicit
+# swap policy and therefore no selector. Match Arch's explicit, conservative
+# choices without replacing Debian's remaining partition-module defaults.
+test -r "$partition_config"
+! dpkg-query -S "$partition_config" >/dev/null 2>&1
+grep -qx 'userSwapChoices:' "$partition_config"
+grep -qx '    - none' "$partition_config"
+grep -qx '    - small' "$partition_config"
+grep -qx 'initialSwapChoice: none' "$partition_config"
+! grep -Eq 'initialSwapChoice:[[:space:]]+(small|suspend|file)' \
+    "$partition_config"
+
 for slide in 01-welcome 02-freedom 03-open 04-secure 05-creative 06-built 07-ready; do
     test -r "$brand_dir/slideshow/$slide.svg"
 done
@@ -62,6 +76,12 @@ grep -qx 'Name=Install OBLinux' \
 grep -qx 'Icon=oblinux-logo' \
     /usr/share/applications/calamares-install-debian.desktop
 test -r /usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg
+
+# Debian's generic live-session helper would create a second copy of the
+# launcher. Keep it masked so OBLinux's live-only setup owns the one shortcut.
+test "$(dpkg-query -S "$desktop_icon_autostart" | cut -d: -f1)" = \
+    calamares-settings-debian
+grep -qx 'Hidden=true' "$desktop_icon_autostart"
 
 # calamares-settings-debian supplies its presentation alongside the installer
 # logic. OBLinux keeps the logic but removes the now-inactive Debian artwork so

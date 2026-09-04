@@ -34,21 +34,19 @@ Brand Master owns the R5 masters, colors, wallpapers, hicolor product icons,
 Plymouth theme, GRUB theme, and Calamares presentation. Debian-specific hooks
 select those assets, render release metadata into Calamares, configure GNOME,
 select Plymouth and GRUB, provide system identity, and verify package payloads.
-The dedicated package-owned `oblinux-about.svg` is the source for GNOME's
-scalable vendor emblem. Debian generates a presentation wrapper with the
-256-by-256 intrinsic dimensions calibrated from the stable repository's
-runtime-tested 128-by-128 baseline while keeping the source viewBox and
-geometry unchanged. The normal `oblinux-logo` hicolor
-application icon remains unchanged for every other consumer.
+GNOME's scalable vendor emblem resolves directly to the package-generated
+`oblinux-logo` hicolor application icon. That file is byte-identical to the
+Arch edition's About icon, so both editions use the same 512-by-512 canvas and
+symbol geometry without a Debian-specific presentation wrapper.
 The live hook removes the inactive presentation files shipped by
 `calamares-settings-debian` after selecting Brand Master's Calamares theme;
 Debian's installer modules, settings, and cleanup behavior remain intact.
 The separate OBLinux Horizon application icon theme remains downstream because
 it is a full Papirus-derived desktop icon theme, not shared logo artwork.
 Brand Master also supplies the shared FastFetch logo and reusable configuration
-under `/usr/share/oblinux/terminal/fastfetch/`. Debian retains its module policy
-in the new-user default under `/etc/skel`, which references the package-owned
-logo directly. Debian 13's FastFetch 2.40.4 requires ANSI true-color expressions
+under `/usr/share/oblinux/terminal/fastfetch/`. Debian's new-user default under
+`/etc/skel` references the package-owned logo directly and matches the Arch
+edition's curated module order and formatting. Debian 13's FastFetch 2.40.4 requires ANSI true-color expressions
 instead of hexadecimal color strings, so the downstream configuration expresses
 the canonical blue and orange as `38;2;30;77;140` and `38;2;255;138;0`.
 Existing users' FastFetch configuration remains untouched.

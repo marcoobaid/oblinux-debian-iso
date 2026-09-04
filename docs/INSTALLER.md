@@ -107,6 +107,14 @@ networking is available the installer selects the location-aware timezone
 returned by the service. The final APT-source helper removes this OBLinux-owned,
 installer-only file from the installed target.
 
+Debian's settings package also supplies no `partition.conf`, so its default
+configuration exposes no swap selector. OBLinux provides a narrow override
+matching the Arch edition: **No swap** and a bounded **Swap (no Hibernate)**
+partition are available for automated erase-disk installation, with no swap
+selected by default. Hibernation-sized swap and swap files are intentionally
+not offered. The final helper removes this second installer-only override from
+the installed target as well.
+
 Builds 002 through 004 deliberately retained Debian branding and the
 `Install Debian` launcher while the unmodified Debian-maintained workflow was
 being proven. Build 005 replaces only the identity-facing branding content,
@@ -151,6 +159,8 @@ The installer should be tested first without another operating system present.
 ### Installation
 
 - Select locale, keyboard, timezone, erase disk, user, hostname, and password.
+- On the partition page, confirm the swap selector offers **No swap** and
+  **Swap (no Hibernate)**. Test each option on a separate disposable disk.
 - Capture the summary page.
 - Complete installation and retain the Calamares log.
 - Restart when offered.

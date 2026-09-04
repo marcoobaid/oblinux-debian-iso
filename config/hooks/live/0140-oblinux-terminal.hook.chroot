@@ -78,7 +78,7 @@ awk '
 
 test -r /etc/skel/.zshrc
 test -r /etc/skel/.config/starship.toml
-test -r /etc/skel/.config/fastfetch/config.jsonc
+test -r /etc/xdg/fastfetch/config.jsonc
 test -r /usr/share/oblinux/terminal/fastfetch/logo.txt
 test -r /usr/share/oblinux/terminal/fastfetch/config.jsonc
 test ! -e /etc/skel/.config/fastfetch/oblinux.txt
@@ -86,8 +86,16 @@ test "$(sha256sum /usr/share/oblinux/terminal/fastfetch/logo.txt | awk '{print $
     a0d28b2b48ec680768694cacb8707d77c79b3bf8102094f686c76ea739642696
 test "$(wc -l < /usr/share/oblinux/terminal/fastfetch/logo.txt)" -eq 15
 grep -Fq '"source": "/usr/share/oblinux/terminal/fastfetch/logo.txt"' \
-    /etc/skel/.config/fastfetch/config.jsonc
-test -r /etc/skel/.local/share/org.gnome.Ptyxis/palettes/oblinux.palette
+    /etc/xdg/fastfetch/config.jsonc
+grep -Fq '"format": "{release}"' \
+    /etc/xdg/fastfetch/config.jsonc
+grep -Fq '"format": "{used} / {total}"' \
+    /etc/xdg/fastfetch/config.jsonc
+grep -Fq '"colors"' /etc/xdg/fastfetch/config.jsonc
+! grep -Fq '"type": "host"' /etc/xdg/fastfetch/config.jsonc
+! grep -Fq '"type": "de"' /etc/xdg/fastfetch/config.jsonc
+grep -qx "interface-style='system'" /etc/dconf/db/local.d/00-oblinux-ptyxis
+test ! -e /etc/skel/.local/share/org.gnome.Ptyxis/palettes/oblinux.palette
 test -x /usr/lib/live/config/0035-oblinux-zsh
 test -s /etc/dconf/db/local
 
@@ -95,7 +103,7 @@ zsh -n /etc/skel/.zshrc
 sh -n /usr/lib/live/config/0035-oblinux-zsh
 STARSHIP_CONFIG=/etc/skel/.config/starship.toml starship prompt >/dev/null
 HOME=/etc/skel fastfetch \
-    --config /etc/skel/.config/fastfetch/config.jsonc \
+    --config /etc/xdg/fastfetch/config.jsonc \
     --format json >/dev/null
 
 echo "OBLinux terminal defaults verification passed"

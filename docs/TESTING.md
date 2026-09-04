@@ -97,19 +97,37 @@ On a freshly built ISO with networking enabled:
 - Open Calamares and confirm its initial timezone follows the test network's
   location (test at least one non-Eastern location); then disconnect networking
   and confirm the page remains usable with its documented fallback.
+- In the erase-disk workflow, confirm the swap selector offers **No swap** and
+  **Swap (no Hibernate)** and defaults to **No swap**. Complete separate installs
+  with each choice on disposable VM disks. Confirm the no-swap installation has
+  no active swap; confirm the swap installation has an active swap partition
+  and a matching `/etc/fstab` entry after reboot.
 - Confirm the desktop shows Home, Trash, and a trusted `Install OBLinux`
   shortcut. Confirm the shortcut and dock installer icon use the OBLinux logo
-  and launch Calamares.
+  and launch Calamares. Confirm there is no second shortcut named
+  `calamares-install-debian.desktop`.
+- Confirm GNOME Tour does not open or appear in the application grid in the
+  live session. After installation, confirm a newly created user retains
+  GNOME's normal one-time welcome flow.
 - Confirm the dash order is Files, Firefox, Terminal, Install OBLinux, followed
   by GNOME's Show Applications control.
 - Open Settings > System > About in light and dark appearances and compare the
-  OBLinux badge's visual scale with the Arch edition.
+  OBLinux badge with the Arch edition. Require identical symbol geometry,
+  visual scale, and surrounding layout space.
 - Launch Nano and Vim against representative shell, Python, and Markdown files;
   inspect syntax colors, line numbers, indentation, search, and readability in
   both terminal appearances.
 - Launch Quadrapassel, Aisleriot, GNOME Chess, GIMP, GNOME Disks, and Flameshot.
   Start a local chess game, capture and annotate a screenshot, and use GNOME
   Disks to write the ISO to a disposable USB device.
+- Compare the application grid with the Arch reference screenshots. Open each
+  top-level application and the Utilities/System folders; confirm Contacts,
+  Weather, Clocks, the Avahi browsers, Document Scanner, btop++, Calculator,
+  Characters, Calendar, Document Viewer, Extensions, Eye of GNOME, GUFW,
+  Firmware, Hardware Locality, lftp, the complete LibreOffice suite, printing
+  configuration, both Qt V4L2 launchers, Software Token, Text Editor, Videos,
+  and Vim launch successfully. GNOME Disks intentionally replaces Impression
+  on Debian and must provide its Restore Disk Image workflow.
 
 After a clean Calamares installation, repeat the application/editor checks and
 confirm the live desktop shortcut and enabled Desktop Icons NG state were not
@@ -244,8 +262,8 @@ cat /etc/os-release
 
 Confirm `ID=oblinux`, `ID_LIKE=debian`, and `LOGO=oblinux-logo` are present.
 Open GNOME Settings System/About and confirm that the centered R5 symbol uses
-the dedicated 256-by-256 intrinsic-size vendor emblem rather than expanding to
-fill the page.
+the same scalable product icon, visual scale, and surrounding layout spacing
+as the Arch edition.
 
 After installation, confirm the GRUB background uses Obsidian Horizon and the
 primary entry is exactly `OBLinux`. The advanced submenu must be
@@ -283,10 +301,9 @@ regeneration, cleanup, and basic regression checks from Build 007.
 ## GNOME About badge acceptance checks
 
 Open GNOME Settings About in both light and dark appearances. Confirm the
-surface-specific badge has a clean rounded Obsidian Navy background, Soft White
-OB letters, and Clear Cyan bridge. It must remain balanced at the accepted
-Build 008 size and show no accidental white corners, clipping, stretching, or
-low-contrast letterforms.
+primary transparent OBLinux symbol matches the Arch edition's geometry and
+scale. It must show no accidental white corners, clipping, stretching, excess
+layout spacing, or low-contrast details.
 
 Confirm that Calamares, Plymouth, the Dash launcher, GRUB, wallpapers, and the
 primary transparent symbol remain unchanged. Verify the vendor-logo selection

@@ -84,16 +84,16 @@ test "$(sha256sum config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-h
     b8073c48afb64843b1b96114915f29116e3b770e7acd9cb181dbc2f0474d1a5b
 test -r config/includes.chroot/usr/share/doc/oblinux-branding/OBSIDIAN-HORIZON.md
 test -r config/includes.chroot/usr/share/doc/oblinux-branding/LICENSE-CC-BY-SA-4.0.txt
-test -r config/includes.chroot/etc/skel/.config/fastfetch/config.jsonc
-test ! -e config/includes.chroot/etc/skel/.config/fastfetch/oblinux.txt
+test -r config/includes.chroot/etc/xdg/fastfetch/config.jsonc
+test ! -e config/includes.chroot/etc/skel/.config/fastfetch
 grep -Fq '"source": "/usr/share/oblinux/terminal/fastfetch/logo.txt"' \
-    config/includes.chroot/etc/skel/.config/fastfetch/config.jsonc
+    config/includes.chroot/etc/xdg/fastfetch/config.jsonc
 grep -Fq '"1": "38;2;30;77;140"' \
-    config/includes.chroot/etc/skel/.config/fastfetch/config.jsonc
+    config/includes.chroot/etc/xdg/fastfetch/config.jsonc
 grep -Fq '"2": "38;2;255;138;0"' \
-    config/includes.chroot/etc/skel/.config/fastfetch/config.jsonc
+    config/includes.chroot/etc/xdg/fastfetch/config.jsonc
 grep -Fq '"packages"' \
-    config/includes.chroot/etc/skel/.config/fastfetch/config.jsonc
+    config/includes.chroot/etc/xdg/fastfetch/config.jsonc
 grep -Fq '/usr/share/oblinux/terminal/fastfetch/logo.txt' \
     config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
 grep -Fq '/usr/share/oblinux/terminal/fastfetch/config.jsonc' \
@@ -102,6 +102,17 @@ grep -Fq 'a0d28b2b48ec680768694cacb8707d77c79b3bf8102094f686c76ea739642696' \
     config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
 grep -Fq 'wc -l < /usr/share/oblinux/terminal/fastfetch/logo.txt' \
     config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+
+partition_config=config/includes.chroot/etc/calamares/modules/partition.conf
+test -r "$partition_config"
+grep -qx 'userSwapChoices:' "$partition_config"
+grep -qx '    - none' "$partition_config"
+grep -qx '    - small' "$partition_config"
+grep -qx 'initialSwapChoice: none' "$partition_config"
+! grep -Eq 'initialSwapChoice:[[:space:]]+(small|suspend|file)' \
+    "$partition_config"
+grep -Fq 'rm -f "${CHROOT}/etc/calamares/modules/partition.conf"' \
+    config/includes.chroot/usr/share/calamares/helpers/calamares-sources-final
 
 legacy_paths='branding/assets
 branding/installer
@@ -151,11 +162,11 @@ if grep -RIlE 'BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY|gh[pousr]_[A-Za-z0-9]{20,}
     exit 1
 fi
 
-grep -Fq 'oblinux_about_source=/usr/share/oblinux/vendor/oblinux-about.svg' \
+grep -Fq 'oblinux_vendor_logo=/usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg' \
     config/hooks/live/0120-oblinux-installed-identity.hook.chroot
-grep -Fq 'oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-about-gnome.svg' \
+grep -Fq 'viewBox="0 0 512 512"' \
     config/hooks/live/0120-oblinux-installed-identity.hook.chroot
-grep -Fq "width=\"512\" height=\"512\"" \
+grep -Fq 'afa19488a141275e6ff4c09515c9a679807dfff4610a72f8faab7da145cf9d0f' \
     config/hooks/live/0120-oblinux-installed-identity.hook.chroot
 
 echo "OBLinux Brand Master v1.0.4 downstream integration validation passed"

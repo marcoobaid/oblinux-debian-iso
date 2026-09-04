@@ -50,6 +50,9 @@ likely.
 
 ## Later GNOME 48 refinement
 
+The About-specific mapping described in this section was later superseded by
+Decision 0013 after side-by-side runtime testing with the Arch edition.
+
 Runtime testing of the R5 v1.0.2 integration confirmed the earlier stable
 mechanism: Debian's GNOME Control Center uses its compiled scalable vendor
 emblem and honors that SVG's intrinsic size. The Debian edition derives a

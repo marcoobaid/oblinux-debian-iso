@@ -93,6 +93,20 @@ packages: `quadrapassel` for falling blocks, `aisleriot` for solitaire, and
 `gnome-chess` with the `gnuchess` engine for local play. Nano and Vim receive
 the same user-overridable, plugin-free editor defaults as the Arch edition.
 
+The application image also explicitly installs the Debian equivalents of the
+applications visible in the Arch edition's application grid. This includes the
+core GNOME applications, LibreOffice suite, GUFW, Avahi service browsers,
+printing configuration, btop++, lftp, Hardware Locality, V4L2 test utilities,
+Software Token, and the GTK Vim launcher. Declaring these packages directly
+prevents changes in `task-gnome-desktop` dependencies from silently removing
+them from later images.
+
+Arch's Impression application has no package in Debian 13. GNOME Disks is the
+intentional Debian-native equivalent: its **Restore Disk Image** action writes
+ISO images to removable media while avoiding an external repository. GNOME
+Tour remains installed for normal first-login behavior on installed systems,
+but is hidden and suppressed for the ephemeral live account.
+
 ## Firewall policy
 
 The workstation should deny unsolicited incoming connections and allow

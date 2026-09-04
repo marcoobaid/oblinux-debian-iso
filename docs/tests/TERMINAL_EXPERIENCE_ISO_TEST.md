@@ -17,10 +17,13 @@ Confirm:
 - Fastfetch displays the compact shared R5 symbol once when the first terminal
   is opened, with no legacy OB wordmark;
 - Fastfetch uses the canonical OBLinux blue/orange logo and blue title/label
-  accents that remain readable in light and dark styles, without an ANSI
-  palette strip;
+  accents that remain readable in light and dark styles, followed by the same
+  color palette blocks as the Arch edition;
+- Fastfetch omits the Device and Desktop rows, shows only the kernel release
+  and GPU name, and displays memory without a percentage;
 - command completion, autosuggestions, and syntax highlighting work;
-- the terminal uses the OBLinux navy/cyan palette and modest transparency;
+- Nano syntax and interface colors visually match the Arch edition in both
+  light and dark appearances;
 - opening another interactive shell does not print Fastfetch repeatedly.
 
 Run:
@@ -48,21 +51,25 @@ ps -p $$ -o comm=
 command -v bash zsh starship fastfetch
 test -r ~/.zshrc && echo 'PASS: Zsh configuration present'
 test -r ~/.config/starship.toml && echo 'PASS: Starship configuration present'
-test -r ~/.config/fastfetch/config.jsonc && echo 'PASS: Fastfetch configuration present'
+test -r /etc/xdg/fastfetch/config.jsonc && echo 'PASS: system Fastfetch configuration present'
 grep -Fq '"source": "/usr/share/oblinux/terminal/fastfetch/logo.txt"' \
-  ~/.config/fastfetch/config.jsonc && echo 'PASS: package-owned R5 logo selected'
+  /etc/xdg/fastfetch/config.jsonc && echo 'PASS: package-owned R5 logo selected'
 test ! -e ~/.config/fastfetch/oblinux.txt && echo 'PASS: legacy Fastfetch logo absent'
 ```
 
-Expected: the installed account and active session use `/bin/zsh`; Bash remains available; all three user configuration checks pass.
+Expected: the installed account and active session use `/bin/zsh`; Bash remains
+available; the Zsh and Starship user defaults and system-wide Fastfetch checks
+pass.
 
 ## 3. User control and regression
 
 Confirm:
 
 - Ptyxis profile settings can still be changed by the user;
-- a new Ptyxis window retains the selected OBLinux palette;
+- a new Ptyxis window follows the selected system appearance and retains any
+  explicit user-selected palette;
 - light and dark desktop styles keep terminal text readable;
+- creating `~/.config/fastfetch/config.jsonc` overrides the system default;
 - `bash` starts a usable Bash session and `exit` returns to Zsh;
 - networking, GNOME Settings, Files, and `sudo apt update` still work;
 - the installed system contains no Calamares launcher or live-only GNOME settings.

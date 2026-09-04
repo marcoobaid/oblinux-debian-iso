@@ -15,5 +15,5 @@ set keycolor bold,cyan
 # light and dark appearance modes; bold keeps the shortcut menu prominent.
 set functioncolor bold,normal
 
-# Use the syntax definitions shipped and maintained by Debian's nano package.
+# Use the syntax definitions shipped and maintained by the distribution's nano package.
 include "/usr/share/nano/*.nanorc"
