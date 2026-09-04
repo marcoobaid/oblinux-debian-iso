@@ -16,6 +16,8 @@
 - Match Arch's GNOME About logo scale through a Debian-only padded presentation
   wrapper; runtime testing showed that Debian's compiled vendor-emblem path
   renders the tightly cropped Arch product icon dramatically too large.
+- Refine the GNOME About wrapper with centered transparent padding after live
+  regression testing showed the first Debian wrapper still rendered too large.
 - Add Arch-parity Nano and Vim defaults and the Quadrapassel, Aisleriot, and
   GNOME Chess game set.
 - Match Arch's Nano color rendering by using Ptyxis's native system-following

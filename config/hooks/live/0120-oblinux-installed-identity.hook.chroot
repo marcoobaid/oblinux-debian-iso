@@ -54,15 +54,22 @@ test -f "$oblinux_about_source"
 test -f "$oblinux_vendor_logo_symbolic"
 test -f "$oblinux_vendor_logo_white"
 
-# Give the otherwise viewBox-only package asset explicit dimensions. Its
-# padded 1536-unit canvas keeps the visible symbol at the same apparent scale
-# as Arch while the 512-pixel intrinsic size satisfies Debian's compiled
-# vendor-emblem presentation.
+# Give the otherwise viewBox-only package asset explicit dimensions. Debian's
+# compiled vendor-emblem presentation allocates a larger slot than Arch's
+# os-release icon lookup, so center the immutable 1536-unit source on a
+# 2048-unit canvas. The extra 256 units on every side reduce only its apparent
+# size; the Brand Master geometry remains unchanged.
 install -d -m 0755 "$(dirname "$oblinux_vendor_logo")"
 install -m 0644 "$oblinux_about_source" "$oblinux_vendor_logo"
 sed -i 's/<svg /<svg width="512" height="512" /' "$oblinux_vendor_logo"
+sed -i 's/viewBox="0 0 1536 1536"/viewBox="0 0 2048 2048"/' \
+    "$oblinux_vendor_logo"
+sed -i '0,/>/s//><g transform="translate(256 256)">/' \
+    "$oblinux_vendor_logo"
+sed -i 's#</svg>#</g></svg>#' "$oblinux_vendor_logo"
 grep -Fq '<svg width="512" height="512" ' "$oblinux_vendor_logo"
-grep -Fq 'viewBox="0 0 1536 1536"' "$oblinux_vendor_logo"
+grep -Fq 'viewBox="0 0 2048 2048"' "$oblinux_vendor_logo"
+grep -Fq '<g transform="translate(256 256)">' "$oblinux_vendor_logo"
 install -d -m 0755 "$vendor_logos"
 for size in 64 128 256; do
     source_icon=$vendor_icon_root/${size}x${size}/apps/oblinux-logo.png

@@ -168,7 +168,9 @@ grep -Fq 'oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-about-gnome.sv
     config/hooks/live/0120-oblinux-installed-identity.hook.chroot
 grep -Fq 'width="512" height="512"' \
     config/hooks/live/0120-oblinux-installed-identity.hook.chroot
-grep -Fq 'viewBox="0 0 1536 1536"' \
+grep -Fq 'viewBox="0 0 2048 2048"' \
+    config/hooks/live/0120-oblinux-installed-identity.hook.chroot
+grep -Fq 'translate(256 256)' \
     config/hooks/live/0120-oblinux-installed-identity.hook.chroot
 
 echo "OBLinux Brand Master v1.0.4 downstream integration validation passed"
