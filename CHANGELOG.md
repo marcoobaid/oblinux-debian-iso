@@ -7,12 +7,15 @@
 - Add Arch-parity Calamares swap selection for automated installs, offering
   No swap and bounded Swap (no Hibernate) choices with No swap as the default.
 - Align the live desktop shortcuts and GNOME dash with the Arch edition.
+- Replace Evolution with Ptyxis in the persistent GNOME dock defaults, matching
+  Arch while keeping the Calamares favorite exclusive to the live session.
 - Mask Debian's generic Calamares desktop-icon autostart to prevent it from
   creating a duplicate installer shortcut in the live session.
 - Suppress GNOME Tour for the ephemeral live user while retaining the normal
   first-login welcome flow for installed users.
-- Use the same scalable OBLinux product icon as Arch for GNOME About, removing
-  the Debian-only padded wrapper that distorted its scale and layout spacing.
+- Match Arch's GNOME About logo scale through a Debian-only padded presentation
+  wrapper; runtime testing showed that Debian's compiled vendor-emblem path
+  renders the tightly cropped Arch product icon dramatically too large.
 - Add Arch-parity Nano and Vim defaults and the Quadrapassel, Aisleriot, and
   GNOME Chess game set.
 - Match Arch's Nano color rendering by using Ptyxis's native system-following

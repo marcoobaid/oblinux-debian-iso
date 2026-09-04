@@ -1,2 +1,8 @@
 [org/gnome/Ptyxis]
 interface-style='system'
+
+# Keep the installed-system dock aligned with the live session. Users can
+# freely reorder or replace these favorites after first login. The installer
+# remains live-only because Calamares is removed from an installed system.
+[org/gnome/shell]
+favorite-apps=['firefox-esr.desktop', 'org.gnome.Ptyxis.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'org.gnome.TextEditor.desktop', 'org.gnome.Calculator.desktop', 'yelp.desktop']

@@ -162,11 +162,13 @@ if grep -RIlE 'BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY|gh[pousr]_[A-Za-z0-9]{20,}
     exit 1
 fi
 
-grep -Fq 'oblinux_vendor_logo=/usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg' \
+grep -Fq 'oblinux_about_source=/usr/share/oblinux/vendor/oblinux-about.svg' \
     config/hooks/live/0120-oblinux-installed-identity.hook.chroot
-grep -Fq 'viewBox="0 0 512 512"' \
+grep -Fq 'oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-about-gnome.svg' \
     config/hooks/live/0120-oblinux-installed-identity.hook.chroot
-grep -Fq 'afa19488a141275e6ff4c09515c9a679807dfff4610a72f8faab7da145cf9d0f' \
+grep -Fq 'width="512" height="512"' \
+    config/hooks/live/0120-oblinux-installed-identity.hook.chroot
+grep -Fq 'viewBox="0 0 1536 1536"' \
     config/hooks/live/0120-oblinux-installed-identity.hook.chroot
 
 echo "OBLinux Brand Master v1.0.4 downstream integration validation passed"

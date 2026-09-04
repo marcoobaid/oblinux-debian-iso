@@ -4,7 +4,8 @@ set -eu
 
 grub_linux=/etc/grub.d/10_linux
 vendor_logo=/usr/share/icons/vendor/scalable/emblems/emblem-vendor.svg
-oblinux_vendor_logo=/usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg
+oblinux_about_source=/usr/share/oblinux/vendor/oblinux-about.svg
+oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-about-gnome.svg
 oblinux_vendor_logo_symbolic=/usr/share/oblinux/brand/master/oblinux-symbol-blue.svg
 oblinux_vendor_logo_white=/usr/share/oblinux/brand/master/oblinux-symbol-white.svg
 vendor_logos=/usr/share/oblinux/vendor-logos
@@ -44,15 +45,24 @@ grep -qx 'GRUB_BACKGROUND="/usr/share/grub/themes/oblinux/background.png"' \
 
 # Debian resolves both GNOME Control Center's emblem and GDM's bottom vendor
 # mark through one vendor-logos alternatives group. Register a complete
-# OBLinux candidate from package-owned Brand Master icons. Use the same
-# scalable product icon as Arch for GNOME About, then select it explicitly.
-# Debian's candidate remains installed and recoverable.
-test -f "$oblinux_vendor_logo"
+# OBLinux candidate from package-owned Brand Master icons. Debian's GNOME
+# Control Center does not constrain the scalable vendor emblem like Arch's
+# standard os-release icon lookup does, so use Brand Master's padded About
+# presentation asset for that one path. Debian's candidate remains installed
+# and recoverable.
+test -f "$oblinux_about_source"
 test -f "$oblinux_vendor_logo_symbolic"
 test -f "$oblinux_vendor_logo_white"
-grep -Fq 'viewBox="0 0 512 512"' "$oblinux_vendor_logo"
-test "$(sha256sum "$oblinux_vendor_logo" | awk '{print $1}')" = \
-    afa19488a141275e6ff4c09515c9a679807dfff4610a72f8faab7da145cf9d0f
+
+# Give the otherwise viewBox-only package asset explicit dimensions. Its
+# padded 1536-unit canvas keeps the visible symbol at the same apparent scale
+# as Arch while the 512-pixel intrinsic size satisfies Debian's compiled
+# vendor-emblem presentation.
+install -d -m 0755 "$(dirname "$oblinux_vendor_logo")"
+install -m 0644 "$oblinux_about_source" "$oblinux_vendor_logo"
+sed -i 's/<svg /<svg width="512" height="512" /' "$oblinux_vendor_logo"
+grep -Fq '<svg width="512" height="512" ' "$oblinux_vendor_logo"
+grep -Fq 'viewBox="0 0 1536 1536"' "$oblinux_vendor_logo"
 install -d -m 0755 "$vendor_logos"
 for size in 64 128 256; do
     source_icon=$vendor_icon_root/${size}x${size}/apps/oblinux-logo.png

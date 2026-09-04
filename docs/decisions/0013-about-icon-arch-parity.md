@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted for proof-of-concept validation.
+Superseded by Decision 0014 after runtime validation.
 
 ## Context
 
