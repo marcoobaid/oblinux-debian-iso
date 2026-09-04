@@ -4,7 +4,7 @@ set -eu
 
 grub_linux=/etc/grub.d/10_linux
 vendor_logo=/usr/share/icons/vendor/scalable/emblems/emblem-vendor.svg
-oblinux_about_source=/usr/share/oblinux/vendor/oblinux-about.svg
+oblinux_logo=/usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg
 oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-about-gnome.svg
 oblinux_vendor_logo_symbolic=/usr/share/oblinux/brand/master/oblinux-symbol-blue.svg
 oblinux_vendor_logo_white=/usr/share/oblinux/brand/master/oblinux-symbol-white.svg
@@ -43,33 +43,20 @@ grep -qx 'GRUB_THEME="/usr/share/grub/themes/oblinux/theme.txt"' \
 grep -qx 'GRUB_BACKGROUND="/usr/share/grub/themes/oblinux/background.png"' \
     /etc/default/grub.d/99-oblinux.cfg
 
-# Debian resolves both GNOME Control Center's emblem and GDM's bottom vendor
-# mark through one vendor-logos alternatives group. Register a complete
-# OBLinux candidate from package-owned Brand Master icons. Debian's GNOME
-# Control Center does not constrain the scalable vendor emblem like Arch's
-# standard os-release icon lookup does, so use Brand Master's padded About
-# presentation asset for that one path. Debian's candidate remains installed
-# and recoverable.
-test -f "$oblinux_about_source"
+# Debian compiles GNOME Control Center with DISTRIBUTOR_LOGO, so About bypasses
+# os-release LOGO and loads the scalable vendor emblem as a filename. Upstream,
+# as used by Arch, resolves LOGO=oblinux-logo through GtkIconTheme and requests
+# a 192-pixel icon. Give Debian's direct-file path the identical Arch SVG and
+# the same 192-pixel intrinsic size; do not pad or alter the artwork geometry.
+test -f "$oblinux_logo"
 test -f "$oblinux_vendor_logo_symbolic"
 test -f "$oblinux_vendor_logo_white"
 
-# Give the otherwise viewBox-only package asset explicit dimensions. Debian's
-# compiled vendor-emblem presentation allocates a larger slot than Arch's
-# os-release icon lookup, so center the immutable 1536-unit source on a
-# 2048-unit canvas. The extra 256 units on every side reduce only its apparent
-# size; the Brand Master geometry remains unchanged.
 install -d -m 0755 "$(dirname "$oblinux_vendor_logo")"
-install -m 0644 "$oblinux_about_source" "$oblinux_vendor_logo"
-sed -i 's/<svg /<svg width="512" height="512" /' "$oblinux_vendor_logo"
-sed -i 's/viewBox="0 0 1536 1536"/viewBox="0 0 2048 2048"/' \
-    "$oblinux_vendor_logo"
-sed -i '0,/>/s//><g transform="translate(256 256)">/' \
-    "$oblinux_vendor_logo"
-sed -i 's#</svg>#</g></svg>#' "$oblinux_vendor_logo"
-grep -Fq '<svg width="512" height="512" ' "$oblinux_vendor_logo"
-grep -Fq 'viewBox="0 0 2048 2048"' "$oblinux_vendor_logo"
-grep -Fq '<g transform="translate(256 256)">' "$oblinux_vendor_logo"
+install -m 0644 "$oblinux_logo" "$oblinux_vendor_logo"
+sed -i 's/<svg /<svg width="192" height="192" /' "$oblinux_vendor_logo"
+grep -Fq '<svg width="192" height="192" ' "$oblinux_vendor_logo"
+grep -Fq 'viewBox="0 0 512 512"' "$oblinux_vendor_logo"
 install -d -m 0755 "$vendor_logos"
 for size in 64 128 256; do
     source_icon=$vendor_icon_root/${size}x${size}/apps/oblinux-logo.png

@@ -34,12 +34,12 @@ Brand Master owns the R5 masters, colors, wallpapers, hicolor product icons,
 Plymouth theme, GRUB theme, and Calamares presentation. Debian-specific hooks
 select those assets, render release metadata into Calamares, configure GNOME,
 select Plymouth and GRUB, provide system identity, and verify package payloads.
-GNOME's scalable vendor emblem resolves to a generated Debian presentation
-wrapper around Brand Master's immutable About asset. Debian's compiled vendor
-emblem uses a larger presentation slot than Arch's `LOGO=oblinux-logo` lookup,
-so the wrapper centers the 1536-unit source canvas within a 2048-unit canvas
-while retaining a 512-by-512 intrinsic size. This changes only transparent
-padding and preserves the shared symbol geometry and colors.
+GNOME's scalable vendor emblem resolves to a generated direct-file variant of
+the same Brand Master hicolor SVG used by Arch. Debian compiles GNOME Control
+Center to load the vendor emblem by filename, bypassing `LOGO`; Arch resolves
+`LOGO=oblinux-logo` through the icon theme at 192 pixels. Debian therefore adds
+only 192-by-192 intrinsic dimensions to the byte-identical 512-unit SVG canvas,
+matching Arch's size request without padding or altering symbol geometry.
 The live hook removes the inactive presentation files shipped by
 `calamares-settings-debian` after selecting Brand Master's Calamares theme;
 Debian's installer modules, settings, and cleanup behavior remain intact.

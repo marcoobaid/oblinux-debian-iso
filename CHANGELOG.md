@@ -13,11 +13,10 @@
   creating a duplicate installer shortcut in the live session.
 - Suppress GNOME Tour for the ephemeral live user while retaining the normal
   first-login welcome flow for installed users.
-- Match Arch's GNOME About logo scale through a Debian-only padded presentation
-  wrapper; runtime testing showed that Debian's compiled vendor-emblem path
-  renders the tightly cropped Arch product icon dramatically too large.
-- Refine the GNOME About wrapper with centered transparent padding after live
-  regression testing showed the first Debian wrapper still rendered too large.
+- Match Arch's GNOME About input using the identical hicolor SVG and its
+  explicit 192-pixel lookup size; Debian's compiled vendor-emblem path bypasses
+  `LOGO`, so a direct-file variant supplies the same intrinsic size without
+  speculative padding or artwork changes.
 - Add Arch-parity Nano and Vim defaults and the Quadrapassel, Aisleriot, and
   GNOME Chess game set.
 - Match Arch's Nano color rendering by using Ptyxis's native system-following
