@@ -7,6 +7,7 @@ descriptor=$brand_dir/branding.desc
 settings=/etc/calamares/settings.conf
 legacy_brand_dir=/etc/calamares/branding/debian
 legacy_installer_pixmap=/usr/share/pixmaps/install-debian.png
+locale_config=/etc/calamares/modules/locale.conf
 
 test "$(dpkg-query -W -f='${Status}' oblinux-branding)" = \
     "install ok installed"
@@ -43,15 +44,23 @@ grep -qx '  SidebarBackground: "#0D2742"' "$descriptor"
 grep -qx '  SidebarText: "#FFFFFF"' "$descriptor"
 grep -qx '  SidebarTextCurrent: "#FF8A00"' "$descriptor"
 
+# Keep Debian's offline fallback but enable the same automatic, location-aware
+# KDE GeoIP lookup used by the Arch edition.
+test "$(dpkg-query -S "$locale_config" | cut -d: -f1)" = \
+    calamares-settings-debian
+grep -qx '    style:    "json"' "$locale_config"
+grep -qx '    url:      "https://geoip.kde.org/v1/calamares"' "$locale_config"
+grep -qx '    selector: ""' "$locale_config"
+
 for slide in 01-welcome 02-freedom 03-open 04-secure 05-creative 06-built 07-ready; do
     test -r "$brand_dir/slideshow/$slide.svg"
 done
 
 grep -qx 'Name=Install OBLinux' \
     /usr/share/applications/calamares-install-debian.desktop
-grep -qx 'Icon=oblinux-installer' \
+grep -qx 'Icon=oblinux-logo' \
     /usr/share/applications/calamares-install-debian.desktop
-test -r /usr/share/icons/hicolor/scalable/apps/oblinux-installer.svg
+test -r /usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg
 
 # calamares-settings-debian supplies its presentation alongside the installer
 # logic. OBLinux keeps the logic but removes the now-inactive Debian artwork so

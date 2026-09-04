@@ -55,13 +55,13 @@ test -f "$oblinux_vendor_logo_white"
 # Debian's GNOME Control Center uses its compiled scalable vendor-emblem path
 # and honors the SVG's intrinsic dimensions. Brand Master's padded v1.0.2
 # artwork deliberately preserves the correct visual canvas but has only a
-# viewBox. Generate a downstream presentation wrapper at 256 by 256: twice the
-# runtime-tested stable size, without modifying the package-owned source or its
-# geometry.
+# viewBox. Generate a downstream presentation wrapper at 512 by 512, matching
+# the Arch edition's scalable icon canvas while retaining Debian's
+# theme-neutral badge and without modifying package-owned source geometry.
 install -d -m 0755 "$(dirname "$oblinux_vendor_logo")"
 install -m 0644 "$oblinux_about_source" "$oblinux_vendor_logo"
-sed -i 's/<svg /<svg width="256" height="256" /' "$oblinux_vendor_logo"
-grep -Fq '<svg width="256" height="256" ' "$oblinux_vendor_logo"
+sed -i 's/<svg /<svg width="512" height="512" /' "$oblinux_vendor_logo"
+grep -Fq '<svg width="512" height="512" ' "$oblinux_vendor_logo"
 grep -Fq 'viewBox="0 0 1536 1536"' "$oblinux_vendor_logo"
 install -d -m 0755 "$vendor_logos"
 for size in 64 128 256; do

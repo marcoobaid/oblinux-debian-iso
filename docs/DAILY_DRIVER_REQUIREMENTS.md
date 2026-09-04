@@ -28,6 +28,10 @@ web applications, Bluetooth devices, and local or network printing.
 | Easy application installation | GNOME Software; Flatpak evaluated separately | Debian stable; optional Flathub | Applications can be discovered, installed, updated, and removed graphically, with their source visible. |
 | Host firewall | UFW with GUFW as the initial candidate | Debian stable | A documented default-deny-incoming policy does not break required workflows. |
 | Development editor | Microsoft Visual Studio Code | Microsoft signed APT repository, opt-in | APT updates, Git, terminal, extensions, file watching, and desktop integration work. |
+| Image editing | GIMP | Debian stable | GIMP launches and can create, open, edit, and export representative images. |
+| USB image writing | GNOME Disks (`gnome-disk-utility`) | Debian stable | Restore Disk Image writes a test ISO to a disposable USB drive and reports completion. |
+| Screenshot capture | GNOME Shell capture plus Flameshot | Debian stable | The standard shortcut works and Flameshot provides a discoverable GUI with annotation and save/copy workflows. |
+| Lightweight games | Quadrapassel, Aisleriot, GNOME Chess with GNU Chess | Debian stable | Each game launches; GNOME Chess can start a local single-player game. |
 
 ## Terminal direction
 
@@ -74,6 +78,20 @@ packages. The POC should use a documented post-install opt-in that configures
 each vendor's signed repository. Before public release, redistribution and
 branding terms must be reviewed before offering bundled packages or one-click
 installation.
+
+## Curated desktop utilities and games
+
+The image explicitly includes GNOME Disks as its USB ISO writer because its
+Restore Disk Image workflow is maintained in Debian, fits GNOME, and avoids an
+external repository or a second storage stack. Flameshot supplements GNOME
+Shell's built-in screenshot overlay with a dedicated, discoverable GUI and
+annotation workflow. Both are available in the live system and are copied to
+the installed system by the existing Calamares unpack model.
+
+GIMP and the Arch-equivalent lightweight games are also explicit image
+packages: `quadrapassel` for falling blocks, `aisleriot` for solitaire, and
+`gnome-chess` with the `gnuchess` engine for local play. Nano and Vim receive
+the same user-overridable, plugin-free editor defaults as the Arch edition.
 
 ## Firewall policy
 

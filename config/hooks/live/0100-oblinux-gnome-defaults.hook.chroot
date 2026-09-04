@@ -6,3 +6,7 @@ set -eu
 # again so the OBLinux live-session overrides are present in the final image.
 glib-compile-schemas /usr/share/glib-2.0/schemas
 dconf update
+
+# Enable the setup unit globally; ConditionUser keeps it exclusive to the
+# ephemeral account named by auto/config and inert for installed users.
+systemctl --global enable oblinux-live-session-setup.service

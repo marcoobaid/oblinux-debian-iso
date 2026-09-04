@@ -100,6 +100,13 @@ are OBLinux-owned image content, not files owned by
 installer regression must verify the installed values against the source ISO;
 see [VERSIONING.md](VERSIONING.md) and [TESTING.md](TESTING.md).
 
+OBLinux also overrides Debian's package-owned `locale.conf` with the same KDE
+Calamares JSON GeoIP endpoint used by the Arch edition. `America/New_York`
+remains only Calamares's offline fallback; when networking is available the
+installer selects the location-aware timezone returned by the service. The
+file remains owned by `calamares-settings-debian` and is removed with the rest
+of the live-only installer settings after installation.
+
 Builds 002 through 004 deliberately retained Debian branding and the
 `Install Debian` launcher while the unmodified Debian-maintained workflow was
 being proven. Build 005 replaces only the identity-facing branding content,

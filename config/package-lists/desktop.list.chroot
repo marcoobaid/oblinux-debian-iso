@@ -22,8 +22,25 @@ systemd-timesyncd
 # Initial user applications
 firefox-esr
 ptyxis
+gimp
+
+# GNOME-friendly storage and screenshot utilities
+# GNOME Disks can restore ISO images directly to removable drives.
+gnome-disk-utility
+flameshot
+
+# Curated lightweight games matching the Arch edition
+quadrapassel
+aisleriot
+gnome-chess
+gnuchess
+
+# Live-session desktop icons; enabled only for the ephemeral live account
+gnome-shell-extension-desktop-icons-ng
 
 # OBLinux developer terminal experience
+nano
+vim
 zsh
 zsh-autosuggestions
 zsh-syntax-highlighting

@@ -2,9 +2,10 @@
 # calamares-settings-debian so package removal also removes these live-only
 # settings from the installed system.
 
-# Keep the installer easy to find in the GNOME dash.
+# Match the Arch live-session dash: Files, Firefox, Terminal, installer. GNOME
+# renders Show Applications after the favorites rather than as a desktop file.
 [org.gnome.shell]
-favorite-apps=['calamares-install-debian.desktop', 'firefox-esr.desktop', 'org.gnome.Evolution.desktop', 'rhythmbox.desktop', 'libreoffice-writer.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'yelp.desktop']
+favorite-apps=['org.gnome.Nautilus.desktop', 'firefox-esr.desktop', 'org.gnome.Ptyxis.desktop', 'calamares-install-debian.desktop']
 
 # Never lock or blank the live installer session while installation is active.
 [org.gnome.desktop.lockdown]

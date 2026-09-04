@@ -90,6 +90,31 @@ a failure because it cannot identify the tested image exactly.
 - Webcam
 - Printing and scanning, if part of the daily workload
 
+## Live desktop and application regression
+
+On a freshly built ISO with networking enabled:
+
+- Open Calamares and confirm its initial timezone follows the test network's
+  location (test at least one non-Eastern location); then disconnect networking
+  and confirm the page remains usable with its documented fallback.
+- Confirm the desktop shows Home, Trash, and a trusted `Install OBLinux`
+  shortcut. Confirm the shortcut and dock installer icon use the OBLinux logo
+  and launch Calamares.
+- Confirm the dash order is Files, Firefox, Terminal, Install OBLinux, followed
+  by GNOME's Show Applications control.
+- Open Settings > System > About in light and dark appearances and compare the
+  OBLinux badge's visual scale with the Arch edition.
+- Launch Nano and Vim against representative shell, Python, and Markdown files;
+  inspect syntax colors, line numbers, indentation, search, and readability in
+  both terminal appearances.
+- Launch Quadrapassel, Aisleriot, GNOME Chess, GIMP, GNOME Disks, and Flameshot.
+  Start a local chess game, capture and annotate a screenshot, and use GNOME
+  Disks to write the ISO to a disposable USB device.
+
+After a clean Calamares installation, repeat the application/editor checks and
+confirm the live desktop shortcut and enabled Desktop Icons NG state were not
+copied into the installed user's profile.
+
 ## Installer safety
 
 Destructive installer scenarios must use disposable VM disks until explicitly
