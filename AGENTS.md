@@ -144,6 +144,12 @@ lb config --validate
 sudo lb build
 ```
 
+On the dedicated builder, `scripts/build-iso` is the guarded end-to-end entry
+point. It updates clean `main` from the read-only development remote, runs the
+full purge/configure/validate/build sequence, and performs static artifact and
+identity verification. Runtime, installation, and hardware testing remain
+separate acceptance stages.
+
 Output follows `oblinux-debian-${VERSION}-${BUILD_ID}-amd64.iso`. Inspect it with:
 
 ```bash

@@ -342,22 +342,20 @@ dependencies must not rely on their incidental inclusion by another package.
 
 ## Getting the source onto a builder
 
-A builder with authorized access to the private repository can clone it:
+A builder with authorized read access to the private development repository can
+clone it and update it directly from GitHub:
 
 ```bash
 git clone <repository-url>
-cd oblinux-debian-iso
+cd oblinux-debian-iso-dev
+git pull --ff-only
 ```
 
-The initial builder was deliberately not given GitHub credentials. Instead, an
-administrator created a Git bundle from `main`, copied it to the builder, cloned
-the bundle, and checked out its `main` reference. A bundle is a transportable
-snapshot of Git objects and history, not an ongoing connection to GitHub.
-
-Consequently, `git pull` on that initial builder is not currently the supported
-update method. Later revisions can be transferred as new bundles, synchronized
-from the administration workstation, or fetched after a narrowly scoped GitHub
-deploy key is configured.
+The dedicated builder uses a repository-scoped, read-only GitHub deploy key.
+Read access is sufficient for `git fetch` and `git pull`; the builder does not
+need authority to push development changes. The original credential-free Git
+bundle transfer was a bootstrap measure and is no longer the normal update
+method.
 
 ## Configure and validate
 
@@ -385,18 +383,28 @@ example of why configuration validation precedes a full build.
 
 ## Run a build
 
-From an interactive shell on the builder:
+For a clean, guarded build from an interactive shell, use the repository-owned
+wrapper:
 
 ```bash
-cd ~/oblinux-debian-iso
-sudo lb build
+cd ~/oblinux-debian-iso-dev
+scripts/build-iso
 ```
 
-Or start it from an administration workstation over SSH:
+The wrapper requires a clean `main` worktree, verifies the development remote,
+uses `git pull --ff-only`, requires `HEAD` to equal `origin/main`, checks the
+Debian 13 `amd64` host and required commands, obtains sudo authorization, runs
+the full purge and validation sequence, and verifies the resulting ISO, build
+record, log, release identity, boot metadata, checksum, and final Git state. It
+does not delete a failed build's diagnostic state, push commits, boot the ISO,
+or claim runtime or installation acceptance.
+
+It can be started from an administration workstation over SSH with a terminal
+so `sudo` can prompt if necessary:
 
 ```bash
 ssh -t <builder> \
-  'cd ~/oblinux-debian-iso && sudo lb build'
+  'cd ~/oblinux-debian-iso-dev && scripts/build-iso'
 ```
 
 The `-t` option allocates a terminal so `sudo` can ask for the administrator's
