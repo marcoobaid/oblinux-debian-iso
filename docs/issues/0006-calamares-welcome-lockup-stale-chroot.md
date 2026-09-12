@@ -2,8 +2,10 @@
 
 ## Status
 
-Resolved in the development repository; owner runtime visual confirmation is
-pending for the corrected ISO.
+Fixed in source. The current baseline has since passed owner VM and physical
+regression testing; see the [pre-promotion confirmation](../tests/2026-09-11-pre-promotion-owner-regression.md).
+That confirmation supplies no individual checklist results; the acceptance
+criteria and historical diagnosis below remain for future regression testing.
 
 ## Symptom
 

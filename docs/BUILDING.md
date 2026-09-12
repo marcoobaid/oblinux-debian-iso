@@ -8,9 +8,10 @@ be understood, repeated, and moved to another machine without relying on
 undocumented setup.
 
 The current milestone is an experimental Debian 13 `amd64` GNOME live and
-installable ISO. Three POC images have been built successfully, and the
-Calamares baseline has completed repeatable VM installations. The image is not
-a supported release.
+installable ISO. The current functional baseline has completed owner regression
+testing on VMs and physical hardware; see the
+[confirmation and evidence limits](tests/2026-09-11-pre-promotion-owner-regression.md).
+This remains the development/staging repository, not a supported public release.
 
 Release versions and exact build identities follow the policy in
 [VERSIONING.md](VERSIONING.md). The root `VERSION` file is the release source
@@ -270,10 +271,10 @@ assembly. This prevents a new filename from being paired with the prior
 build's embedded `BUILD_ID`; a first or fully clean build receives the same
 files through `config/includes.chroot` in the normal live-build chroot stage.
 
-Brand Master is pinned to release `v1.0.3`, commit
-`46e3ed6986d3785c28639bd2dd6656203e2758c7`, and a reviewed commit-archive
+Brand Master is pinned to release `v1.0.4`, commit
+`13e211da2ccd43156fcc7dc7e57c3be7bb5ee47d`, and a reviewed commit-archive
 SHA-256 in `branding/brand-master.lock`. The preparation script never consumes
-a moving branch. It verifies and builds `oblinux-branding` `1.0.3-1`, then
+a moving branch. It verifies and builds `oblinux-branding` `1.0.4-1`, then
 validates its metadata before making it available to live-build. See
 `docs/BRAND_MASTER_INTEGRATION.md` for the immutable dependency and upgrade
 process.
@@ -473,7 +474,9 @@ configuration changes should receive a clean build:
 
 ```bash
 sudo lb clean --purge
+scripts/validate-branding-integration
 lb config
+lb config --validate
 sudo lb build
 ```
 
@@ -536,7 +539,6 @@ FastFetch, and Calamares according to the applicable checklist under
 ## Not included yet
 
 - The remaining daily-driver application set and explicit default policies
-- Zsh and Starship defaults
 - Flatpak or third-party application repositories
 - Firewall configuration
 - Production signing or release automation

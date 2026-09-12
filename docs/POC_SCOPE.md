@@ -13,10 +13,10 @@ use it to evaluate the effort required to operate OBLinux over time.
 - GNOME desktop
 - Bootable hybrid ISO for VM and USB use
 - An unprivileged, automatically logged-in live user
-- A graphical installer, with Calamares as the leading candidate
+- Calamares using Debian's packaged installer settings
 - UEFI boot on the primary target hardware
 - A curated but restrained default application set
-- Debian `main`, `contrib`, `non-free-firmware`, security, and stable updates as
+- Debian `main`, `contrib`, `non-free`, `non-free-firmware`, security, and stable updates as
   explicitly approved by project policy
 - Basic OBLinux name, wallpaper, colors, and installer identity
 - VM tests followed by installation on a designated physical test machine

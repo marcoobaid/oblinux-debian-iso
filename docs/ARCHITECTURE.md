@@ -1,4 +1,4 @@
-# Initial Architecture
+# OBLinux Debian Architecture
 
 ## System model
 
@@ -39,7 +39,8 @@ preferred.
 
 ## Configuration layers
 
-The future build tree should separate:
+The implementation separates these concerns through `auto/`, package lists,
+includes, live hooks, `branding/`, `packaging/`, and `scripts/`:
 
 1. Common base configuration
 2. GNOME-specific package selection and settings
@@ -63,18 +64,19 @@ delivered as small Debian packages. Likely examples include:
 - `oblinux-branding`
 - `oblinux-calamares-settings`
 
-These names are provisional. The POC may initially use live-build includes and
-hooks while the correct package boundaries are discovered. Before public
-release, persistent changes should be migrated into policy-compliant packages
+The pinned Brand Master `oblinux-branding` package and the locally generated
+`oblinux-icon-theme` package are already integrated. The other names above are
+provisional; the remaining POC configuration uses live-build includes and hooks
+while package boundaries are refined. See
+[Brand Master integration](BRAND_MASTER_INTEGRATION.md). Before public release, persistent changes should be migrated into policy-compliant packages
 where practical.
 
 ## Installer
 
-Calamares is the initial graphical-installer candidate because Debian packages
-both Calamares and Debian-oriented settings. It must still be treated as a
-separate integration project. The POC installer specification will identify
-supported partitioning, encryption, bootloader, locale, user-creation, and
-failure-recovery scenarios.
+Calamares uses Debian's packaged `calamares-settings-debian` workflow.
+OBLinux preserves its module order and cleanup behavior while integrating
+identity and final installed APT sources. The [installer specification](INSTALLER.md)
+defines the tested baseline and scenarios requiring separate approval and tests.
 
 The first tests should use disposable virtual disks. Installation on physical
 hardware must not begin until the exact storage layout and recovery path are

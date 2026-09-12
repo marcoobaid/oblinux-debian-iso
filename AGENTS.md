@@ -15,21 +15,23 @@ package ecosystem. The current edition is Debian 13 stable (`trixie`), `amd64`,
 GNOME, built as a hybrid live/install ISO with Debian `live-build`, `live-boot`,
 and `live-config`; installed systems receive normal Debian updates through APT.
 
-The project is in Roadmap Phase 3, daily-driver candidate. Repeatable live ISO
-builds and Calamares VM installations have passed, foundational branding and
-the Horizon icon theme are integrated, and a ThinkPad candidate passed initial
-physical installation and daily-driver testing. This is not a supported public
-release or a broad hardware-support claim. Later GDM fixes and the terminal
-experience have source changes and focused acceptance procedures but no newer
-documented full-ISO/clean-install result; do not describe them as runtime-passed
-until those tests actually succeed.
+The project is in Roadmap Phase 3, daily-driver candidate. Current owner
+regression acceptance and its evidence limits are recorded in
+[the pre-promotion test record](docs/tests/2026-09-11-pre-promotion-owner-regression.md).
+Do not generalize owner-reported acceptance into unreported checklist results,
+a supported public release, or broad hardware support.
 
-This repository is the Debian development and staging implementation. Its
-push-capable `origin` must be `oblinux-debian-iso-dev`; the stable
-`oblinux-debian-iso` repository is read-only reference material and promotion
-to it requires separate explicit owner authorization. Shared visual identity
+Codex is the primary development agent. This root `AGENTS.md` is the
+authoritative governance document for all agents; `CLAUDE.md` is a supplemental
+entry point.
+
+This repository, `oblinux-debian-iso-dev`, is the Debian development and staging
+implementation. Its push-capable `origin` must be `oblinux-debian-iso-dev`; the
+`oblinux-debian-iso` stable/production repository is read-only reference
+material during development, and promotion to it requires separate explicit owner authorization. Shared visual identity
 is released by `oblinux-brand-master`; consume immutable releases here and do
-not patch shared R5 artwork downstream.
+not patch or recreate shared R5 artwork downstream. Released Brand Master tags
+are immutable; never move or replace them.
 
 Core principles from the project charter:
 
@@ -161,7 +163,9 @@ For a fundamental configuration change or suspected stale state:
 
 ```bash
 sudo lb clean --purge
+scripts/validate-branding-integration
 lb config
+lb config --validate
 sudo lb build
 ```
 
@@ -223,6 +227,12 @@ filenames and checksums recorded when useful.
 
 ## Change and Git discipline
 
+- Never force-push or rewrite published history without explicit owner approval
+  for a specific named recovery situation. Normal development uses ordinary
+  pushes to the verified development origin only. Keep the stable remote
+  push-disabled; stable promotion requires separate explicit owner approval.
+- Use the configured human Git identity. Do not add AI co-author, Generated-By,
+  Assisted-By, or other AI attribution to commits or contributor records.
 - Inspect `git status` first and preserve unrelated user work. Keep the change
   narrowly scoped to the request; avoid unrelated refactoring.
 - Consult the relevant authoritative document and accepted decision before

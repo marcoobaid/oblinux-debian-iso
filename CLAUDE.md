@@ -1,6 +1,8 @@
 # CLAUDE.md
 
-This file is the Claude Code entry point for this repository.
+This file is the Claude Code entry point for `oblinux-debian-iso-dev`.
+Codex is the primary development agent; authorized Claude Code work follows
+the same root governance.
 
 **AGENTS.md is the authoritative repository operating guide. CLAUDE.md
 supplements it for Claude Code and must not establish competing repository
@@ -56,20 +58,6 @@ When Claude Code creates Git commits in this repository:
 - Write normal, professional commit messages describing the actual repository
   change, following AGENTS.md's Conventional Commit-style convention (`feat:`,
   `fix:`, `docs:`, `test:`, `build:`, `design:`, etc.).
-
-Example — correct:
-
-```
-Integrate Brand Master v1.0.2
-```
-
-Example — incorrect:
-
-```
-Integrate Brand Master v1.0.2
-
-Co-Authored-By: Claude Sonnet <noreply@anthropic.com>
-```
 
 The repository's configured human Git identity is the sole commit
 attribution unless the owner explicitly instructs otherwise.

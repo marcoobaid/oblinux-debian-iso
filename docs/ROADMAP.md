@@ -1,7 +1,10 @@
 # OBLinux Roadmap
 
-This roadmap is ordered by learning value. Dates should be assigned only after
-the first local build establishes realistic effort.
+This roadmap is ordered by learning value. The project is in Phase 3. The
+[current functional baseline passed owner VM and physical regression testing](tests/2026-09-11-pre-promotion-owner-regression.md),
+and is approved for controlled stable promotion subject to repository checks.
+Remaining checklist items require their own evidence; promotion does not imply
+completion of all POC or public-release goals.
 
 ## Phase 0: Foundation
 
@@ -89,9 +92,12 @@ installed systems update normally.
 - [ ] Finalize the required application set
 - [ ] Test backup and restoration
 - [ ] Document recovery and reinstallation
-- [ ] Complete a non-destructive physical test or spare-disk installation
+- [x] Complete physical live testing and a dedicated installation; see the
+  [initial physical test record](tests/2026-08-21-thinkpad-candidate-01.md)
 - [ ] Record all known limitations
-- [ ] Begin the daily-use trial only after its entry criteria pass
+- [x] Begin the daily-use trial; initial acceptance is recorded in the physical
+  test record above, with longer-term maintainability review still outstanding.
+  Trial entry criteria remain required for future candidates.
 
 Exit condition: the system is used for normal work for an agreed trial period,
 with maintenance effort and failures recorded.

@@ -93,8 +93,11 @@ IMMEDIATELY AFTER PROMOTION
 oblinux-debian-iso-dev: VERSION = 26.4.0-dev
 ```
 
-Promotion removes `-dev` in the stable repository only after release approval,
-validation, commit, push, and passing CI. The stable tag is `v` followed by the
+After explicit owner approval, promotion removes `-dev` as an intentional
+metadata change in the stable repository. Validate and commit that change, push
+`main`, and require passing CI on the final commit before declaring release
+readiness. Tagging then requires separate owner authorization, as defined in
+[AGENTS.md](../AGENTS.md#release-and-tagging-policy). The stable tag is `v` followed by the
 stable version. A maintenance release such as `26.3.1` receives tag `v26.3.1`.
 `BUILD_ID` never changes the release version or Git tag.
 

@@ -7,6 +7,13 @@ Testing should answer two questions during the POC:
 1. Is the current image safe and reliable enough for the next test stage?
 2. How much continuing effort does OBLinux require?
 
+## Current acceptance
+
+The [pre-promotion owner regression record](tests/2026-09-11-pre-promotion-owner-regression.md)
+confirms the current functional baseline passed owner testing on VMs and
+physical hardware. Historical records below describe their own artifacts;
+checklists remain procedures and are not automatically marked passed.
+
 ## Test progression
 
 Tests move from least destructive to most destructive:
@@ -217,7 +224,7 @@ lock and suspend policy that Calamares removes.
 ## Build 005 boot and installer branding acceptance checks
 
 These Build 005–009 sections are historical acceptance records for the legacy
-repository-owned identity. Current Brand Master v1.0.3 acceptance is defined in
+repository-owned identity. Current Brand Master v1.0.4 acceptance is defined in
 `docs/tests/BRAND_MASTER_RUNTIME_TEST.md`; use that checklist for new images.
 
 Build 005 must retain all Build 004 checks and verify the new identity-facing

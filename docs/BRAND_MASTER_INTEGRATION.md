@@ -7,11 +7,11 @@ then adopted here through an intentional version update.
 
 ## Current pin
 
-- Release: `v1.0.3`
-- Commit: `46e3ed6986d3785c28639bd2dd6656203e2758c7`
+- Release: `v1.0.4`
+- Commit: `13e211da2ccd43156fcc7dc7e57c3be7bb5ee47d`
 - Commit archive SHA-256:
-  `d3f0f8ef1a7ec80e18e379efad992ab917c90e898ca75aee6a89e3dcbf6af83c`
-- Debian package: `oblinux-branding` `1.0.3-1`
+  `48e2985de37567838802d4d6346bb846ff8135b5488ae65d56205ed7fe85d9e1`
+- Debian package: `oblinux-branding` `1.0.4-1`
 
 The machine-readable pin is `branding/brand-master.lock`. Builds never consume
 Brand Master `main` or another moving ref.
@@ -26,7 +26,7 @@ step extracts the package-owned GRUB background for the live-media bootloader;
 the extracted file is ignored by Git and is not an independently maintained
 artwork copy.
 
-Brand Master v1.0.3 supplies valid `3.0 (quilt)` Debian source metadata, so the
+Brand Master v1.0.4 supplies valid `3.0 (quilt)` Debian source metadata, so the
 temporary source-format compatibility adjustment required by v1.0.0 is no
 longer present downstream.
 
@@ -72,7 +72,8 @@ logo copies.
 2. Update all values in `branding/brand-master.lock`.
 3. Review the package manifest and integration documentation for changes.
 4. Run `scripts/validate-branding-integration`.
-5. Build the package and complete ISO on Debian 13.
+5. Purge retained build state and build the package and complete ISO on Debian
+   13 using the [branding rebuild procedure](BUILDING.md#clean-rebuilds).
 6. Perform the VM/manual journey in `docs/tests/BRAND_MASTER_RUNTIME_TEST.md`.
 7. Promote only after separate review; never silently follow a moving branch.
 
@@ -84,9 +85,11 @@ Static integration checks:
 scripts/validate-branding-integration
 ```
 
-Complete build validation remains the standard sequence:
+For a branding-package update, use the complete purge rebuild sequence:
 
 ```bash
+sudo lb clean --purge
+scripts/validate-branding-integration
 lb config
 lb config --validate
 sudo lb build
