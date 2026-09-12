@@ -1,6 +1,15 @@
-# OBLinux Debian — Development
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/marcoobaid/oblinux-brand-master/13e211da2ccd43156fcc7dc7e57c3be7bb5ee47d/themes/calamares/oblinux/welcome.svg" alt="OBLinux" width="520">
 
 ### A polished, practical GNOME desktop on a Debian stable foundation
+
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-FF8A00.svg)](LICENSE)
+[![Base: Debian 13](https://img.shields.io/badge/Base-Debian%2013-1E4D8C.svg)](https://www.debian.org/)
+[![Desktop: GNOME](https://img.shields.io/badge/Desktop-GNOME-1E4D8C.svg)](https://www.gnome.org/)
+[![Installer: Calamares](https://img.shields.io/badge/Installer-Calamares-0B1118.svg)](https://calamares.io/)
+
+</div>
 
 OBLinux is an experimental Linux distribution project focused on a cohesive,
 approachable desktop. This repository, **oblinux-debian-iso-dev**, contains the
