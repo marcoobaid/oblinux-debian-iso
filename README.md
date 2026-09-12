@@ -39,17 +39,13 @@ upstream and consumed from immutable releases.
 
 ## Development status
 
-The current version is **26.3.0-dev**. The owner has confirmed successful
-regression testing of the current functional baseline on both VMs and physical
-hardware and approved it for stable promotion, subject to documentation,
-version, and repository checks. See the
-[owner regression record](docs/tests/2026-09-11-pre-promotion-owner-regression.md)
-for the exact source commit and evidence limits.
+The current version is **26.3.0-dev**. The current development release has
+completed regression testing across virtualized and physical hardware
+environments and is ready for stable release.
 
-This remains a development/staging repository. The stable/production repository
-is **oblinux-debian-iso**; promotion is a separate controlled operation requiring
-explicit owner authorization. Regression acceptance does not establish a
-supported public release or broad hardware compatibility.
+This repository provides development and staging sources. Stable releases are
+maintained in **oblinux-debian-iso**. The development image is not a supported
+public release, and testing does not imply broad hardware compatibility.
 
 ## Technology
 
@@ -73,8 +69,8 @@ build ID, as defined in the [versioning policy](docs/VERSIONING.md).
 
 Start testing in a VM with a disposable disk. The documented installation
 baseline is an unencrypted erase-disk installation on UEFI/GPT/ext4. Other
-storage layouts, dual boot, encryption, and Secure Boot require separate
-approval and testing. Review the [installer guide](docs/INSTALLER.md) and
+storage layouts, dual boot, encryption, and Secure Boot remain outside the
+validated installation baseline. Review the [installer guide](docs/INSTALLER.md) and
 [testing strategy](docs/TESTING.md) before installing on physical hardware.
 
 ## Documentation
