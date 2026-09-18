@@ -33,7 +33,9 @@ than resolving it silently.
 - Never force-push or rewrite published Git history unless the owner has
   explicitly authorized it for a specific, named recovery situation.
 - Never promote development changes into a stable repository without
-  explicit owner approval.
+  explicit owner approval. Follow `docs/RELEASING.md` for the 26.3.0 manual
+  regression gate and separate promotion, tagging, publication, and Dev-version
+  transition authorizations; preparation alone authorizes none of these.
 - Preserve this repository's own architecture and conventions; do not carry
   over assumptions from another OBLinux repository just because it looks
   similar.

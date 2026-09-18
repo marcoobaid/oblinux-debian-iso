@@ -8,10 +8,12 @@ be understood, repeated, and moved to another machine without relying on
 undocumented setup.
 
 The current milestone is an experimental Debian 13 `amd64` GNOME live and
-installable ISO. The current functional baseline has completed owner regression
+installable ISO. The September 11 functional baseline completed owner regression
 testing on VMs and physical hardware; see the
 [confirmation and evidence limits](tests/2026-09-11-pre-promotion-owner-regression.md).
-This remains the development/staging repository, not a supported public release.
+This remains the development/staging repository. Public Stable 26.3.0 is
+planned but has not been promoted or released; the preparation changes require
+a new regression candidate. See [RELEASING.md](RELEASING.md).
 
 Release versions and exact build identities follow the policy in
 [VERSIONING.md](VERSIONING.md). The root `VERSION` file is the release source
@@ -112,7 +114,7 @@ sudo apt update
 sudo apt install \
   ca-certificates curl debhelper debootstrap dosfstools dpkg-dev git \
   grub-efi-amd64-bin grub-pc-bin isolinux live-build mtools rsync \
-  librsvg2-bin python3 squashfs-tools syslinux-utils xorriso
+  librsvg2-bin python3 python3-pil squashfs-tools syslinux-utils xorriso
 ```
 
 What these packages provide:
@@ -169,7 +171,7 @@ Current significant settings:
 | `--binary-image iso-hybrid` | Produce an ISO usable in a VM or on USB. |
 | `--archive-areas ...` | Permit Debian main, contrib, non-free, and firmware packages. |
 | `--apt-secure true` | Require authenticated repository metadata. |
-| `--debian-installer none` | Do not add an installer to this milestone. |
+| `--debian-installer none` | Omit Debian Installer; Calamares is included separately through `calamares-settings-debian`. |
 | `--firmware-binary true` | Include applicable firmware in the bootable image. |
 | `--firmware-chroot true` | Include applicable firmware in the live filesystem. |
 | `--bootloaders "grub-efi grub-pc"` | Use GRUB for UEFI and legacy BIOS. |
@@ -196,11 +198,10 @@ filesystem. The current list provides:
   targets
 - Basic hardware and network diagnostic tools
 
-The first generated package manifest showed that Debian's GNOME task also
-installs LibreOffice and much of the CUPS printing stack through its dependency
-graph. These components are therefore present even though they are not named in
-OBLinux's short explicit list. Always use the generated package manifest to
-describe the actual image contents.
+LibreOffice is explicitly included in the current desktop package list.
+Debian's GNOME task also supplies transitive applications and much of the CUPS
+printing stack. Always inspect the generated package manifest to describe the
+actual image contents, including transitive packages.
 
 Debian tasks such as `task-gnome-desktop` are curated package collections. Using
 the Debian task lets Debian define the coherent GNOME baseline while OBLinux
@@ -381,6 +382,14 @@ package installation, boot behavior, or hardware support will succeed.
 The initial validation exposed an invalid selection of two BIOS bootloaders.
 OBLinux now selects `grub-efi` for UEFI and `grub-pc` for BIOS. This is an
 example of why configuration validation precedes a full build.
+
+## Stable builds after promotion
+
+`scripts/build-iso` is deliberately Dev-only and must retain its Dev origin
+guard. Build Stable only from a separate, verified Stable checkout using the
+[guarded Stable procedure](RELEASING.md#guarded-stable-build-after-promotion).
+It selects an exact approved Stable commit, requires `VERSION=26.3.0`, and does
+not pull Dev or reuse a Dev ISO.
 
 ## Run a build
 

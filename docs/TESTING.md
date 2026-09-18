@@ -10,9 +10,17 @@ Testing should answer two questions during the POC:
 ## Current acceptance
 
 The [pre-promotion owner regression record](tests/2026-09-11-pre-promotion-owner-regression.md)
-confirms the current functional baseline passed owner testing on VMs and
-physical hardware. Historical records below describe their own artifacts;
+confirms the September 11 functional baseline passed owner testing on VMs and
+physical hardware. The subsequent screenshot-default correction requires a new
+Dev regression candidate. Historical records below describe their own artifacts;
 checklists remain procedures and are not automatically marked passed.
+
+For 26.3.0, successful final VM and physical-hardware regression is the release
+validation gate; automated CI is not required for this release. See
+[RELEASING.md](RELEASING.md) for artifact evidence, Stable validation, and the
+separate promotion, tagging, and publication authorization boundaries. The CI
+requirement quoted in the September 11 historical record has been superseded
+by this release policy; that record remains unchanged.
 
 ## Test progression
 
@@ -124,9 +132,18 @@ On a freshly built ISO with networking enabled:
 - Launch Nano and Vim against representative shell, Python, and Markdown files;
   inspect syntax colors, line numbers, indentation, search, and readability in
   both terminal appearances.
-- Launch Quadrapassel, Aisleriot, GNOME Chess, GIMP, GNOME Disks, and Flameshot.
-  Start a local chess game, capture and annotate a screenshot, and use GNOME
-  Disks to write the ISO to a disposable USB device.
+- Launch Quadrapassel, Aisleriot, GNOME Chess, GIMP, and GNOME Disks.
+  Start a local chess game and use GNOME Disks to write the ISO to a disposable
+  USB device.
+- Confirm the session is Wayland (`echo "$XDG_SESSION_TYPE"`). Use the standard
+  screenshot shortcut (Print Screen) to open GNOME Shell's native overlay.
+  Test area, window, and full-screen capture, saved images, and clipboard paste
+  into a compatible application. Check scaling and multiple displays where
+  available. Repeat in the installed session. Native capture does not promise
+  annotation parity with third-party tools.
+- Confirm the generated package manifest and live/installed package inventory
+  contain no Flameshot installation; removal from the explicit package list
+  alone does not prove absence from the final dependency closure.
 - Compare the application grid with the Arch reference screenshots. Open each
   top-level application and the Utilities/System folders; confirm Contacts,
   Weather, Clocks, the Avahi browsers, Document Scanner, btop++, Calculator,

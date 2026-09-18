@@ -39,9 +39,15 @@ upstream and consumed from immutable releases.
 
 ## Development status
 
-The current version is **26.3.0-dev**. The current development release has
-completed regression testing across virtualized and physical hardware
-environments and is ready for stable release.
+The current version is **26.3.0-dev**, in preparation for public Stable
+**26.3.0**. The September 11 baseline passed owner VM and physical regression;
+subsequent release-preparation changes require a new candidate and final
+regression. Promotion, tagging, and publication have not occurred.
+
+The planned Stable ISO and SHA-256 checksum will be published on SourceForge
+under `OBLinux-Debian-ISO/26.3.0/`, followed by public download and checksum
+verification. See the [release procedure](docs/RELEASING.md) for validation,
+provenance, and the limited installation/hardware scope.
 
 This repository provides development and staging sources. Stable releases are
 maintained in **oblinux-debian-iso**. The development image is not a supported
@@ -80,6 +86,7 @@ validated installation baseline. Review the [installer guide](docs/INSTALLER.md)
 | Project purpose and scope | [Charter](docs/PROJECT_CHARTER.md) · [POC scope](docs/POC_SCOPE.md) |
 | Current phase and remaining work | [Roadmap](docs/ROADMAP.md) |
 | Building and release identity | [Building](docs/BUILDING.md) · [Versioning](docs/VERSIONING.md) |
+| Release procedure and publishing | [Releasing](docs/RELEASING.md) |
 | Architecture and installation | [Architecture](docs/ARCHITECTURE.md) · [Installer](docs/INSTALLER.md) |
 | Desktop identity | [Brand Master integration](docs/BRAND_MASTER_INTEGRATION.md) |
 | Validation and hardware | [Testing](docs/TESTING.md) · [Hardware targets](docs/HARDWARE_TARGETS.md) |

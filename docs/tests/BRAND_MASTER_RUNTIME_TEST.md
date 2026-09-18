@@ -1,7 +1,9 @@
 # Brand Master v1.0.4 runtime test
 
-Use a disposable VM with UEFI, a blank virtual disk, and the generated dev ISO.
-Record the ISO SHA-256 and tested commit before beginning.
+Use a disposable VM with UEFI, a blank virtual disk, and the exact candidate ISO
+(Dev before promotion; Stable before release). Record its filename, VERSION,
+BUILD_ID, SHA-256, tested commit, and environment before beginning. See
+[release evidence requirements](../RELEASING.md).
 
 ## Live journey
 
@@ -12,7 +14,9 @@ Record the ISO SHA-256 and tested commit before beginning.
 - GNOME starts with Obsidian Horizon in both light and dark appearance modes.
 - Settings lists Obsidian Horizon variants and the complete Brand Master
   wallpaper collection.
-- GNOME About identifies OBLinux and resolves `oblinux-logo`.
+- GNOME About identifies OBLinux using Debian's vendor-emblem alternative and
+  the documented 192-pixel variant of the shared hicolor SVG. Check light/dark
+  appearance and scaling; `LOGO=oblinux-logo` alone does not verify this path.
 - The installer launcher uses the R5 installer icon.
 - Calamares shows the proportional R5 lockup, navy/blue sidebar with readable
   white/orange navigation, seven canonical R5 slides, and completion state.
@@ -33,9 +37,10 @@ Record the ISO SHA-256 and tested commit before beginning.
 - GNOME retains Obsidian Horizon as its light/dark and lock-screen default and
   retains the hicolor icons.
 - `/etc/issue`, `/etc/issue.net`, and `/etc/motd` use restrained OBLinux text.
-- A newly created user's FastFetch configuration references
-  `/usr/share/oblinux/terminal/fastfetch/logo.txt`; no legacy `oblinux.txt`
-  exists in the user's seeded configuration.
+- `/etc/xdg/fastfetch/config.jsonc` references
+  `/usr/share/oblinux/terminal/fastfetch/logo.txt` and applies to new users
+  without a seeded per-user configuration. No legacy `oblinux.txt` is seeded.
+- A user's own `~/.config/fastfetch/config.jsonc` overrides the system default.
 - An existing user's customized FastFetch configuration is not overwritten by
   the package upgrade.
 - No legacy OBLinux or unintended Debian product artwork appears.

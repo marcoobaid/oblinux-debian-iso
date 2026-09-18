@@ -89,14 +89,17 @@ WHEN Q3 2026 IS APPROVED AND RELEASED
 oblinux-debian-iso:     VERSION = 26.3.0
 Git tag:                v26.3.0
 
-IMMEDIATELY AFTER PROMOTION
+AFTER RELEASE, WITH SEPARATE OWNER AUTHORIZATION
 oblinux-debian-iso-dev: VERSION = 26.4.0-dev
 ```
 
 After explicit owner approval, promotion removes `-dev` as an intentional
 metadata change in the stable repository. Validate and commit that change, push
-`main`, and require passing CI on the final commit before declaring release
-readiness. Tagging then requires separate owner authorization, as defined in
+`main`, and complete the final VM and physical-hardware regression gate for
+26.3.0 before declaring release readiness. Automated CI is not a prerequisite
+for this release; it remains a future enhancement. Record the tested source
+commit, ISO identity, checksum, and results under [RELEASING.md](RELEASING.md).
+Tagging then requires separate owner authorization, as defined in
 [AGENTS.md](../AGENTS.md#release-and-tagging-policy). The stable tag is `v` followed by the
 stable version. A maintenance release such as `26.3.1` receives tag `v26.3.1`.
 `BUILD_ID` never changes the release version or Git tag.

@@ -21,7 +21,20 @@ desktop and matches the intended graphical exploration-and-install workflow.
 See [Decision 0003](decisions/0003-calamares-poc-installer.md) for the decision
 and tradeoffs.
 
-## First supported scenario
+## Current validation status
+
+The September 11 [owner regression record](tests/2026-09-11-pre-promotion-owner-regression.md)
+reports VM and physical acceptance of its stated functional baseline, without
+an exact ISO identity or per-check results. The earlier Build 002 restrictions
+below describe that historical milestone, not a reversal of later physical
+acceptance. For 26.3.0, final validation remains unencrypted erase-disk
+UEFI/GPT/ext4 installation on disposable VM disks and the designated recoverable
+physical target. Test both no-swap and bounded-swap choices. No broad hardware,
+Secure Boot, encryption, dual-boot, manual-partitioning, existing-ESP reuse, or
+interrupted-install recovery support is implied. Record new results against
+the exact candidate as required by [RELEASING.md](RELEASING.md).
+
+## First supported scenario (historical Build 002 baseline)
 
 POC Build 002 supports only this acceptance path:
 

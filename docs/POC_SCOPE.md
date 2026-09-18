@@ -5,6 +5,14 @@
 Build an installable Debian 13 stable GNOME system for personal daily use and
 use it to evaluate the effort required to operate OBLinux over time.
 
+## Public Stable 26.3.0 transition
+
+The original POC has progressed to preparation for public Stable 26.3.0.
+The release will use SourceForge for the tested ISO and checksum, with final
+VM and designated physical-hardware regression as its validation gate. This
+expands distribution scope, not hardware or installer support claims.
+Promotion and publication are still pending. See [RELEASING.md](RELEASING.md).
+
 ## In scope
 
 - Debian 13 stable as the base distribution
@@ -50,7 +58,6 @@ is added.
 - OEM installation
 - Automated upgrades between Debian major versions
 - Telemetry or user analytics
-- A public stable release
 
 ## Daily-driver trial entry criteria
 

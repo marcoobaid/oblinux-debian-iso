@@ -24,8 +24,12 @@
 - Install the Arch Fastfetch configuration byte-for-byte at the same
   system-wide XDG path, matching its module list, formatting, and colors for
   live and installed users.
-- Add GIMP, GNOME Disks for graphical USB ISO writing, and Flameshot for a
-  dedicated screenshot and annotation workflow.
+- Add GIMP and GNOME Disks for graphical USB ISO writing.
+- Remove Flameshot from the default package set and application assertions;
+  GNOME Shell native screenshots are the supported default. Annotation is not
+  provided as an equivalent native feature; other tools remain user-installable.
+- Document the 26.3.0 manual regression gate, guarded Stable build procedure,
+  SourceForge publication model, and artifact provenance requirements.
 - Explicitly include the Debian equivalents of the Arch application-grid set,
   including core GNOME apps, LibreOffice, GUFW, Avahi browsers, printing and
   hardware utilities, V4L2 tools, Software Token, and graphical Vim; retain

@@ -107,10 +107,12 @@ Debian-based image and makes the source of future updates clear to the user.
 
 ## Artifact hosting
 
-GitHub is intended to hold source, documentation, issues, and release metadata.
-An ISO may use GitHub Releases only while it fits the per-asset size limit.
-Artifact storage and the APT repository should remain replaceable components so
-that larger images or public traffic do not force a source-repository redesign.
+GitHub holds source, documentation, issues, and release metadata. Public Stable
+26.3.0 will publish the tested Stable ISO and SHA-256 checksum on SourceForge
+under `OBLinux-Debian-ISO/26.3.0/`. Publication is followed by an independent
+public download and checksum verification. See [RELEASING.md](RELEASING.md)
+for authorization boundaries and provenance. This artifact hosting does not
+create an OBLinux APT repository or change installed Debian update sources.
 
 ## Build host
 
@@ -122,12 +124,13 @@ the repository.
 
 ## Deferred production architecture
 
-The following require separate designs before public release:
+Before publishing 26.3.0, complete the license/source-distribution review and
+record the actual support boundaries and known limitations. Broader production
+capabilities below require separate designs; none is implied by this release:
 
 - Secure Boot key and shim strategy
 - Production archive signing and offline key custody
-- Public artifact hosting and mirrors
+- Additional artifact mirrors beyond the defined SourceForge model
 - Vulnerability response and security advisories
 - Major-version upgrades
-- Source redistribution and license compliance
 - Automated release CI and provenance attestations

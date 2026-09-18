@@ -1,8 +1,10 @@
 # OBLinux Roadmap
 
 This roadmap is ordered by learning value. The project is in Phase 3. The
-[current functional baseline passed owner VM and physical regression testing](tests/2026-09-11-pre-promotion-owner-regression.md),
-and is approved for controlled stable promotion subject to repository checks.
+[September 11 baseline passed owner VM and physical regression testing](tests/2026-09-11-pre-promotion-owner-regression.md).
+Release preparation for public Stable 26.3.0 is underway; the screenshot-default
+correction requires a new Dev candidate. Final regression, promotion, tagging,
+and SourceForge publication remain pending under [RELEASING.md](RELEASING.md).
 Remaining checklist items require their own evidence; promotion does not imply
 completion of all POC or public-release goals.
 
@@ -108,19 +110,19 @@ with maintenance effort and failures recorded.
 - [ ] Convert persistent configuration into appropriate OBLinux packages
 - [ ] Determine whether an OBLinux APT repository is now justified
 - [ ] Automate smoke tests and artifact generation
-- [ ] Decide whether to proceed toward a private alpha or narrow the project
+- [ ] Review maintainability after the planned 26.3.0 public release
 
 Exit condition: a written proceed, revise, or stop decision is supported by POC
 evidence.
 
-## Future public-release work
+## Release work and future expansion
 
 - Project governance and contribution policy
 - Public security contact and vulnerability handling
 - Production repository signing and key rotation
 - Secure Boot support, if claimed
 - License and source-distribution compliance
-- Public artifact hosting
+- Complete the 26.3.0 SourceForge publication and public checksum verification
 - Broader hardware and installer test matrices
 - Accessibility and localization review
 - Support lifecycle and major-version upgrades

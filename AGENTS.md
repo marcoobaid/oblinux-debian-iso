@@ -19,7 +19,9 @@ The project is in Roadmap Phase 3, daily-driver candidate. Current owner
 regression acceptance and its evidence limits are recorded in
 [the pre-promotion test record](docs/tests/2026-09-11-pre-promotion-owner-regression.md).
 Do not generalize owner-reported acceptance into unreported checklist results,
-a supported public release, or broad hardware support.
+a completed public release, or broad hardware support. Public Stable 26.3.0 is
+planned; the current preparation changes require a new regression candidate.
+See [the release procedure](docs/RELEASING.md) for current gates and scope.
 
 Codex is the primary development agent. This root `AGENTS.md` is the
 authoritative governance document for all agents; `CLAUDE.md` is a supplemental
@@ -96,6 +98,9 @@ explicit vendor-repository opt-in with scoped `Signed-By` trust.
 
 ## GNOME, installer, and identity boundaries
 
+GNOME Shell native screenshots are the supported default; do not promise
+third-party annotation functionality. Users may install other capture tools.
+
 GNOME is the only POC edition. Defaults such as wallpapers, icon theme, Ptyxis,
 and terminal configuration must remain user-overridable. Keep the live-only
 Calamares lock/suspend policy separate from installed-user settings, and keep
@@ -126,7 +131,7 @@ valuable storage.
 
 Branding and persistent identity span GNOME About, wallpapers, GRUB, Plymouth,
 Calamares, GDM, account defaults, and the Horizon themes. Consult Decisions
-0005–0012 before altering these mechanisms. Preserve Debian package originals
+0005–0014 before altering these mechanisms. Preserve Debian package originals
 through the established alternatives/diversion patterns, preserve user choices,
 and keep guarded Debian-file modifications fail-closed when upstream content is
 unexpected.
@@ -150,7 +155,10 @@ On the dedicated builder, `scripts/build-iso` is the guarded end-to-end entry
 point. It updates clean `main` from the read-only development remote, runs the
 full purge/configure/validate/build sequence, and performs static artifact and
 identity verification. Runtime, installation, and hardware testing remain
-separate acceptance stages.
+separate acceptance stages. Keep this wrapper Dev-only. After separately
+authorized promotion, use the exact-commit Stable procedure in
+`docs/RELEASING.md`; never point the Dev wrapper at Stable or build a Stable
+artifact from Dev `main`.
 
 Output follows `oblinux-debian-${VERSION}-${BUILD_ID}-amd64.iso`. Inspect it with:
 
@@ -259,13 +267,21 @@ filenames and checksums recorded when useful.
 
 Release tags are always the final step of the release process:
 
-`Change → Validate → Commit → Push main → CI passes → Tag`
+For 26.3.0: `Change → Static validation → Commit → Push main → Final VM and
+physical regression → Release-ready → Separate tag authorization → Tag`.
+
+Successful final VM and physical-hardware regression is the release validation
+gate for 26.3.0. Automated CI is not required for this release and remains a
+future enhancement. Historical records quoting the earlier CI gate are evidence
+of their own date, not current release instructions.
 
 - Never create, move, delete, or push a release tag during normal development.
 - Before declaring a release ready, ensure all intended changes are committed,
   the working tree is clean, release and package metadata are consistent,
-  repository validation passes, the changes are pushed to `main`, and CI passes
-  on that final `main` commit.
+  repository validation passes, the changes are pushed to `main`, and final VM
+  and physical regression evidence identifies the exact Stable artifact and
+  source commit. Any later changes require an explicit evidence review;
+  functional/build changes require rebuilding and retesting.
 - After those checks pass, stop and report that the repository is
   **release-ready**. Do not create or push the release tag unless the owner
   explicitly authorizes it after that declaration.
@@ -281,6 +297,7 @@ Release tags are always the final step of the release process:
 - Base, packaging, repositories, deferred production design:
   `docs/ARCHITECTURE.md`
 - Exact host setup, build commands, wrappers, artifacts: `docs/BUILDING.md`
+- Release gates, Stable build, provenance, publishing: `docs/RELEASING.md`
 - Calamares architecture, supported baseline, destructive controls:
   `docs/INSTALLER.md`
 - Validation progression and detailed acceptance checks: `docs/TESTING.md`
