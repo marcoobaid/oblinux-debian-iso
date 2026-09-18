@@ -10,8 +10,9 @@ operating systems without concealing the strengths of Linux or Debian.
 ## Current objective
 
 The current objective is a proof of concept that can become the maintainer's
-daily-driver system. The POC exists to measure the real engineering and
-maintenance effort before committing to a public distribution.
+daily-driver system. The POC measures the real engineering and
+maintenance effort; the project is now preparing its first public Stable
+release under the explicitly limited scope below.
 
 The first successful outcome is not a broadly supported product. It is a
 repeatable build that boots into a useful GNOME live session, installs safely in
@@ -20,10 +21,12 @@ the maintainer's chosen virtual and physical hardware.
 
 ## Intended evolution
 
-If the POC proves sustainable, OBLinux can evolve through private alpha,
-hardware-tested beta, and public stable releases. Later work may include other
-desktop or window-manager flavors, a signed OBLinux package repository, and
-graphical tools for common customization and administration tasks.
+The current authorized direction is preparation for public Stable 26.3.0,
+with final VM and physical regression and the limited scope described in
+[RELEASING.md](RELEASING.md). The release is not yet complete. Later work may
+include other desktop or window-manager flavors, a signed OBLinux package
+repository, and graphical tools for common customization and administration
+tasks.
 
 ## Principles
 
@@ -43,7 +46,9 @@ During the POC, the target user is an experienced Linux user running a modern
 technical recovery and manual diagnosis during early development while still
 requiring a comfortable graphical daily experience.
 
-A broader public-user persona must be defined before public beta testing.
+The 26.3.0 public artifact retains this experienced-user scope. A broader
+public-user persona and support model remain future work; their absence limits
+support claims and does not expand the tested hardware or installer baseline.
 
 ## Success measures
 
@@ -68,4 +73,3 @@ project record. Decisions should describe their context, outcome, and
 consequences. Personal names should not appear in user-facing or project-policy
 documentation; project roles such as maintainer, contributor, and release
 manager should be used instead.
-

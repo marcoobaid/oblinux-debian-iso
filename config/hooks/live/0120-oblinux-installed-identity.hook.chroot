@@ -4,13 +4,16 @@ set -eu
 
 grub_linux=/etc/grub.d/10_linux
 vendor_logo=/usr/share/icons/vendor/scalable/emblems/emblem-vendor.svg
-oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-vendor.svg
+oblinux_logo=/usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg
+oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-about-gnome.svg
+oblinux_vendor_logo_symbolic=/usr/share/oblinux/brand/master/oblinux-symbol-blue.svg
+oblinux_vendor_logo_white=/usr/share/oblinux/brand/master/oblinux-symbol-white.svg
 vendor_logos=/usr/share/oblinux/vendor-logos
-vendor_emblems=/usr/share/oblinux/vendor-emblems
+vendor_icon_root=/usr/share/icons/hicolor
 default_avatar=/etc/skel/.face
 default_avatar_link=/etc/skel/.face.icon
 oblinux_default_avatar=/usr/share/oblinux/branding/oblinux-default-avatar.svg
-login_background=/usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg
+login_background=/usr/share/backgrounds/oblinux/oblinux-default-dark.svg
 login_background_link=/usr/share/images/desktop-base/login-background.svg
 gdm_profile=/etc/dconf/profile/gdm
 gdm_background=/etc/dconf/db/gdm.d/01-oblinux-background
@@ -26,7 +29,10 @@ elif ! grep -Fqx "$replacement" "$grub_linux"; then
     exit 1
 fi
 
-grep -qx 'PRETTY_NAME="OBLinux Proof of Concept (Debian 13)"' /etc/os-release
+grep -Eq '^PRETTY_NAME="OBLinux [0-9]{2}\.[1-4]\.[0-9]+(-dev)?"$' /etc/os-release
+grep -Eq '^VERSION="[0-9]{2}\.[1-4]\.[0-9]+(-dev)?"$' /etc/os-release
+grep -Eq '^VERSION_ID="[0-9]{2}\.[1-4]\.[0-9]+(-dev)?"$' /etc/os-release
+grep -Eq '^BUILD_ID="[0-9]{8}-[0-9]{4}"$' /etc/os-release
 grep -qx 'ID=oblinux' /etc/os-release
 grep -qx 'ID_LIKE=debian' /etc/os-release
 grep -qx 'LOGO=oblinux-logo' /etc/os-release
@@ -34,13 +40,31 @@ cmp /etc/os-release /usr/lib/os-release
 grep -qx 'Theme=oblinux' /etc/plymouth/plymouthd.conf
 grep -qx 'GRUB_THEME="/usr/share/grub/themes/oblinux/theme.txt"' \
     /etc/default/grub.d/99-oblinux.cfg
+grep -qx 'GRUB_BACKGROUND="/usr/share/grub/themes/oblinux/background.png"' \
+    /etc/default/grub.d/99-oblinux.cfg
 
-# Debian resolves both GNOME Control Center's emblem and GDM's bottom vendor
-# mark through one vendor-logos alternatives group. Register a complete
-# OBLinux candidate with the same slave contract as desktop-base, then select
-# it explicitly. Debian's candidate remains installed and recoverable.
-test -f "$oblinux_vendor_logo"
-test -f "$vendor_logos/logo-text-version-64.png"
+# Debian compiles GNOME Control Center with DISTRIBUTOR_LOGO, so About bypasses
+# os-release LOGO and loads the scalable vendor emblem as a filename. Upstream,
+# as used by Arch, resolves LOGO=oblinux-logo through GtkIconTheme and requests
+# a 192-pixel icon. Give Debian's direct-file path the identical Arch SVG and
+# the same 192-pixel intrinsic size; do not pad or alter the artwork geometry.
+test -f "$oblinux_logo"
+test -f "$oblinux_vendor_logo_symbolic"
+test -f "$oblinux_vendor_logo_white"
+
+install -d -m 0755 "$(dirname "$oblinux_vendor_logo")"
+install -m 0644 "$oblinux_logo" "$oblinux_vendor_logo"
+sed -i 's/<svg /<svg width="192" height="192" /' "$oblinux_vendor_logo"
+grep -Fq '<svg width="192" height="192" ' "$oblinux_vendor_logo"
+grep -Fq 'viewBox="0 0 512 512"' "$oblinux_vendor_logo"
+install -d -m 0755 "$vendor_logos"
+for size in 64 128 256; do
+    source_icon=$vendor_icon_root/${size}x${size}/apps/oblinux-logo.png
+    test -f "$source_icon"
+    ln -sfn "$source_icon" "$vendor_logos/logo-$size.png"
+    ln -sfn "$source_icon" "$vendor_logos/logo-text-$size.png"
+    ln -sfn "$source_icon" "$vendor_logos/logo-text-version-$size.png"
+done
 if dpkg-divert --list "$vendor_logo" | grep -Fq "local diversion of $vendor_logo"; then
     rm -f "$vendor_logo"
     dpkg-divert --quiet --local --rename --remove "$vendor_logo"
@@ -48,28 +72,28 @@ fi
 update-alternatives --install \
     /usr/share/images/vendor-logos vendor-logos "$vendor_logos" 100 \
     --slave /usr/share/icons/vendor/64x64/emblems/emblem-vendor.png \
-        emblem-vendor-64 "$vendor_emblems/emblem-vendor-64.png" \
+        emblem-vendor-64 "$vendor_icon_root/64x64/apps/oblinux-logo.png" \
     --slave /usr/share/icons/vendor/128x128/emblems/emblem-vendor.png \
-        emblem-vendor-128 "$vendor_emblems/emblem-vendor-128.png" \
+        emblem-vendor-128 "$vendor_icon_root/128x128/apps/oblinux-logo.png" \
     --slave /usr/share/icons/vendor/256x256/emblems/emblem-vendor.png \
-        emblem-vendor-256 "$vendor_emblems/emblem-vendor-256.png" \
+        emblem-vendor-256 "$vendor_icon_root/256x256/apps/oblinux-logo.png" \
     --slave "$vendor_logo" emblem-vendor-scalable "$oblinux_vendor_logo" \
     --slave /usr/share/icons/vendor/64x64/emblems/emblem-vendor-symbolic.png \
-        emblem-vendor-symbolic-64 "$vendor_emblems/emblem-vendor-symbolic-64.png" \
+        emblem-vendor-symbolic-64 "$vendor_icon_root/64x64/apps/oblinux-logo.png" \
     --slave /usr/share/icons/vendor/128x128/emblems/emblem-vendor-symbolic.png \
-        emblem-vendor-symbolic-128 "$vendor_emblems/emblem-vendor-symbolic-128.png" \
+        emblem-vendor-symbolic-128 "$vendor_icon_root/128x128/apps/oblinux-logo.png" \
     --slave /usr/share/icons/vendor/256x256/emblems/emblem-vendor-symbolic.png \
-        emblem-vendor-symbolic-256 "$vendor_emblems/emblem-vendor-symbolic-256.png" \
+        emblem-vendor-symbolic-256 "$vendor_icon_root/256x256/apps/oblinux-logo.png" \
     --slave /usr/share/icons/vendor/scalable/emblems/emblem-vendor-symbolic.svg \
-        emblem-vendor-symbolic-scalable "$oblinux_vendor_logo" \
+        emblem-vendor-symbolic-scalable "$oblinux_vendor_logo_symbolic" \
     --slave /usr/share/icons/vendor/64x64/emblems/emblem-vendor-white.png \
-        emblem-vendor-white-64 "$vendor_emblems/emblem-vendor-white-64.png" \
+        emblem-vendor-white-64 "$vendor_icon_root/64x64/apps/oblinux-logo.png" \
     --slave /usr/share/icons/vendor/128x128/emblems/emblem-vendor-white.png \
-        emblem-vendor-white-128 "$vendor_emblems/emblem-vendor-white-128.png" \
+        emblem-vendor-white-128 "$vendor_icon_root/128x128/apps/oblinux-logo.png" \
     --slave /usr/share/icons/vendor/256x256/emblems/emblem-vendor-white.png \
-        emblem-vendor-white-256 "$vendor_emblems/emblem-vendor-white-256.png" \
+        emblem-vendor-white-256 "$vendor_icon_root/256x256/apps/oblinux-logo.png" \
     --slave /usr/share/icons/vendor/scalable/emblems/emblem-vendor-white.svg \
-        emblem-vendor-white-scalable "$oblinux_vendor_logo"
+        emblem-vendor-white-scalable "$oblinux_vendor_logo_white"
 update-alternatives --set vendor-logos "$vendor_logos"
 test "$(readlink -f /usr/share/images/vendor-logos)" = "$vendor_logos"
 
@@ -110,8 +134,8 @@ test -r "$gdm_background"
 grep -qx 'user-db:user' "$gdm_profile"
 grep -qx 'system-db:gdm' "$gdm_profile"
 grep -qx 'file-db:/usr/share/gdm/greeter-dconf-defaults' "$gdm_profile"
-grep -qx "primary-color='#111820'" "$gdm_background"
-grep -qx "secondary-color='#1B2836'" "$gdm_background"
+grep -qx "primary-color='#0B1118'" "$gdm_background"
+grep -qx "secondary-color='#0D2742'" "$gdm_background"
 grep -qx "color-shading-type='vertical'" "$gdm_background"
 grep -qx "picture-options='none'" "$gdm_background"
 command -v dconf >/dev/null

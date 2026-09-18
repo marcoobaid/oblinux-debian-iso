@@ -22,8 +22,62 @@ systemd-timesyncd
 # Initial user applications
 firefox-esr
 ptyxis
+gimp
+
+# Arch-parity GNOME applications and desktop utilities
+# Impression is not packaged by Debian; GNOME Disks supplies the equivalent
+# Restore Disk Image workflow without an external repository.
+gnome-calendar
+gnome-calculator
+gnome-characters
+gnome-clocks
+gnome-contacts
+gnome-control-center
+gnome-firmware
+gnome-shell-extension-prefs
+gnome-software
+gnome-system-monitor
+gnome-text-editor
+gnome-tour
+gnome-tweaks
+gnome-weather
+baobab
+eog
+evince
+file-roller
+gnome-sushi
+simple-scan
+totem
+
+# Removable-media, network, and hardware utilities
+# GNOME Shell supplies the native screenshot interface; no extra capture tool.
+# GNOME Disks can restore ISO images directly to removable drives.
+gnome-disk-utility
+avahi-ui-utils
+btop
+gufw
+hwloc
+lftp
+qv4l2
+stoken
+system-config-printer
+ufw
+
+# Complete office suite matching the Arch LibreOffice application set
+libreoffice
+
+# Curated lightweight games matching the Arch edition
+quadrapassel
+aisleriot
+gnome-chess
+gnuchess
+
+# Live-session desktop icons; enabled only for the ephemeral live account
+gnome-shell-extension-desktop-icons-ng
 
 # OBLinux developer terminal experience
+nano
+vim-gtk3
 zsh
 zsh-autosuggestions
 zsh-syntax-highlighting

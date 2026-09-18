@@ -1,8 +1,0 @@
-[Plymouth Theme]
-Name=OBLinux Obsidian Horizon
-Description=OBLinux startup and shutdown presentation
-ModuleName=script
-
-[script]
-ImageDir=/usr/share/plymouth/themes/oblinux
-ScriptFile=/usr/share/plymouth/themes/oblinux/oblinux.script

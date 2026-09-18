@@ -15,14 +15,20 @@ package ecosystem. The current edition is Debian 13 stable (`trixie`), `amd64`,
 GNOME, built as a hybrid live/install ISO with Debian `live-build`, `live-boot`,
 and `live-config`; installed systems receive normal Debian updates through APT.
 
-The project is in Roadmap Phase 3, daily-driver candidate. Repeatable live ISO
-builds and Calamares VM installations have passed, foundational branding and
-the Horizon icon theme are integrated, and a ThinkPad candidate passed initial
-physical installation and daily-driver testing. This is not a supported public
-release or a broad hardware-support claim. Later GDM fixes and the terminal
-experience have source changes and focused acceptance procedures but no newer
-documented full-ISO/clean-install result; do not describe them as runtime-passed
-until those tests actually succeed.
+The project is in Roadmap Phase 3, daily-driver candidate. Stable `main` is the
+26.3.0 release candidate promoted from accepted Dev commit
+`d9289b2bbcaf1fb44a9b926fee0a7e40bf724bed`. The owner confirmed VM and physical
+laptop regression passed for Dev artifact
+`oblinux-debian-26.3.0-dev-20260918-1057-amd64.iso`, SHA-256
+`00d8e4c849304645e2062fe721b48f97facb4f4a3327cd4371cd820487b78827`.
+That acceptance authorizes the source promotion; it does not test the future
+Stable artifact, complete public release, create `v26.3.0`, establish
+SourceForge publication, or imply broad hardware support. See
+[the release procedure](docs/RELEASING.md) for current gates and scope.
+
+Codex is the primary development agent. This root `AGENTS.md` is the
+authoritative governance document for all agents; `CLAUDE.md` is a supplemental
+entry point.
 
 ## Stable repository protection
 
@@ -36,9 +42,9 @@ workspace for feature development, experimentation, or branding integration.
   `oblinux-brand-master`. Do not redesign or independently implement shared
   branding in this repository, and do not consume unreleased Brand Master
   changes or its `main` branch directly here.
-- Stable receives changes only through a separate promotion after the proposed
-  ISO has built successfully, passed automated validation, runtime testing,
-  and visual/manual review, and received explicit owner authorization.
+- Stable receives functional changes only through a separate promotion after
+  the proposed Dev ISO has built successfully, passed the required validation
+  and runtime review, and received explicit owner authorization.
 - Do not merge, rebase, reset, cherry-pick, copy, or otherwise synchronize dev
   changes into stable without that explicit promotion authorization. A
   successful development build alone is not approval.
@@ -61,6 +67,20 @@ Core principles from the project charter:
   manual intervention. Scope expands only after the GNOME edition is
   maintainable.
 
+## Release version and build identity
+
+`docs/VERSIONING.md` is the authoritative release/version policy shared with
+OBLinux Arch. The root `VERSION` file is the authoritative current repository
+version and must remain `26.3.0` for this release candidate. Do not invent,
+infer, independently increment, or modify it during unrelated work. Development
+versions use `-dev`; stable versions do not. Advancing the separate Dev
+repository requires later explicit owner authorization.
+
+`BUILD_ID` is generated automatically once per build and propagated unchanged
+to the ISO name and live/installed `os-release`. It is not part of the release
+version or Git tag. Stable tags use forms such as `v26.3.0`. See
+`docs/VERSIONING.md` for the complete lifecycle and policy.
+
 ## Architecture and repository map
 
 - `auto/`: authoritative `live-build` configure/build/clean wrappers.
@@ -76,9 +96,10 @@ Core principles from the project charter:
   Preserve hook ordering and explicit package dependencies.
 - `config/bootloaders/`: live-build GRUB presentation overrides; live-build
   retains kernel discovery, menu generation, and boot mechanics.
-- `branding/`: approved identity sources, generated consumer assets, licensing,
-  attribution, and generators. Follow `branding/BRAND_GUIDE.md` and asset
-  READMEs; regenerate derived assets and preserve third-party notices.
+- `branding/`: the immutable Brand Master package pin plus the separately
+  maintained Horizon application icon theme. Shared R5 visual assets come from
+  the pinned `oblinux-branding` package; do not duplicate or regenerate them in
+  this repository.
 - `packaging/` and `scripts/`: OBLinux-owned package recipes and build helpers.
   The Horizon theme is an independently versioned, locally generated Debian
   package derived reproducibly from pinned Debian Papirus input.
@@ -97,11 +118,19 @@ explicit vendor-repository opt-in with scoped `Signed-By` trust.
 
 ## GNOME, installer, and identity boundaries
 
+GNOME Shell native screenshots are the supported default; do not promise
+third-party annotation functionality. Users may install other capture tools.
+
 GNOME is the only POC edition. Defaults such as wallpapers, icon theme, Ptyxis,
 and terminal configuration must remain user-overridable. Keep the live-only
 Calamares lock/suspend policy separate from installed-user settings, and keep
 GDM greeter configuration separate from desktop wallpaper, the in-session lock
 screen, account avatars, and vendor logos.
+
+OBLinux Debian intentionally selects the established Obsidian Horizon image as
+its desktop and lock-screen default, overriding Brand Master's generic paired
+wallpaper default without modifying the shared package. Preserve both live and
+installed behavior and the user's ability to choose another wallpaper.
 
 Calamares uses Debian's packaged `calamares-settings-debian` workflow. Preserve
 Debian's module order and installer behavior unless a change is explicitly
@@ -122,7 +151,7 @@ valuable storage.
 
 Branding and persistent identity span GNOME About, wallpapers, GRUB, Plymouth,
 Calamares, GDM, account defaults, and the Horizon themes. Consult Decisions
-0005–0011 before altering these mechanisms. Preserve Debian package originals
+0005–0014 before altering these mechanisms. Preserve Debian package originals
 through the established alternatives/diversion patterns, preserve user choices,
 and keep guarded Debian-file modifications fail-closed when upstream content is
 unexpected.
@@ -136,12 +165,22 @@ files, logs, and artifact inspection. From the repository root, the primary
 sequence is exactly:
 
 ```bash
+scripts/validate-branding-integration
 lb config
 lb config --validate
 sudo lb build
 ```
 
-Expected output is `oblinux-debian-gnome-amd64.hybrid.iso`. Inspect it with:
+The tracked `scripts/build-iso` wrapper is intentionally guarded for the Dev
+repository and must not be run or repointed in this Stable checkout. Build the
+Stable ISO only through the exact-commit Stable procedure in
+`docs/RELEASING.md`. It verifies the authorized Stable remote, `main`, the full
+specified commit, matching local and remote heads, a clean tree,
+`VERSION=26.3.0`, and a Debian 13 `amd64` host before invoking the same
+live-build implementation. Runtime, installation, and hardware testing remain
+separate acceptance stages.
+
+Output follows `oblinux-debian-${VERSION}-${BUILD_ID}-amd64.iso`. Inspect it with:
 
 ```bash
 ls -lh *.iso* build-logs/
@@ -152,7 +191,9 @@ For a fundamental configuration change or suspected stale state:
 
 ```bash
 sudo lb clean --purge
+scripts/validate-branding-integration
 lb config
+lb config --validate
 sudo lb build
 ```
 
@@ -216,6 +257,13 @@ filenames and checksums recorded when useful.
 
 ## Change and Git discipline
 
+- Never force-push or rewrite published history without explicit owner approval
+  for a specific named recovery situation. Push Stable only for an explicitly
+  authorized promotion, release correction, or documentation update, and only
+  to the verified `oblinux-debian-iso` origin. Keep any Dev remote read-only;
+  Stable promotion requires separate explicit owner approval.
+- Use the configured human Git identity. Do not add AI co-author, Generated-By,
+  Assisted-By, or other AI attribution to commits or contributor records.
 - Inspect `git status` first and preserve unrelated user work. Keep the change
   narrowly scoped to the request; avoid unrelated refactoring.
 - Consult the relevant authoritative document and accepted decision before
@@ -240,20 +288,30 @@ filenames and checksums recorded when useful.
 
 ### Release and tagging policy
 
-Release tags are always the final step: Change → Validate → Commit → Push
-`main` → CI passes → Tag. Never create, move, delete, or push a release tag as
-part of normal development work, and never tag an intermediate preparation
-commit while validation, metadata, packaging, or corrective work remains.
+Release tags are always the final step of the release process:
 
-Before declaring a release ready, confirm that all intended changes are
-committed, the working tree is clean, release and package metadata are
-consistent, repository validation passes, the changes are pushed to `main`,
-and CI passes on the final `main` commit. Then stop and report that the
-repository is **release-ready**. Do not create or push the release tag unless
-the owner explicitly authorizes tagging after that declaration.
+For 26.3.0: `Change → Static validation → Commit → Push main → Final VM and
+physical regression → Release-ready → Separate tag authorization → Tag`.
 
-If a published tag is later found to have a problem, do not move, replace, or
-delete it automatically; stop and ask the owner how to proceed.
+Successful final VM and physical-hardware regression is the release validation
+gate for 26.3.0. Automated CI is not required for this release and remains a
+future enhancement. Historical records quoting the earlier CI gate are evidence
+of their own date, not current release instructions.
+
+- Never create, move, delete, or push a release tag during normal development.
+- Before declaring a release ready, ensure all intended changes are committed,
+  the working tree is clean, release and package metadata are consistent,
+  repository validation passes, the changes are pushed to `main`, and final VM
+  and physical regression evidence identifies the exact Stable artifact and
+  source commit. Any later changes require an explicit evidence review;
+  functional/build changes require rebuilding and retesting.
+- After those checks pass, stop and report that the repository is
+  **release-ready**. Do not create or push the release tag unless the owner
+  explicitly authorizes it after that declaration.
+- Never tag an intermediate release-preparation commit while validation,
+  metadata, packaging, or corrective commits remain.
+- If a published tag is found to be wrong, do not move or replace it
+  automatically; stop and ask the owner how to proceed.
 
 ## Documentation routing
 
@@ -262,6 +320,7 @@ delete it automatically; stop and ask the owner how to proceed.
 - Base, packaging, repositories, deferred production design:
   `docs/ARCHITECTURE.md`
 - Exact host setup, build commands, wrappers, artifacts: `docs/BUILDING.md`
+- Release gates, Stable build, provenance, publishing: `docs/RELEASING.md`
 - Calamares architecture, supported baseline, destructive controls:
   `docs/INSTALLER.md`
 - Validation progression and detailed acceptance checks: `docs/TESTING.md`

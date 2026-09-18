@@ -1,84 +1,108 @@
-# OBLinux
+<div align="center">
 
-OBLinux is an experimental Debian-based desktop distribution focused on a
-polished, dependable, and approachable Linux experience.
+<img src="https://raw.githubusercontent.com/marcoobaid/oblinux-brand-master/13e211da2ccd43156fcc7dc7e57c3be7bb5ee47d/themes/calamares/oblinux/welcome.svg" alt="OBLinux" width="520">
 
-The project is currently in the proof-of-concept stage. Its immediate goal is
-to produce a GNOME-based live and installable system suitable for daily use by
-the project's maintainer. Public distribution, additional desktop flavors, and
-custom graphical administration tools are later goals.
+### A polished, practical GNOME desktop on a Debian stable foundation
 
-## Current status
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-FF8A00.svg)](LICENSE)
+[![Base: Debian 13](https://img.shields.io/badge/Base-Debian%2013-1E4D8C.svg)](https://www.debian.org/)
+[![Desktop: GNOME](https://img.shields.io/badge/Desktop-GNOME-1E4D8C.svg)](https://www.gnome.org/)
+[![Installer: Calamares](https://img.shields.io/badge/Installer-Calamares-0B1118.svg)](https://calamares.io/)
 
-The project has produced repeatable Debian 13 GNOME live images and has
-completed Calamares installation testing in both UEFI and legacy-BIOS VMs.
-POC Build 004 passed live and installed-system verification of the OBLinux
-Obsidian Horizon wallpaper integration. POC Build 005 passed live GRUB,
-Calamares, installation, cleanup, and regression acceptance with four branding
-follow-ups. POC Build 006 passed installation, cleanup, regression, GRUB,
-Plymouth, and Calamares contrast acceptance with three presentation-only logo
-follow-ups. POC Build 007 functionally passed installation and visual-polish
-acceptance with three presentation follow-ups for live Plymouth, the Dash
-installer icon, and GNOME About logo sizing. POC Build 008 passed functional
-and targeted presentation acceptance with one dark-theme About-logo contrast
-follow-up. POC Build 009 passed complete runtime acceptance with a
-theme-neutral About badge, closing the foundational OBLinux theming milestone.
-There is no supported public release yet.
+</div>
+
+OBLinux is an experimental Linux distribution project focused on a cohesive,
+approachable desktop. This repository, **oblinux-debian-iso**, contains the
+Stable Debian implementation: a live and installable Debian 13 (`trixie`)
+system with GNOME and the graphical Calamares installer.
+
+## What is OBLinux?
+
+The Debian edition combines Debian stable packages and updates with OBLinux
+desktop defaults, installer integration, and a shared visual identity. It stays
+close to Debian, using APT and small, visible configuration changes rather than
+maintaining an independent package ecosystem.
+
+## Highlights
+
+- Debian 13 stable on `amd64`, with normal Debian updates through APT
+- GNOME with user-configurable wallpapers, appearance, and application defaults
+- Obsidian Horizon desktop and lock-screen defaults, plus Horizon application icons
+- Shared R5 identity across boot, login, installer, and terminal presentation
+- A live session for evaluation and a graphical Calamares installation workflow
+- Firefox ESR, Ptyxis, Zsh, Starship, and FastFetch
+
+Released assets from **OBLinux Brand Master** provide the shared R5 visual
+identity across OBLinux editions. Debian supplies its own integration and
+retains Obsidian Horizon as its desktop default. Shared artwork is maintained
+upstream and consumed from immutable releases.
+
+## Release-candidate status
+
+The current Stable version is **26.3.0**. Stable `main` contains the accepted
+Dev source from commit `d9289b2bbcaf1fb44a9b926fee0a7e40bf724bed`.
+Owner-confirmed VM and physical laptop regression passed for the exact Dev
+candidate that authorized promotion. The Stable ISO still requires its own
+exact-commit build and final validation before release readiness.
+
+The planned Stable ISO and SHA-256 checksum will be published on SourceForge
+under `OBLinux-Debian-ISO/26.3.0/`, followed by public download and checksum
+verification. Publication has not occurred, and Git tag `v26.3.0` has not been
+created. See the [release procedure](docs/RELEASING.md) for validation,
+provenance, and the limited installation/hardware scope. Release-candidate
+status does not imply broad hardware compatibility.
+
+## Technology
+
+| Component | Selection |
+|---|---|
+| Foundation | Debian 13 stable (`trixie`), `amd64` |
+| ISO framework | Debian `live-build`, `live-boot`, and `live-config` |
+| Desktop | GNOME |
+| Installer | Calamares with Debian's packaged settings workflow |
+| Package management | APT and `dpkg` |
+| Terminal | Ptyxis with Zsh and Starship |
+| Live boot | GRUB for UEFI and legacy BIOS |
+
+## Building and trying OBLinux
+
+This repository provides source for building the Stable live/install image.
+Use an up-to-date Debian 13 `amd64` build host and follow the
+[build guide](docs/BUILDING.md) for dependencies, disk requirements, and the
+validated build procedure. Each ISO carries the release version and a generated
+build ID, as defined in the [versioning policy](docs/VERSIONING.md).
+
+Start testing in a VM with a disposable disk. The documented installation
+baseline is an unencrypted erase-disk installation on UEFI/GPT/ext4. Other
+storage layouts, dual boot, encryption, and Secure Boot remain outside the
+validated installation baseline. Review the [installer guide](docs/INSTALLER.md) and
+[testing strategy](docs/TESTING.md) before installing on physical hardware.
 
 ## Documentation
 
-- [Project charter](docs/PROJECT_CHARTER.md)
-- [Proof-of-concept scope](docs/POC_SCOPE.md)
-- [Roadmap](docs/ROADMAP.md)
-- [Initial architecture](docs/ARCHITECTURE.md)
-- [Testing strategy](docs/TESTING.md)
-- [Build instructions](docs/BUILDING.md)
-- [Installer integration and test plan](docs/INSTALLER.md)
-- [POC build 001 record](docs/builds/2026-08-17-poc-001.md)
-- [POC build 002 installer record](docs/builds/2026-08-18-poc-002.md)
-- [POC build 003 hardening record](docs/builds/2026-08-19-poc-003.md)
-- [POC build 003 installation test](docs/tests/2026-08-19-poc-003-install-01.md)
-- [POC build 004 branding record](docs/builds/2026-08-20-poc-004.md)
-- [POC build 004 installation test](docs/tests/2026-08-20-poc-004-install-01.md)
-- [POC build 005 branding record](docs/builds/2026-08-20-poc-005.md)
-- [POC build 005 installation test](docs/tests/2026-08-20-poc-005-install-01.md)
-- [POC build 006 installed-identity record](docs/builds/2026-08-20-poc-006.md)
-- [POC build 006 installation test](docs/tests/2026-08-20-poc-006-install-01.md)
-- [POC build 007 visual-polish record](docs/builds/2026-08-20-poc-007.md)
-- [POC build 007 installation test](docs/tests/2026-08-20-poc-007-install-01.md)
-- [POC build 008 presentation record](docs/builds/2026-08-20-poc-008.md)
-- [POC build 008 installation test](docs/tests/2026-08-20-poc-008-install-01.md)
-- [POC build 009 About-badge record](docs/builds/2026-08-20-poc-009.md)
-- [POC build 009 installation test](docs/tests/2026-08-20-poc-009-install-01.md)
-- [POC build 002 installation test 01](docs/tests/2026-08-18-poc-002-install-01.md)
-- [POC build 002 installation test 02](docs/tests/2026-08-18-poc-002-install-02.md)
-- [POC build 001 VirtualBox test](docs/tests/2026-08-17-poc-001-virtualbox.md)
-- [Daily-driver requirements](docs/DAILY_DRIVER_REQUIREMENTS.md)
-- [Hardware targets](docs/HARDWARE_TARGETS.md)
-- [Decision 0001: Debian stable and live-build](docs/decisions/0001-debian-stable-live-build.md)
-- [Decision 0002: GNOME-first scope](docs/decisions/0002-gnome-first.md)
-- [Decision 0003: Calamares POC installer](docs/decisions/0003-calamares-poc-installer.md)
-- [Decision 0004: Installed-system APT policy](docs/decisions/0004-installed-apt-policy.md)
-- [Decision 0005: OBLinux visual identity](docs/decisions/0005-oblinux-visual-identity.md)
-- [Decision 0006: Installed-system identity](docs/decisions/0006-installed-system-identity.md)
-- [Decision 0007: Identity asset polish](docs/decisions/0007-identity-asset-polish.md)
-- [Decision 0008: Presentation follow-ups](docs/decisions/0008-presentation-follow-ups.md)
-- [Decision 0009: GNOME About badge](docs/decisions/0009-about-badge.md)
-- [OBLinux brand guide](branding/BRAND_GUIDE.md)
+| Topic | Guide |
+|---|---|
+| Project purpose and scope | [Charter](docs/PROJECT_CHARTER.md) · [POC scope](docs/POC_SCOPE.md) |
+| Current phase and remaining work | [Roadmap](docs/ROADMAP.md) |
+| Building and release identity | [Building](docs/BUILDING.md) · [Versioning](docs/VERSIONING.md) |
+| Release procedure and publishing | [Releasing](docs/RELEASING.md) |
+| Architecture and installation | [Architecture](docs/ARCHITECTURE.md) · [Installer](docs/INSTALLER.md) |
+| Desktop identity | [Brand Master integration](docs/BRAND_MASTER_INTEGRATION.md) |
+| Validation and hardware | [Testing](docs/TESTING.md) · [Hardware targets](docs/HARDWARE_TARGETS.md) |
+| Workstation requirements | [Daily-driver requirements](docs/DAILY_DRIVER_REQUIREMENTS.md) |
+| Project records | [Decisions](docs/decisions/) · [Known issues](docs/issues/) · [Tests](docs/tests/) · [Builds](docs/builds/) |
 
-## Project principles
+## Contributing
 
-- Stay close to Debian stable and modify as little as practical.
-- Prefer configuration and small OBLinux packages over rebuilding Debian
-  packages.
-- Automate every build so the dedicated build machine is replaceable.
-- Treat installation, updates, and recovery as core product features.
-- Do not describe experimental behavior as supported or secure until tested.
-- Keep documentation professional, project-focused, and free of personal names.
+Keep contributions focused and consistent with the documented Debian
+architecture. Prefer upstream mechanisms, preserve user choices, and update
+relevant documentation when behavior changes. Validation reports should
+distinguish static checks, ISO builds, live boot, installation, and hardware
+testing. Shared visual changes belong in OBLinux Brand Master.
 
 ## License
 
 Original OBLinux code and documentation in this repository are licensed under
 the [GNU General Public License version 3](LICENSE). Branding and redistributed
-third-party assets must have compatible, explicitly documented licenses before
-the first public release.
+third-party assets retain their documented licenses and attributions; public
+release requires license and source-distribution compliance review.

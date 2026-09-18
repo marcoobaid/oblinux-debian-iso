@@ -2,10 +2,44 @@
 
 set -euo pipefail
 
+repository_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$repository_root"
+
+version=$(cat VERSION)
+build_id=$(date +%Y%m%d-%H%M)
+image_name="oblinux-debian-${version}-${build_id}"
+live_build_iso="${image_name}-amd64.hybrid.iso"
+release_iso="${image_name}-amd64.iso"
+
 mkdir -p build-logs
-log="build-logs/build-$(date -u +%Y%m%dT%H%M%SZ).log"
+mkdir -p .build
+log="build-logs/build-${build_id}.log"
+
+if [[ -e "$release_iso" ]]; then
+    echo "Refusing to overwrite existing build artifact: $release_iso" >&2
+    exit 1
+fi
+
+scripts/prepare-release-metadata "$build_id"
+if [[ -d chroot ]]; then
+    # A supported binary-only rebuild may retain the live filesystem. Refresh
+    # its identity explicitly so it cannot carry a previous build's BUILD_ID.
+    scripts/prepare-release-metadata "$build_id" chroot
+fi
+printf 'VERSION=%s\nBUILD_ID=%s\nIMAGE_NAME=%s\n' \
+    "$version" "$build_id" "$image_name" > .build/oblinux-release
+
+# Keep all persistent settings in auto/config, then override only the per-build
+# image name through live-build's native configuration interface.
+lb config noauto --image-name "$image_name"
 
 {
+    scripts/validate-branding-integration
+    scripts/prepare-branding-package
     scripts/prepare-icon-theme-package
     lb build noauto
+    test -f "$live_build_iso"
+    mv "$live_build_iso" "$release_iso"
+    printf 'Built %s (VERSION=%s, BUILD_ID=%s)\n' \
+        "$release_iso" "$version" "$build_id"
 } 2>&1 | tee "${log}"

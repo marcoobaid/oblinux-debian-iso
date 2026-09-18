@@ -1,7 +1,13 @@
 # OBLinux Roadmap
 
-This roadmap is ordered by learning value. Dates should be assigned only after
-the first local build establishes realistic effort.
+This roadmap is ordered by learning value. The project is in Phase 3. The
+[accepted Dev candidate](tests/2026-09-18-accepted-dev-candidate.md) passed
+owner-confirmed VM and physical laptop regression and has been promoted into
+the Stable 26.3.0 release candidate. The exact-commit Stable build, its final
+regression, tagging, and SourceForge publication remain pending under
+[RELEASING.md](RELEASING.md).
+Remaining checklist items require their own evidence; promotion does not imply
+completion of all POC or public-release goals.
 
 ## Phase 0: Foundation
 
@@ -89,9 +95,12 @@ installed systems update normally.
 - [ ] Finalize the required application set
 - [ ] Test backup and restoration
 - [ ] Document recovery and reinstallation
-- [ ] Complete a non-destructive physical test or spare-disk installation
+- [x] Complete physical live testing and a dedicated installation; see the
+  [initial physical test record](tests/2026-08-21-thinkpad-candidate-01.md)
 - [ ] Record all known limitations
-- [ ] Begin the daily-use trial only after its entry criteria pass
+- [x] Begin the daily-use trial; initial acceptance is recorded in the physical
+  test record above, with longer-term maintainability review still outstanding.
+  Trial entry criteria remain required for future candidates.
 
 Exit condition: the system is used for normal work for an agreed trial period,
 with maintenance effort and failures recorded.
@@ -102,19 +111,19 @@ with maintenance effort and failures recorded.
 - [ ] Convert persistent configuration into appropriate OBLinux packages
 - [ ] Determine whether an OBLinux APT repository is now justified
 - [ ] Automate smoke tests and artifact generation
-- [ ] Decide whether to proceed toward a private alpha or narrow the project
+- [ ] Review maintainability after the planned 26.3.0 public release
 
 Exit condition: a written proceed, revise, or stop decision is supported by POC
 evidence.
 
-## Future public-release work
+## Release work and future expansion
 
 - Project governance and contribution policy
 - Public security contact and vulnerability handling
 - Production repository signing and key rotation
 - Secure Boot support, if claimed
 - License and source-distribution compliance
-- Public artifact hosting
+- Complete the 26.3.0 SourceForge publication and public checksum verification
 - Broader hardware and installer test matrices
 - Accessibility and localization review
 - Support lifecycle and major-version upgrades

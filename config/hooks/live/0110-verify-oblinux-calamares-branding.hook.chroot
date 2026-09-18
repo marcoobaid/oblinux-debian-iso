@@ -2,25 +2,98 @@
 
 set -eu
 
-owned_paths='/etc/calamares/branding/debian/branding.desc
-/etc/calamares/branding/debian/debian-logo.png
-/etc/calamares/branding/debian/show.qml
-/etc/calamares/branding/debian/slide1.png
-/usr/share/applications/calamares-install-debian.desktop
-/usr/share/pixmaps/install-debian.png'
+brand_dir=/usr/share/calamares/branding/oblinux
+descriptor=$brand_dir/branding.desc
+settings=/etc/calamares/settings.conf
+legacy_brand_dir=/etc/calamares/branding/debian
+legacy_installer_pixmap=/usr/share/pixmaps/install-debian.png
+locale_config=/etc/calamares/modules/locale.conf
+partition_config=/etc/calamares/modules/partition.conf
+desktop_icon_autostart=/etc/xdg/autostart/calamares-desktop-icon.desktop
 
-for path in $owned_paths; do
-    owner=$(dpkg-query -S "$path" | cut -d: -f1)
-    if [ "$owner" != calamares-settings-debian ]; then
-        echo "$path is not owned by calamares-settings-debian" >&2
-        exit 1
-    fi
+test "$(dpkg-query -W -f='${Status}' oblinux-branding)" = \
+    "install ok installed"
+test "$(dpkg-query -W -f='${Version}' oblinux-branding)" = "1.0.4-1"
+test -r "$descriptor"
+test -r "$brand_dir/slideshow.qml"
+test -r "$brand_dir/finished.qml"
+test -r "$brand_dir/icon.svg"
+test -r "$brand_dir/logo.svg"
+
+sed -i \
+    -e 's/^welcomeExpandingLogo:[[:space:]]*false$/welcomeExpandingLogo: true/' \
+    -e 's/^[[:space:]]*version:[[:space:]].*/  version: ""/' \
+    -e 's/^[[:space:]]*shortVersion:[[:space:]].*/  shortVersion: ""/' \
+    -e 's/^[[:space:]]*versionedName:[[:space:]].*/  versionedName: OBLinux/' \
+    -e 's/^[[:space:]]*shortVersionedName:[[:space:]].*/  shortVersionedName: OBLinux/' \
+    -e 's#@HOME_URL@#https://github.com/marcoobaid/oblinux-debian-iso-dev#g' \
+    -e 's#@SUPPORT_URL@#https://github.com/marcoobaid/oblinux-debian-iso-dev/issues#g' \
+    -e 's#@BUG_REPORT_URL@#https://github.com/marcoobaid/oblinux-debian-iso-dev/issues#g' \
+    "$descriptor"
+! grep -Eq '@[A-Z_]+@' "$descriptor"
+
+sed -i 's/^branding:[[:space:]].*/branding: oblinux/' "$settings"
+grep -qx 'branding: oblinux' "$settings"
+grep -qx '  productName: OBLinux' "$descriptor"
+grep -qx '  version: ""' "$descriptor"
+grep -qx '  shortVersion: ""' "$descriptor"
+grep -qx '  versionedName: OBLinux' "$descriptor"
+grep -qx '  shortVersionedName: OBLinux' "$descriptor"
+grep -qx '  bootloaderEntryName: OBLinux' "$descriptor"
+grep -qx '  productLogo: icon.svg' "$descriptor"
+grep -qx 'welcomeExpandingLogo: true' "$descriptor"
+grep -qx '  SidebarBackground: "#0D2742"' "$descriptor"
+grep -qx '  SidebarText: "#FFFFFF"' "$descriptor"
+grep -qx '  SidebarTextCurrent: "#FF8A00"' "$descriptor"
+
+# Keep Debian's offline fallback but enable the same automatic, location-aware
+# KDE GeoIP lookup used by the Arch edition. Debian does not ship locale.conf,
+# so this is deliberately OBLinux-owned live-image content.
+test -r "$locale_config"
+! dpkg-query -S "$locale_config" >/dev/null 2>&1
+grep -qx '    style:    "json"' "$locale_config"
+grep -qx '    url:      "https://geoip.kde.org/v1/calamares"' "$locale_config"
+grep -qx '    selector: ""' "$locale_config"
+
+# Debian supplies no partition.conf, which leaves Calamares with one implicit
+# swap policy and therefore no selector. Match Arch's explicit, conservative
+# choices without replacing Debian's remaining partition-module defaults.
+test -r "$partition_config"
+! dpkg-query -S "$partition_config" >/dev/null 2>&1
+grep -qx 'userSwapChoices:' "$partition_config"
+grep -qx '    - none' "$partition_config"
+grep -qx '    - small' "$partition_config"
+grep -qx 'initialSwapChoice: none' "$partition_config"
+! grep -Eq 'initialSwapChoice:[[:space:]]+(small|suspend|file)' \
+    "$partition_config"
+
+for slide in 01-welcome 02-freedom 03-open 04-secure 05-creative 06-built 07-ready; do
+    test -r "$brand_dir/slideshow/$slide.svg"
 done
 
-grep -qx 'branding: debian' /etc/calamares/settings.conf
-grep -qx '    productName: OBLinux' \
-    /etc/calamares/branding/debian/branding.desc
 grep -qx 'Name=Install OBLinux' \
     /usr/share/applications/calamares-install-debian.desktop
-cmp /etc/calamares/branding/debian/debian-logo.png \
-    /usr/share/pixmaps/install-debian.png
+grep -qx 'Icon=oblinux-logo' \
+    /usr/share/applications/calamares-install-debian.desktop
+test -r /usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg
+
+# Debian's generic live-session helper would create a second copy of the
+# launcher. Keep it masked so OBLinux's live-only setup owns the one shortcut.
+test "$(dpkg-query -S "$desktop_icon_autostart" | cut -d: -f1)" = \
+    calamares-settings-debian
+grep -qx 'Hidden=true' "$desktop_icon_autostart"
+
+# calamares-settings-debian supplies its presentation alongside the installer
+# logic. OBLinux keeps the logic but removes the now-inactive Debian artwork so
+# the live filesystem has only one installer identity. Package removal during
+# installation remains safe when these package-owned presentation files are
+# already absent.
+for file in branding.desc debian-logo.png show.qml slide1.png welcome.png; do
+    test -e "$legacy_brand_dir/$file"
+    rm -f "$legacy_brand_dir/$file"
+done
+rmdir "$legacy_brand_dir"
+test -e "$legacy_installer_pixmap"
+rm -f "$legacy_installer_pixmap"
+test ! -e "$legacy_brand_dir"
+test ! -e "$legacy_installer_pixmap"

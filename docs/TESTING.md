@@ -7,6 +7,25 @@ Testing should answer two questions during the POC:
 1. Is the current image safe and reliable enough for the next test stage?
 2. How much continuing effort does OBLinux require?
 
+## Current acceptance
+
+The [accepted Dev candidate record](tests/2026-09-18-accepted-dev-candidate.md)
+identifies source commit `d9289b2bbcaf1fb44a9b926fee0a7e40bf724bed`,
+artifact `oblinux-debian-26.3.0-dev-20260918-1057-amd64.iso`, BUILD_ID
+`20260918-1057`, and its SHA-256. The owner confirmed VM installation and
+regression, physical laptop installation and regression, and overall functional
+testing passed with no known release blocker. That evidence authorized source
+promotion. It does not claim that the future Stable artifact has been built or
+tested. Historical records below describe their own artifacts; checklists remain
+procedures and are not automatically marked passed.
+
+For 26.3.0, successful final VM and physical-hardware regression is the release
+validation gate; automated CI is not required for this release. See
+[RELEASING.md](RELEASING.md) for artifact evidence, Stable validation, and the
+separate promotion, tagging, and publication authorization boundaries. The CI
+requirement quoted in the September 11 historical record has been superseded
+by this release policy; that record remains unchanged.
+
 ## Test progression
 
 Tests move from least destructive to most destructive:
@@ -22,6 +41,8 @@ Tests move from least destructive to most destructive:
 
 ## Initial smoke tests
 
+- Root `VERSION` uses the policy in [VERSIONING.md](VERSIONING.md)
+- Generated ISO name contains that exact version and one `BUILD_ID`
 - ISO boots in UEFI mode
 - GNOME reaches the desktop without manual login
 - Live user is not privileged by default
@@ -35,6 +56,42 @@ Tests move from least destructive to most destructive:
 - `apt update` succeeds
 - Debian security updates install successfully
 - The system survives update and reboot
+
+## Release and build identity regression
+
+Run this for every normal development, stable, and maintenance image. Before
+building, inspect the authoritative release identity:
+
+```bash
+cat VERSION
+```
+
+Require `YY.QUARTER.MAINTENANCE-dev` for a development build and the same form
+without `-dev` for a stable or maintenance release. After building, compare
+the generated filename with `.build/oblinux-release`. It must have the form:
+
+```text
+oblinux-debian-${VERSION}-${BUILD_ID}-amd64.iso
+```
+
+Boot that exact ISO and run:
+
+```bash
+cat /etc/os-release
+```
+
+Require all of the following:
+
+- `VERSION` exactly equals the root `VERSION` file.
+- `VERSION_ID` exactly equals the root `VERSION` file.
+- `BUILD_ID` uses `YYYYMMDD-HHMM` and exactly matches the ISO filename.
+- Development versions include `-dev`; stable and maintenance versions do not.
+
+Install that ISO with Calamares onto a new disposable VM disk, detach the ISO,
+boot the installed system, and run `cat /etc/os-release` again. Its `VERSION`,
+`VERSION_ID`, and `BUILD_ID` must exactly match the live system and the ISO
+used for installation. A matching release version with a different build ID is
+a failure because it cannot identify the tested image exactly.
 
 ## Physical hardware checklist
 
@@ -51,6 +108,58 @@ Tests move from least destructive to most destructive:
 - Battery status and power profiles, where applicable
 - Webcam
 - Printing and scanning, if part of the daily workload
+
+## Live desktop and application regression
+
+On a freshly built ISO with networking enabled:
+
+- Open Calamares and confirm its initial timezone follows the test network's
+  location (test at least one non-Eastern location); then disconnect networking
+  and confirm the page remains usable with its documented fallback.
+- In the erase-disk workflow, confirm the swap selector offers **No swap** and
+  **Swap (no Hibernate)** and defaults to **No swap**. Complete separate installs
+  with each choice on disposable VM disks. Confirm the no-swap installation has
+  no active swap; confirm the swap installation has an active swap partition
+  and a matching `/etc/fstab` entry after reboot.
+- Confirm the desktop shows Home, Trash, and a trusted `Install OBLinux`
+  shortcut. Confirm the shortcut and dock installer icon use the OBLinux logo
+  and launch Calamares. Confirm there is no second shortcut named
+  `calamares-install-debian.desktop`.
+- Confirm GNOME Tour does not open or appear in the application grid in the
+  live session. After installation, confirm a newly created user retains
+  GNOME's normal one-time welcome flow.
+- Confirm the dash order is Files, Firefox, Terminal, Install OBLinux, followed
+  by GNOME's Show Applications control.
+- Open Settings > System > About in light and dark appearances and compare the
+  OBLinux badge with the Arch edition. Require identical symbol geometry,
+  visual scale, and surrounding layout space.
+- Launch Nano and Vim against representative shell, Python, and Markdown files;
+  inspect syntax colors, line numbers, indentation, search, and readability in
+  both terminal appearances.
+- Launch Quadrapassel, Aisleriot, GNOME Chess, GIMP, and GNOME Disks.
+  Start a local chess game and use GNOME Disks to write the ISO to a disposable
+  USB device.
+- Confirm the session is Wayland (`echo "$XDG_SESSION_TYPE"`). Use the standard
+  screenshot shortcut (Print Screen) to open GNOME Shell's native overlay.
+  Test area, window, and full-screen capture, saved images, and clipboard paste
+  into a compatible application. Check scaling and multiple displays where
+  available. Repeat in the installed session. Native capture does not promise
+  annotation parity with third-party tools.
+- Confirm the generated package manifest and live/installed package inventory
+  contain no Flameshot installation; removal from the explicit package list
+  alone does not prove absence from the final dependency closure.
+- Compare the application grid with the Arch reference screenshots. Open each
+  top-level application and the Utilities/System folders; confirm Contacts,
+  Weather, Clocks, the Avahi browsers, Document Scanner, btop++, Calculator,
+  Characters, Calendar, Document Viewer, Extensions, Eye of GNOME, GUFW,
+  Firmware, Hardware Locality, lftp, the complete LibreOffice suite, printing
+  configuration, both Qt V4L2 launchers, Software Token, Text Editor, Videos,
+  and Vim launch successfully. GNOME Disks intentionally replaces Impression
+  on Debian and must provide its Restore Disk Image workflow.
+
+After a clean Calamares installation, repeat the application/editor checks and
+confirm the live desktop shortcut and enabled Desktop Icons NG state were not
+copied into the installed user's profile.
 
 ## Installer safety
 
@@ -135,6 +244,10 @@ lock and suspend policy that Calamares removes.
 
 ## Build 005 boot and installer branding acceptance checks
 
+These Build 005–009 sections are historical acceptance records for the legacy
+repository-owned identity. Current Brand Master v1.0.4 acceptance is defined in
+`docs/tests/BRAND_MASTER_RUNTIME_TEST.md`; use that checklist for new images.
+
 Build 005 must retain all Build 004 checks and verify the new identity-facing
 integration without changing installer behavior.
 
@@ -176,6 +289,9 @@ cat /etc/os-release
 ```
 
 Confirm `ID=oblinux`, `ID_LIKE=debian`, and `LOGO=oblinux-logo` are present.
+Open GNOME Settings System/About and confirm that the centered R5 symbol uses
+the same scalable product icon, visual scale, and surrounding layout spacing
+as the Arch edition.
 
 After installation, confirm the GRUB background uses Obsidian Horizon and the
 primary entry is exactly `OBLinux`. The advanced submenu must be
@@ -213,10 +329,9 @@ regeneration, cleanup, and basic regression checks from Build 007.
 ## GNOME About badge acceptance checks
 
 Open GNOME Settings About in both light and dark appearances. Confirm the
-surface-specific badge has a clean rounded Obsidian Navy background, Soft White
-OB letters, and Clear Cyan bridge. It must remain balanced at the accepted
-Build 008 size and show no accidental white corners, clipping, stretching, or
-low-contrast letterforms.
+primary transparent OBLinux symbol matches the Arch edition's geometry and
+scale. It must show no accidental white corners, clipping, stretching, excess
+layout spacing, or low-contrast details.
 
 Confirm that Calamares, Plymouth, the Dash launcher, GRUB, wallpapers, and the
 primary transparent symbol remain unchanged. Verify the vendor-logo selection

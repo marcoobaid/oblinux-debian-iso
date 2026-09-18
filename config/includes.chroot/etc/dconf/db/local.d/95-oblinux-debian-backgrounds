@@ -1,0 +1,15 @@
+# Debian-edition override of Brand Master's cross-distribution wallpaper default.
+# Later lexical ordering makes Obsidian Horizon effective in the local database.
+
+[org/gnome/desktop/background]
+picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'
+picture-uri-dark='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'
+picture-options='zoom'
+primary-color='#111820'
+secondary-color='#1B2836'
+
+[org/gnome/desktop/screensaver]
+picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'
+picture-options='zoom'
+primary-color='#111820'
+secondary-color='#1B2836'

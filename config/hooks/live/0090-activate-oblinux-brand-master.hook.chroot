@@ -1,0 +1,65 @@
+#!/bin/sh
+
+set -eu
+
+test "$(dpkg-query -W -f='${Status}' oblinux-branding)" = \
+    "install ok installed"
+test "$(dpkg-query -W -f='${Version}' oblinux-branding)" = "1.0.4-1"
+
+test -r /usr/share/oblinux/brand/master/oblinux-symbol.svg
+test -r /usr/share/oblinux/brand/tokens/colors.json
+test -r /usr/share/gnome-background-properties/oblinux-backgrounds.xml
+test -r /etc/dconf/db/local.d/00-oblinux-backgrounds
+test -r /usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg
+test -r /usr/share/icons/hicolor/scalable/apps/oblinux-installer.svg
+test -r /usr/share/plymouth/themes/oblinux/oblinux.plymouth
+test -r /usr/share/plymouth/themes/oblinux/oblinux.script
+test -r /usr/share/plymouth/themes/oblinux/symbol.png
+test -r /usr/share/plymouth/themes/oblinux/dot.png
+test -r /usr/share/plymouth/themes/oblinux/dot-white.png
+test -r /usr/share/grub/themes/oblinux/theme.txt
+test -r /usr/share/grub/themes/oblinux/logo.png
+test -r /usr/share/calamares/branding/oblinux/branding.desc
+test -r /usr/share/oblinux/vendor/oblinux-about.svg
+test -r /usr/share/oblinux/terminal/fastfetch/logo.txt
+test -r /usr/share/oblinux/terminal/fastfetch/config.jsonc
+test -r /usr/share/doc/oblinux-branding/fastfetch/README.md
+test "$(sha256sum /usr/share/oblinux/terminal/fastfetch/logo.txt | awk '{print $1}')" = \
+    a0d28b2b48ec680768694cacb8707d77c79b3bf8102094f686c76ea739642696
+test "$(wc -l < /usr/share/oblinux/terminal/fastfetch/logo.txt)" -eq 15
+grep -Fq '"1": "38;2;30;77;140"' \
+    /usr/share/oblinux/terminal/fastfetch/config.jsonc
+grep -Fq '"2": "38;2;255;138;0"' \
+    /usr/share/oblinux/terminal/fastfetch/config.jsonc
+
+for wallpaper in default-light default-dark flow air orbit horizon; do
+    test -r "/usr/share/backgrounds/oblinux/oblinux-$wallpaper.svg"
+done
+for size in 16 24 32 48 64 96 128 256 512 1024; do
+    test -r "/usr/share/icons/hicolor/${size}x${size}/apps/oblinux-logo.png"
+    test -r "/usr/share/icons/hicolor/${size}x${size}/apps/oblinux-installer.png"
+done
+
+grep -Fq "picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-default-light.svg'" \
+    /etc/dconf/db/local.d/00-oblinux-backgrounds
+grep -Fq "picture-uri-dark='file:///usr/share/backgrounds/oblinux/oblinux-default-dark.svg'" \
+    /etc/dconf/db/local.d/00-oblinux-backgrounds
+
+plymouth-set-default-theme oblinux
+grep -qx 'Theme=oblinux' /etc/plymouth/plymouthd.conf
+grep -Fq 'dot.frame = (dot.frame + 1) % 5;' \
+    /usr/share/plymouth/themes/oblinux/oblinux.script
+grep -Fq 'dot.sprite.SetPosition(dot.positions[dot.frame], dot.y, 10);' \
+    /usr/share/plymouth/themes/oblinux/oblinux.script
+file /usr/share/plymouth/themes/oblinux/symbol.png | grep -Fq '384 x 384'
+file /usr/share/plymouth/themes/oblinux/dot.png | grep -Fq '24 x 24'
+file /usr/share/plymouth/themes/oblinux/dot-white.png | grep -Fq '24 x 24'
+update-initramfs -u -k all
+
+install -m 0644 /usr/share/oblinux/templates/issue /etc/issue
+install -m 0644 /usr/share/oblinux/templates/issue.net /etc/issue.net
+install -m 0644 /usr/share/oblinux/templates/motd /etc/motd
+
+gtk-update-icon-cache --force /usr/share/icons/hicolor
+
+echo "OBLinux Brand Master v1.0.4 activation passed"

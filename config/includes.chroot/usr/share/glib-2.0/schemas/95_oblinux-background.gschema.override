@@ -1,6 +1,6 @@
-# OBLinux desktop defaults. Unlike the live-only Calamares override, this file
-# deliberately remains in the installed system. These are unlocked defaults;
-# users can change the desktop and lock-screen background normally.
+# OBLinux Debian desktop defaults. Obsidian Horizon is intentionally selected
+# downstream instead of changing Brand Master's cross-distribution defaults.
+# These are unlocked defaults; users can change desktop and lock-screen images.
 
 [org.gnome.desktop.background]
 picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'

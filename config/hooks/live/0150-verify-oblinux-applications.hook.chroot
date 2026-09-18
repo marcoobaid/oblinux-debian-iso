@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+
+# Keep the application grid reproducible instead of relying on the changing
+# transitive contents of task-gnome-desktop.
+packages='aisleriot avahi-ui-utils baobab btop eog evince file-roller gimp gnome-calculator gnome-calendar gnome-characters gnome-chess gnome-clocks gnome-contacts gnome-control-center gnome-disk-utility gnome-firmware gnome-shell-extension-prefs gnome-software gnome-sushi gnome-system-monitor gnome-text-editor gnome-tour gnome-tweaks gnome-weather gnuchess gufw hwloc lftp libreoffice qv4l2 quadrapassel simple-scan stoken system-config-printer totem ufw vim-gtk3'
+
+for package in $packages; do
+    dpkg-query -W -f='${db:Status-Status}\n' "$package" 2>/dev/null \
+        | grep -qx 'installed' \
+        || {
+            echo "Required OBLinux application package is not installed: $package" >&2
+            exit 1
+        }
+done

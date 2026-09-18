@@ -1,0 +1,174 @@
+#!/bin/sh
+
+set -eu
+
+repository_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$repository_root"
+
+release_test_root=$(mktemp -d)
+trap 'rm -rf "$release_test_root"' EXIT HUP INT TERM
+
+. branding/brand-master.lock
+
+test "$BRAND_MASTER_VERSION" = v1.0.4
+test "$BRAND_MASTER_COMMIT" = 13e211da2ccd43156fcc7dc7e57c3be7bb5ee47d
+test "$BRAND_MASTER_ARCHIVE_SHA256" = 48e2985de37567838802d4d6346bb846ff8135b5488ae65d56205ed7fe85d9e1
+test "$BRANDING_PACKAGE_VERSION" = 1.0.4-1
+
+grep -Fq 'scripts/prepare-branding-package' auto/build
+grep -Fq 'scripts/validate-branding-integration' auto/build
+grep -Fq 'for size in 16 24 32 48 64 96 128 256 512 1024' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq 'oblinux-default-light.svg' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq 'oblinux-default-dark.svg' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq 'update-initramfs -u -k all' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq 'dot.frame = (dot.frame + 1) % 5;' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq "grep -Fq '384 x 384'" \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq "grep -Fq '24 x 24'" \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq "dpkg-query -W -f='\${Version}' oblinux-branding" \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
+grep -Fq '"install ok installed"' \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
+grep -Fq '"1.0.4-1"' \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
+grep -Fq 'branding: oblinux' \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
+grep -Fq 'rm -f "$legacy_brand_dir/$file"' \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
+grep -Fq 'rm -f "$legacy_installer_pixmap"' \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
+grep -qx 'Theme=oblinux' config/includes.chroot/etc/plymouth/plymouthd.conf
+grep -qx 'GRUB_THEME="/usr/share/grub/themes/oblinux/theme.txt"' \
+    config/includes.chroot/etc/default/grub.d/99-oblinux.cfg
+grep -qx 'GRUB_BACKGROUND="/usr/share/grub/themes/oblinux/background.png"' \
+    config/includes.chroot/etc/default/grub.d/99-oblinux.cfg
+grep -Fq "welcomeExpandingLogo:[[:space:]]*false" \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
+grep -Fq "welcomeExpandingLogo: true" \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
+grep -Fq "versionedName: OBLinux" \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
+grep -Fq "shortVersionedName: OBLinux" \
+    config/hooks/live/0110-verify-oblinux-calamares-branding.hook.chroot
+release_version=$(cat VERSION)
+scripts/prepare-release-metadata 20260903-1419 "$release_test_root"
+grep -qx "PRETTY_NAME=\"OBLinux $release_version\"" "$release_test_root/etc/os-release"
+grep -qx "VERSION=\"$release_version\"" "$release_test_root/etc/os-release"
+grep -qx "VERSION_ID=\"$release_version\"" "$release_test_root/etc/os-release"
+grep -qx 'BUILD_ID="20260903-1419"' "$release_test_root/etc/os-release"
+grep -qx 'LOGO=oblinux-logo' "$release_test_root/etc/os-release"
+grep -qx 'ID=oblinux' "$release_test_root/etc/os-release"
+grep -qx 'ID_LIKE=debian' "$release_test_root/etc/os-release"
+cmp "$release_test_root/etc/os-release" "$release_test_root/usr/lib/os-release"
+grep -qx 'Icon=oblinux-logo' \
+    config/includes.chroot/usr/share/applications/calamares-install-debian.desktop
+grep -Fq 'for file in background.png logo.png theme.txt' \
+    scripts/prepare-branding-package
+grep -Fq "picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'" \
+    config/includes.chroot/usr/share/glib-2.0/schemas/95_oblinux-background.gschema.override
+grep -Fq "picture-uri-dark='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'" \
+    config/includes.chroot/usr/share/glib-2.0/schemas/95_oblinux-background.gschema.override
+grep -Fq "picture-uri='file:///usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg'" \
+    config/includes.chroot/etc/dconf/db/local.d/95-oblinux-debian-backgrounds
+test -r config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg
+test -r config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-clean-3840x2160.jpg
+test "$(sha256sum config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-branded-3840x2160.jpg | awk '{print $1}')" = \
+    1437f1b4c9b6bec4ab767e22713ccf575abb34a648e10e7918105b575b63a76c
+test "$(sha256sum config/includes.chroot/usr/share/backgrounds/oblinux/oblinux-horizon-clean-3840x2160.jpg | awk '{print $1}')" = \
+    b8073c48afb64843b1b96114915f29116e3b770e7acd9cb181dbc2f0474d1a5b
+test -r config/includes.chroot/usr/share/doc/oblinux-branding/OBSIDIAN-HORIZON.md
+test -r config/includes.chroot/usr/share/doc/oblinux-branding/LICENSE-CC-BY-SA-4.0.txt
+test -r config/includes.chroot/etc/xdg/fastfetch/config.jsonc
+test ! -e config/includes.chroot/etc/skel/.config/fastfetch
+grep -Fq '"source": "/usr/share/oblinux/terminal/fastfetch/logo.txt"' \
+    config/includes.chroot/etc/xdg/fastfetch/config.jsonc
+grep -Fq '"1": "38;2;30;77;140"' \
+    config/includes.chroot/etc/xdg/fastfetch/config.jsonc
+grep -Fq '"2": "38;2;255;138;0"' \
+    config/includes.chroot/etc/xdg/fastfetch/config.jsonc
+grep -Fq '"packages"' \
+    config/includes.chroot/etc/xdg/fastfetch/config.jsonc
+grep -Fq '/usr/share/oblinux/terminal/fastfetch/logo.txt' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq '/usr/share/oblinux/terminal/fastfetch/config.jsonc' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq 'a0d28b2b48ec680768694cacb8707d77c79b3bf8102094f686c76ea739642696' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+grep -Fq 'wc -l < /usr/share/oblinux/terminal/fastfetch/logo.txt' \
+    config/hooks/live/0090-activate-oblinux-brand-master.hook.chroot
+
+partition_config=config/includes.chroot/etc/calamares/modules/partition.conf
+test -r "$partition_config"
+grep -qx 'userSwapChoices:' "$partition_config"
+grep -qx '    - none' "$partition_config"
+grep -qx '    - small' "$partition_config"
+grep -qx 'initialSwapChoice: none' "$partition_config"
+! grep -Eq 'initialSwapChoice:[[:space:]]+(small|suspend|file)' \
+    "$partition_config"
+grep -Fq 'rm -f "${CHROOT}/etc/calamares/modules/partition.conf"' \
+    config/includes.chroot/usr/share/calamares/helpers/calamares-sources-final
+
+legacy_paths='branding/assets
+branding/installer
+branding/source
+branding/system
+config/bootloaders/splash.svg
+config/includes.chroot/etc/calamares/branding/debian
+config/includes.chroot/usr/share/grub/themes/oblinux
+config/includes.chroot/usr/share/plymouth/themes/oblinux
+config/includes.chroot/usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg
+config/includes.chroot/usr/share/pixmaps/install-debian.png
+config/includes.chroot/usr/share/oblinux/vendor-emblems
+config/includes.chroot/usr/share/oblinux/vendor-logos
+config/includes.chroot/usr/share/oblinux/branding/oblinux-vendor.svg'
+for path in $legacy_paths; do
+    test ! -e "$path" || {
+        echo "Legacy branding path remains: $path" >&2
+        exit 1
+    }
+done
+
+for hook in config/hooks/live/*.hook.chroot; do
+    sh -n "$hook"
+done
+sh -n scripts/prepare-branding-package
+sh -n scripts/prepare-release-metadata
+sh -n scripts/validate-branding-integration
+
+if find . \
+    \( -path ./.git -o -path ./binary -o -path ./cache -o -path ./chroot \) \
+    -prune -o -type l ! -exec test -e {} \; -print | grep -q .; then
+    echo "Broken symlink found" >&2
+    exit 1
+fi
+
+if grep -RIlE '/(Users|home)/(marco|[^/<[:space:]]+)/(Documents|Downloads|Desktop|\.codex)/' \
+    --exclude-dir=.git --exclude-dir=binary --exclude-dir=cache \
+    --exclude-dir=chroot --exclude='*.png' --exclude='*.jpg' . | grep -q .; then
+    echo "Development-machine absolute path found" >&2
+    exit 1
+fi
+
+if grep -RIlE 'BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY|gh[pousr]_[A-Za-z0-9]{20,}' \
+    --exclude-dir=.git --exclude-dir=binary --exclude-dir=cache \
+    --exclude-dir=chroot . | grep -q .; then
+    echo "Possible credential found" >&2
+    exit 1
+fi
+
+grep -Fq 'oblinux_logo=/usr/share/icons/hicolor/scalable/apps/oblinux-logo.svg' \
+    config/hooks/live/0120-oblinux-installed-identity.hook.chroot
+grep -Fq 'oblinux_vendor_logo=/usr/share/oblinux/branding/oblinux-about-gnome.svg' \
+    config/hooks/live/0120-oblinux-installed-identity.hook.chroot
+grep -Fq 'width="192" height="192"' \
+    config/hooks/live/0120-oblinux-installed-identity.hook.chroot
+grep -Fq 'viewBox="0 0 512 512"' \
+    config/hooks/live/0120-oblinux-installed-identity.hook.chroot
+
+echo "OBLinux Brand Master v1.0.4 downstream integration validation passed"

@@ -1,4 +1,4 @@
-# Initial Architecture
+# OBLinux Debian Architecture
 
 ## System model
 
@@ -39,7 +39,8 @@ preferred.
 
 ## Configuration layers
 
-The future build tree should separate:
+The implementation separates these concerns through `auto/`, package lists,
+includes, live hooks, `branding/`, `packaging/`, and `scripts/`:
 
 1. Common base configuration
 2. GNOME-specific package selection and settings
@@ -63,18 +64,19 @@ delivered as small Debian packages. Likely examples include:
 - `oblinux-branding`
 - `oblinux-calamares-settings`
 
-These names are provisional. The POC may initially use live-build includes and
-hooks while the correct package boundaries are discovered. Before public
-release, persistent changes should be migrated into policy-compliant packages
+The pinned Brand Master `oblinux-branding` package and the locally generated
+`oblinux-icon-theme` package are already integrated. The other names above are
+provisional; the remaining POC configuration uses live-build includes and hooks
+while package boundaries are refined. See
+[Brand Master integration](BRAND_MASTER_INTEGRATION.md). Before public release, persistent changes should be migrated into policy-compliant packages
 where practical.
 
 ## Installer
 
-Calamares is the initial graphical-installer candidate because Debian packages
-both Calamares and Debian-oriented settings. It must still be treated as a
-separate integration project. The POC installer specification will identify
-supported partitioning, encryption, bootloader, locale, user-creation, and
-failure-recovery scenarios.
+Calamares uses Debian's packaged `calamares-settings-debian` workflow.
+OBLinux preserves its module order and cleanup behavior while integrating
+identity and final installed APT sources. The [installer specification](INSTALLER.md)
+defines the tested baseline and scenarios requiring separate approval and tests.
 
 The first tests should use disposable virtual disks. Installation on physical
 hardware must not begin until the exact storage layout and recovery path are
@@ -105,10 +107,12 @@ Debian-based image and makes the source of future updates clear to the user.
 
 ## Artifact hosting
 
-GitHub is intended to hold source, documentation, issues, and release metadata.
-An ISO may use GitHub Releases only while it fits the per-asset size limit.
-Artifact storage and the APT repository should remain replaceable components so
-that larger images or public traffic do not force a source-repository redesign.
+GitHub holds source, documentation, issues, and release metadata. Public Stable
+26.3.0 will publish the tested Stable ISO and SHA-256 checksum on SourceForge
+under `OBLinux-Debian-ISO/26.3.0/`. Publication is followed by an independent
+public download and checksum verification. See [RELEASING.md](RELEASING.md)
+for authorization boundaries and provenance. This artifact hosting does not
+create an OBLinux APT repository or change installed Debian update sources.
 
 ## Build host
 
@@ -120,12 +124,13 @@ the repository.
 
 ## Deferred production architecture
 
-The following require separate designs before public release:
+Before publishing 26.3.0, complete the license/source-distribution review and
+record the actual support boundaries and known limitations. Broader production
+capabilities below require separate designs; none is implied by this release:
 
 - Secure Boot key and shim strategy
 - Production archive signing and offline key custody
-- Public artifact hosting and mirrors
+- Additional artifact mirrors beyond the defined SourceForge model
 - Vulnerability response and security advisories
 - Major-version upgrades
-- Source redistribution and license compliance
 - Automated release CI and provenance attestations

@@ -5,6 +5,15 @@
 Build an installable Debian 13 stable GNOME system for personal daily use and
 use it to evaluate the effort required to operate OBLinux over time.
 
+## Public Stable 26.3.0 transition
+
+The original POC has progressed to the public Stable 26.3.0 release candidate.
+The accepted Dev source has been promoted. The release will use SourceForge for
+the tested Stable ISO and checksum, with final VM and designated physical-
+hardware regression as its validation gate. This expands distribution scope,
+not hardware or installer support claims. The Stable build, tag, and publication
+are still pending. See [RELEASING.md](RELEASING.md).
+
 ## In scope
 
 - Debian 13 stable as the base distribution
@@ -13,10 +22,10 @@ use it to evaluate the effort required to operate OBLinux over time.
 - GNOME desktop
 - Bootable hybrid ISO for VM and USB use
 - An unprivileged, automatically logged-in live user
-- A graphical installer, with Calamares as the leading candidate
+- Calamares using Debian's packaged installer settings
 - UEFI boot on the primary target hardware
 - A curated but restrained default application set
-- Debian `main`, `contrib`, `non-free-firmware`, security, and stable updates as
+- Debian `main`, `contrib`, `non-free`, `non-free-firmware`, security, and stable updates as
   explicitly approved by project policy
 - Basic OBLinux name, wallpaper, colors, and installer identity
 - VM tests followed by installation on a designated physical test machine
@@ -50,7 +59,6 @@ is added.
 - OEM installation
 - Automated upgrades between Debian major versions
 - Telemetry or user analytics
-- A public stable release
 
 ## Daily-driver trial entry criteria
 
@@ -75,4 +83,3 @@ After a meaningful daily-use trial, record:
 - OBLinux-specific packages that became necessary
 - Documentation gaps
 - Whether the project should proceed, narrow its scope, or stop
-

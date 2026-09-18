@@ -28,6 +28,10 @@ web applications, Bluetooth devices, and local or network printing.
 | Easy application installation | GNOME Software; Flatpak evaluated separately | Debian stable; optional Flathub | Applications can be discovered, installed, updated, and removed graphically, with their source visible. |
 | Host firewall | UFW with GUFW as the initial candidate | Debian stable | A documented default-deny-incoming policy does not break required workflows. |
 | Development editor | Microsoft Visual Studio Code | Microsoft signed APT repository, opt-in | APT updates, Git, terminal, extensions, file watching, and desktop integration work. |
+| Image editing | GIMP | Debian stable | GIMP launches and can create, open, edit, and export representative images. |
+| USB image writing | GNOME Disks (`gnome-disk-utility`) | Debian stable | Restore Disk Image writes a test ISO to a disposable USB drive and reports completion. |
+| Screenshot capture | GNOME Shell native screenshot interface | Debian stable | The standard shortcut opens the overlay; area, window, and full-screen capture, saving, and clipboard use work in live and installed GNOME Wayland sessions. |
+| Lightweight games | Quadrapassel, Aisleriot, GNOME Chess with GNU Chess | Debian stable | Each game launches; GNOME Chess can start a local single-player game. |
 
 ## Terminal direction
 
@@ -74,6 +78,34 @@ packages. The POC should use a documented post-install opt-in that configures
 each vendor's signed repository. Before public release, redistribution and
 branding terms must be reviewed before offering bundled packages or one-click
 installation.
+
+## Curated desktop utilities and games
+
+The image explicitly includes GNOME Disks as its USB ISO writer because its
+Restore Disk Image workflow is maintained in Debian, fits GNOME, and avoids an
+external repository or a second storage stack. GNOME Shell's native screenshot
+interface is the supported default in both live and installed systems. It does
+not provide an equivalent annotation workflow. Advanced users may install
+other screenshot tools themselves; these are not part of default acceptance.
+
+GIMP and the Arch-equivalent lightweight games are also explicit image
+packages: `quadrapassel` for falling blocks, `aisleriot` for solitaire, and
+`gnome-chess` with the `gnuchess` engine for local play. Nano and Vim receive
+the same user-overridable, plugin-free editor defaults as the Arch edition.
+
+The application image also explicitly installs the Debian equivalents of the
+applications visible in the Arch edition's application grid. This includes the
+core GNOME applications, LibreOffice suite, GUFW, Avahi service browsers,
+printing configuration, btop++, lftp, Hardware Locality, V4L2 test utilities,
+Software Token, and the GTK Vim launcher. Declaring these packages directly
+prevents changes in `task-gnome-desktop` dependencies from silently removing
+them from later images.
+
+Arch's Impression application has no package in Debian 13. GNOME Disks is the
+intentional Debian-native equivalent: its **Restore Disk Image** action writes
+ISO images to removable media while avoiding an external repository. GNOME
+Tour remains installed for normal first-login behavior on installed systems,
+but is hidden and suppressed for the ephemeral live account.
 
 ## Firewall policy
 

@@ -5,3 +5,13 @@ set -eu
 # Package schema compilation occurs before includes.chroot is overlaid. Compile
 # again so the OBLinux live-session overrides are present in the final image.
 glib-compile-schemas /usr/share/glib-2.0/schemas
+dconf update
+
+# The persistent local database must replace Debian GNOME's Evolution favorite
+# with Ptyxis for both live and installed users.
+grep -Fqx "favorite-apps=['firefox-esr.desktop', 'org.gnome.Ptyxis.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'org.gnome.TextEditor.desktop', 'org.gnome.Calculator.desktop', 'yelp.desktop']" \
+    /etc/dconf/db/local.d/00-oblinux-ptyxis
+
+# Enable the setup unit globally; ConditionUser keeps it exclusive to the
+# ephemeral account named by auto/config and inert for installed users.
+systemctl --global enable oblinux-live-session-setup.service

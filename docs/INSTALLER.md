@@ -21,7 +21,21 @@ desktop and matches the intended graphical exploration-and-install workflow.
 See [Decision 0003](decisions/0003-calamares-poc-installer.md) for the decision
 and tradeoffs.
 
-## First supported scenario
+## Current validation status
+
+The [accepted Dev candidate record](tests/2026-09-18-accepted-dev-candidate.md)
+identifies the exact source, ISO, BUILD_ID, and checksum for the owner-confirmed
+VM and physical laptop installation/regression passes that authorized Stable
+promotion. The earlier Build 002 restrictions below describe that historical
+milestone, not a reversal of later physical acceptance. For 26.3.0, final
+Stable validation remains unencrypted erase-disk UEFI/GPT/ext4 installation on
+disposable VM disks and the designated recoverable physical target. Test both
+no-swap and bounded-swap choices. No broad hardware, Secure Boot, encryption,
+dual-boot, manual-partitioning, existing-ESP reuse, or interrupted-install
+recovery support is implied. Record new results against the exact Stable
+candidate as required by [RELEASING.md](RELEASING.md).
+
+## First supported scenario (historical Build 002 baseline)
 
 POC Build 002 supports only this acceptance path:
 
@@ -93,6 +107,28 @@ The packaged workflow:
 9. Regenerates the initramfs and unmounts the target.
 10. Offers to restart into the installed system.
 
+The live SquashFS contains the two generated OBLinux `os-release` files. They
+are OBLinux-owned image content, not files owned by
+`calamares-settings-debian`, so unpacking copies the exact `VERSION` and
+`BUILD_ID` to the target and the installer cleanup does not remove them. Every
+installer regression must verify the installed values against the source ISO;
+see [VERSIONING.md](VERSIONING.md) and [TESTING.md](TESTING.md).
+
+OBLinux supplies the `locale.conf` that Debian's Calamares settings package
+does not include, using the same KDE Calamares JSON GeoIP endpoint as the Arch
+edition. `America/New_York` remains only Calamares's offline fallback; when
+networking is available the installer selects the location-aware timezone
+returned by the service. The final APT-source helper removes this OBLinux-owned,
+installer-only file from the installed target.
+
+Debian's settings package also supplies no `partition.conf`, so its default
+configuration exposes no swap selector. OBLinux provides a narrow override
+matching the Arch edition: **No swap** and a bounded **Swap (no Hibernate)**
+partition are available for automated erase-disk installation, with no swap
+selected by default. Hibernation-sized swap and swap files are intentionally
+not offered. The final helper removes this second installer-only override from
+the installed target as well.
+
 Builds 002 through 004 deliberately retained Debian branding and the
 `Install Debian` launcher while the unmodified Debian-maintained workflow was
 being proven. Build 005 replaces only the identity-facing branding content,
@@ -137,6 +173,8 @@ The installer should be tested first without another operating system present.
 ### Installation
 
 - Select locale, keyboard, timezone, erase disk, user, hostname, and password.
+- On the partition page, confirm the swap selector offers **No swap** and
+  **Swap (no Hibernate)**. Test each option on a separate disposable disk.
 - Capture the summary page.
 - Complete installation and retain the Calamares log.
 - Restart when offered.

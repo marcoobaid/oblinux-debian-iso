@@ -25,4 +25,10 @@ EOF
 rm -f "${CHROOT}/etc/apt/sources.list.d/base.list"
 rm -f "${CHROOT}/etc/apt/sources.list.d/debian-live-media.list"
 
+# locale.conf and partition.conf are OBLinux-owned live-image content because
+# Debian's Calamares settings package ships neither. Do not leave these
+# installer-only configurations in the installed target.
+rm -f "${CHROOT}/etc/calamares/modules/locale.conf"
+rm -f "${CHROOT}/etc/calamares/modules/partition.conf"
+
 exit 0

@@ -7,10 +7,17 @@ doing. It is maintained alongside the build configuration so that the build can
 be understood, repeated, and moved to another machine without relying on
 undocumented setup.
 
-The current milestone is an experimental Debian 13 `amd64` GNOME live and
-installable ISO. Three POC images have been built successfully, and the
-Calamares baseline has completed repeatable VM installations. The image is not
-a supported release.
+The current milestone is the Stable 26.3.0 release candidate for the Debian 13
+`amd64` GNOME live and installable ISO. Owner-confirmed VM and physical laptop
+regression passed for the accepted Dev source and artifact recorded in the
+[promotion acceptance record](tests/2026-09-18-accepted-dev-candidate.md).
+Stable promotion is complete; the exact-commit Stable build, its final
+validation, tagging, and publication remain pending. See
+[RELEASING.md](RELEASING.md).
+
+Release versions and exact build identities follow the policy in
+[VERSIONING.md](VERSIONING.md). The root `VERSION` file is the release source
+of truth.
 
 ## What has been completed
 
@@ -105,8 +112,9 @@ Install the initial build dependencies:
 ```bash
 sudo apt update
 sudo apt install \
-  ca-certificates debootstrap dosfstools git grub-efi-amd64-bin grub-pc-bin \
-  isolinux live-build mtools rsync squashfs-tools syslinux-utils xorriso
+  ca-certificates curl debhelper debootstrap dosfstools dpkg-dev git \
+  grub-efi-amd64-bin grub-pc-bin isolinux live-build mtools rsync \
+  librsvg2-bin python3 python3-pil squashfs-tools syslinux-utils xorriso
 ```
 
 What these packages provide:
@@ -122,6 +130,7 @@ What these packages provide:
 | `dosfstools` and `mtools` | Create and populate FAT filesystems used by EFI boot media. |
 | `isolinux` and `syslinux-utils` | Supporting boot-media utilities; Syslinux is not currently the selected bootloader. |
 | `ca-certificates` | Validates HTTPS certificates while downloading packages. |
+| `curl`, `dpkg-dev`, `debhelper`, `python3`, `python3-pil`, and `librsvg2-bin` | Fetch, validate, and build the pinned Brand Master Debian package. |
 | `git` and `rsync` | Version-control and file-transfer tools used by the workflow. |
 
 `sudo apt update` refreshes local repository indexes; it does not upgrade the
@@ -162,7 +171,7 @@ Current significant settings:
 | `--binary-image iso-hybrid` | Produce an ISO usable in a VM or on USB. |
 | `--archive-areas ...` | Permit Debian main, contrib, non-free, and firmware packages. |
 | `--apt-secure true` | Require authenticated repository metadata. |
-| `--debian-installer none` | Do not add an installer to this milestone. |
+| `--debian-installer none` | Omit Debian Installer; Calamares is included separately through `calamares-settings-debian`. |
 | `--firmware-binary true` | Include applicable firmware in the bootable image. |
 | `--firmware-chroot true` | Include applicable firmware in the live filesystem. |
 | `--bootloaders "grub-efi grub-pc"` | Use GRUB for UEFI and legacy BIOS. |
@@ -189,11 +198,10 @@ filesystem. The current list provides:
   targets
 - Basic hardware and network diagnostic tools
 
-The first generated package manifest showed that Debian's GNOME task also
-installs LibreOffice and much of the CUPS printing stack through its dependency
-graph. These components are therefore present even though they are not named in
-OBLinux's short explicit list. Always use the generated package manifest to
-describe the actual image contents.
+LibreOffice is explicitly included in the current desktop package list.
+Debian's GNOME task also supplies transitive applications and much of the CUPS
+printing stack. Always inspect the generated package manifest to describe the
+actual image contents, including transitive packages.
 
 Debian tasks such as `task-gnome-desktop` are curated package collections. Using
 the Debian task lets Debian define the coherent GNOME baseline while OBLinux
@@ -202,8 +210,10 @@ adds only its explicit requirements.
 ### `config/includes.chroot`
 
 Files under `config/includes.chroot` are copied into the image filesystem after
-package installation. Build 004 uses this mechanism for the approved OBLinux
-wallpapers, their GNOME catalog, licensing, and background defaults.
+package installation. Shared visual assets are installed by the pinned
+`oblinux-branding` package instead of being duplicated here. Includes retain
+Debian-specific configuration such as system identity, GDM defaults, and the
+Calamares launcher.
 
 The background schema override defines unlocked defaults. It remains in the
 installed system so new users start with the OBLinux wallpaper but can change
@@ -211,11 +221,10 @@ it normally. This is deliberately separate from the package-owned Calamares
 override containing live-only lock and suspend settings, which the installer
 removes from the target system.
 
-Build 005 also uses package-owned Calamares paths under this directory to
-replace only Debian's identity-facing images, descriptor, slideshow, desktop
-launcher, and icon. The installer settings, modules, and helper sequence remain
-Debian-maintained. A chroot hook verifies package ownership so the branding is
-removed with `calamares-settings-debian` after installation.
+The Brand Master package supplies Calamares identity images, its descriptor,
+and slideshow. A chroot hook renders Debian release URLs into the descriptor
+and selects it while preserving Debian's installer settings, modules, and
+helper sequence.
 
 Build 006 adds installed-system identity through an OBLinux os-release file,
 hicolor icon, GRUB defaults, and Plymouth theme. Unlike the Calamares files,
@@ -234,16 +243,42 @@ icon path, and gives GNOME's diverted vendor emblem Debian's expected
 ### `config/bootloaders`
 
 Files under `config/bootloaders` override Debian live-build's corresponding
-bootloader resources. Build 005 supplies an SVG background and a GRUB theme;
-live-build converts the SVG and applies the same generated GRUB configuration
-to UEFI and legacy-BIOS media. Kernel discovery, boot parameters, utility
-entries, and integrity checks remain generated by live-build.
+bootloader resources. The build preparation step extracts the live GRUB
+background from the verified Brand Master package into an ignored generated
+path. The tracked downstream theme controls only menu integration; kernel
+discovery, boot parameters, utility entries, and integrity checks remain
+generated by live-build.
 
 ### `auto/build`
 
-Running `sudo lb build` automatically invokes `auto/build`. The wrapper stores a
-timestamped log under `build-logs/`, prepares the independently versioned
+Running `sudo lb build` automatically invokes `auto/build`. At entry, the
+wrapper reads `VERSION` and generates `BUILD_ID` exactly once from local build
+time in `YYYYMMDD-HHMM` form. It records those values and the image name in the
+ignored `.build/oblinux-release` file, renders both `os-release` paths, and
+uses live-build's `--image-name` setting for the versioned artifact. The same
+wrapper stores a build-ID-named log under `build-logs/`, validates the branding
+pin, prepares the pinned `oblinux-branding` package and independently versioned
 `oblinux-icon-theme` package, and then executes `lb build noauto`.
+
+Debian live-build names an `iso-hybrid` artifact with a `.hybrid.iso` suffix.
+After successful assembly, the wrapper verifies that expected file and performs
+a guarded rename to the public convention
+`oblinux-debian-${VERSION}-${BUILD_ID}-amd64.iso`. It refuses to overwrite an
+existing artifact with the same identity.
+
+If a supported binary-only rebuild has retained `chroot/`, the wrapper also
+refreshes both identity files in that generated filesystem before binary
+assembly. This prevents a new filename from being paired with the prior
+build's embedded `BUILD_ID`; a first or fully clean build receives the same
+files through `config/includes.chroot` in the normal live-build chroot stage.
+
+Brand Master is pinned to release `v1.0.4`, commit
+`13e211da2ccd43156fcc7dc7e57c3be7bb5ee47d`, and a reviewed commit-archive
+SHA-256 in `branding/brand-master.lock`. The preparation script never consumes
+a moving branch. It verifies and builds `oblinux-branding` `1.0.4-1`, then
+validates its metadata before making it available to live-build. See
+`docs/BRAND_MASTER_INTEGRATION.md` for the immutable dependency and upgrade
+process.
 
 The preparation script downloads the explicitly pinned Debian
 `papirus-icon-theme` binary package, extracts its icon sources in a temporary
@@ -286,6 +321,8 @@ Do not commit these outputs:
 - Generated ISO, image, checksum, and package-manifest files
 - Generated local Debian packages under `config/packages.chroot/`
 - `build-logs/`
+- `.build/oblinux-release` and the rendered `config/includes.chroot` copies of
+  `os-release`
 
 These are excluded through `.gitignore`. An ISO should eventually be published
 as a release artifact, not committed to Git history.
@@ -307,31 +344,34 @@ dependencies must not rely on their incidental inclusion by another package.
 
 ## Getting the source onto a builder
 
-A builder with authorized access to the private repository can clone it:
+A builder with authorized read access to the Stable repository can clone it
+directly from GitHub:
 
 ```bash
 git clone <repository-url>
 cd oblinux-debian-iso
 ```
 
-The initial builder was deliberately not given GitHub credentials. Instead, an
-administrator created a Git bundle from `main`, copied it to the builder, cloned
-the bundle, and checked out its `main` reference. A bundle is a transportable
-snapshot of Git objects and history, not an ongoing connection to GitHub.
-
-Consequently, `git pull` on that initial builder is not currently the supported
-update method. Later revisions can be transferred as new bundles, synchronized
-from the administration workstation, or fetched after a narrowly scoped GitHub
-deploy key is configured.
+The dedicated builder should use a repository-scoped, read-only Stable deploy
+key. Read access is sufficient for the guarded remote-head check. The build
+procedure does not pull, check out, or select a replacement commit; it stops
+unless local and remote Stable `main` equal the exact full commit authorized by
+the release manager.
 
 ## Configure and validate
 
 From the repository root:
 
 ```bash
+cat VERSION
 lb config
 lb config --validate
 ```
+
+Confirm that `VERSION` is the intentionally selected release version before
+building. `lb config` uses an unversioned placeholder image name because the
+exact build identity does not exist yet; `auto/build` replaces that generated
+setting when the build begins.
 
 `lb config` translates `auto/config` into live-build's generated configuration
 tree. `lb config --validate` checks whether the selected options form a valid
@@ -342,45 +382,49 @@ The initial validation exposed an invalid selection of two BIOS bootloaders.
 OBLinux now selects `grub-efi` for UEFI and `grub-pc` for BIOS. This is an
 example of why configuration validation precedes a full build.
 
-## Run a build
+## Run the Stable release-candidate build
 
-From an interactive shell on the builder:
+The tracked `scripts/build-iso` wrapper is deliberately Dev-only: its exact
+remote guard prevents it from running in Stable. Do not alter or bypass that
+guard. Build Stable only from a separate Stable checkout using the
+[guarded exact-commit procedure](RELEASING.md#guarded-stable-build-after-promotion).
 
-```bash
-cd ~/oblinux-debian-iso
-sudo lb build
-```
+Set `STABLE_COMMIT` to the final full Stable `origin/main` SHA and run the
+documented Bash block from the Stable repository root on Debian 13 `amd64`.
+Before cleaning or building, it verifies the authorized Stable remote, branch
+`main`, exact local and remote commit, clean worktree, `VERSION=26.3.0`, host,
+architecture, and required commands. It generates a fresh `BUILD_ID` through
+`auto/build`; it never pulls or builds Dev `main` and never reuses or renames
+the accepted Dev ISO.
 
-Or start it from an administration workstation over SSH:
-
-```bash
-ssh -t <builder> \
-  'cd ~/oblinux-debian-iso && sudo lb build'
-```
-
-The `-t` option allocates a terminal so `sudo` can ask for the administrator's
-password. Do not place a password in the command, documentation, environment,
-or repository.
+Run it from an interactive terminal so `sudo` can prompt normally. Do not place
+a password in commands, documentation, environment variables, or the
+repository. A successful build remains subject to payload, VM, installation,
+and physical acceptance.
 
 During the build, live-build will roughly perform these stages:
 
-1. Download the pinned Papirus input and build the local OBLinux icon package.
-2. Bootstrap a minimal Trixie filesystem.
-3. Configure Debian package repositories inside the chroot.
-4. Install the kernel, live components, GNOME, firmware, selected apps, and the
-   local OBLinux icon package.
-5. Apply configured hooks and included OBLinux files.
-6. Verify both Horizon themes, their caches, aliases, package status, and GNOME
-   default.
-7. Remove temporary package data as appropriate.
-8. Compress the live filesystem into SquashFS.
-9. Assemble GRUB boot files and the hybrid ISO.
-10. Generate checksums and package/file metadata.
+1. Read `VERSION`, generate one `BUILD_ID`, render the two `os-release` files,
+   and configure the versioned live-build image name.
+2. Validate the Brand Master integration and build its pinned local Debian
+   package from the checksum-verified immutable source archive.
+3. Download the pinned Papirus input and build the local OBLinux icon package.
+4. Bootstrap a minimal Trixie filesystem.
+5. Configure Debian package repositories inside the chroot.
+6. Install the kernel, live components, GNOME, firmware, selected apps, and the
+   local OBLinux branding and icon packages.
+7. Apply configured hooks and included OBLinux files.
+8. Verify the release/build identity, Brand Master payload/activation, and both
+   Horizon themes, their caches, aliases, package status, and GNOME default.
+9. Remove temporary package data as appropriate.
+10. Compress the live filesystem into SquashFS.
+11. Assemble GRUB boot files and the hybrid ISO.
+12. Generate checksums and package/file metadata, then apply the guarded public
+    filename.
 
 The first build can take 20–60 minutes depending on network and compression
-speed. The generated ISO is expected to be named
-`oblinux-debian-gnome-amd64.hybrid.iso`, although live-build controls the final
-architecture suffix.
+speed. The generated ISO is named
+`oblinux-debian-${VERSION}-${BUILD_ID}-amd64.iso`.
 
 ## Inspect results
 
@@ -389,7 +433,22 @@ After a successful build:
 ```bash
 ls -lh *.iso* build-logs/
 sha256sum *.iso
+cat .build/oblinux-release
 ```
+
+The record and ISO filename must agree. Boot that ISO and check the embedded
+identity:
+
+```bash
+cat /etc/os-release
+```
+
+`VERSION` and `VERSION_ID` must equal the repository `VERSION`; `BUILD_ID` must
+equal the filename and `.build/oblinux-release`. Calamares unpacks the same
+SquashFS into the target and does not remove these OBLinux-owned files. After a
+clean installation, run the same command and require identical values. This is
+the acceptance evidence that an installed system can be traced to its source
+ISO; the copy-based mechanism alone is not a substitute for testing.
 
 The checksum produced by `sha256sum` can be compared after copying the ISO to
 another machine. A matching checksum proves that the file was transferred
@@ -405,7 +464,9 @@ configuration changes should receive a clean build:
 
 ```bash
 sudo lb clean --purge
+scripts/validate-branding-integration
 lb config
+lb config --validate
 sudo lb build
 ```
 
@@ -413,60 +474,44 @@ sudo lb build
 reproducibility matters or stale state is suspected, not reflexively after every
 failure.
 
-### Branding package rebuild safety
-
-Use a purge rebuild when the pinned `oblinux-branding` version changes, its
-packaged payload or package-owned branding assets change, or live hooks and
-downstream transformations that depend on package defaults must rerun:
+Use the following complete procedure whenever the pinned `oblinux-branding`
+version, its packaged payload, or package-owned branding assets change, or when
+hooks and downstream transformations that depend on package defaults must run
+again:
 
 ```bash
 sudo lb clean --purge
+scripts/validate-branding-integration
 lb config
 lb config --validate
 sudo lb build
 ```
 
-This stable repository does not contain a separate
-`scripts/validate-branding-integration` command. Its supported pre-build static
-validation is `lb config --validate`; package and branding assertions provided
-by the tracked build hooks run as part of `sudo lb build`.
+This is the supported branding-package rebuild procedure confirmed during the
+Brand Master v1.0.4 recovery. It regenerates the live filesystem and retained
+chroot state, reinstalls the package, reruns applicable live hooks and
+downstream transformations, and rebuilds the final binary/ISO stage.
+`lb clean --binary` may be used for a change confined to binary assembly, but
+it is insufficient when a branding package must be reinstalled or processed
+inside the live filesystem.
 
-`lb clean --binary` may be appropriate when only the final binary/ISO stage
-needs regeneration. It is not sufficient for a branding-package change that
-requires the live filesystem or chroot to be recreated, the package to be
-installed again, hooks to rerun, or downstream transformations to be
-regenerated. A binary-only clean may retain the chroot and produce a successful
-ISO with stale branding or configuration. For branding-package or payload
-changes, the safe default is a purge rebuild.
+After the build, inspect the final ISO's SquashFS rather than trusting build
+success alone. Confirm the installed `oblinux-branding` version, expected
+package-owned files, downstream-transformed configuration, and absence of
+stale assets or obsolete downstream copies. Apparent branding regressions must
+first be checked for retained build state; do not edit or duplicate Brand
+Master artwork downstream to compensate for a stale chroot.
 
-After the rebuild, inspect the generated ISO and live filesystem rather than
-treating build success as proof that the package update was incorporated.
-Validation should confirm, as applicable:
-
-- the expected `oblinux-branding` package version;
-- the expected package-owned branding files;
-- the expected downstream-transformed runtime files;
-- the absence of stale branding assets or configuration;
-- the absence of obsolete downstream copies of package-owned branding; and
-- the resulting live filesystem and ISO payload.
-
-Static and payload validation establish what the artifact contains; they do
-not prove that branding renders correctly at runtime. Perform the applicable
-runtime and visual checks described in `docs/TESTING.md` and the focused
-checklists under `docs/tests/` for surfaces such as GRUB, Plymouth, GNOME,
-FastFetch, and Calamares.
-
-Brand Master owns the shared OBLinux visual identity and shared R5 assets. This
-Debian ISO repository owns consumption of released Brand Master packages,
-Debian-specific integration, live-build behavior, downstream transformations,
-activation, and runtime validation. If branding appears to regress after a
-package upgrade, first rule out retained live-build state and inspect the
-generated payload. Do not respond by editing Brand Master artwork downstream,
-copying package-owned shared artwork into Debian, creating a Debian-specific
-shared R5 asset, or changing canonical R5 geometry.
+Payload inspection does not replace runtime visual acceptance. Boot the ISO
+and validate affected visual surfaces such as GRUB, Plymouth, GNOME,
+FastFetch, and Calamares according to the applicable checklist under
+`docs/tests/`.
 
 ## Image acceptance criteria
 
+- `VERSION` contains the intentional development or stable release identity.
+- The ISO filename, build record, live `os-release`, and installed `os-release`
+  agree on one `VERSION` and one `BUILD_ID`.
 - `lb config` and `lb config --validate` complete without errors.
 - `lb build` completes and produces a hybrid ISO.
 - A SHA-256 checksum is generated.
@@ -476,12 +521,16 @@ shared R5 asset, or changing canonical R5 geometry.
 - NetworkManager establishes network connectivity.
 - Firefox ESR and Ptyxis launch.
 - `oblinux-icon-theme` is installed and Horizon Dark is the GNOME default.
+- `oblinux-branding` `1.0.4-1` is installed and its GNOME, Calamares, GRUB,
+  Plymouth, product-icon, and system-template payloads pass the integration
+  checks in `docs/tests/BRAND_MASTER_RUNTIME_TEST.md`.
 - Reboot and shutdown work.
 
-## Not included yet
+## Deferred beyond 26.3.0
 
-- The remaining daily-driver application set and explicit default policies
-- Zsh and Starship defaults
+- Additional applications or default policies beyond the explicit 26.3.0
+  package list and documented GNOME defaults
 - Flatpak or third-party application repositories
-- Firewall configuration
-- Production signing or release automation
+- Automatic firewall enablement or policy beyond the installed UFW and GUFW
+  tooling
+- Production signing or automated release infrastructure

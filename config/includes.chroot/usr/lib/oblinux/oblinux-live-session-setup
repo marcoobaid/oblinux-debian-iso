@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# Configure only the ephemeral live account's desktop and dconf state.
+set -eu
+
+[ "${USER:-}" = live ] || exit 0
+
+desktop_dir=${XDG_DESKTOP_DIR:-$HOME/Desktop}
+desktop_launcher="$desktop_dir/Install OBLinux.desktop"
+applications_dir="$HOME/.local/share/applications"
+tour_launcher="$applications_dir/org.gnome.Tour.desktop"
+mkdir -p "$desktop_dir"
+mkdir -p "$applications_dir"
+
+# Match the Arch live session: suppress Tour only for the ephemeral live user.
+# Calamares-created users retain GNOME's normal one-time welcome experience.
+cat > "$tour_launcher" <<'EOF'
+[Desktop Entry]
+Type=Application
+Name=Tour
+Hidden=true
+EOF
+
+if [ ! -f "$desktop_launcher" ]; then
+    install -m 0755 \
+        /usr/share/applications/calamares-install-debian.desktop \
+        "$desktop_launcher"
+fi
+chmod 0755 "$desktop_launcher"
+gio set "$desktop_launcher" metadata::trusted true || :
+
+gsettings set org.gnome.shell favorite-apps \
+    "['org.gnome.Nautilus.desktop', 'firefox-esr.desktop', 'org.gnome.Ptyxis.desktop', 'calamares-install-debian.desktop']"
+gsettings set org.gnome.shell enabled-extensions \
+    "['ding@rastersoft.com']"
+gsettings set org.gnome.shell.extensions.ding show-home true
+gsettings set org.gnome.shell.extensions.ding show-trash true
+
+attempt=0
+while ! gnome-extensions enable ding@rastersoft.com; do
+    attempt=$((attempt + 1))
+    [ "$attempt" -lt 30 ] || exit 1
+    sleep 1
+done
