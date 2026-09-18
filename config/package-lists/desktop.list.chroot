@@ -49,10 +49,10 @@ gnome-sushi
 simple-scan
 totem
 
-# Screenshot, removable-media, network, and hardware utilities shown by Arch
+# Removable-media, network, and hardware utilities
+# GNOME Shell supplies the native screenshot interface; no extra capture tool.
 # GNOME Disks can restore ISO images directly to removable drives.
 gnome-disk-utility
-flameshot
 avahi-ui-utils
 btop
 gufw

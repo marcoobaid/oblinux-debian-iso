@@ -30,7 +30,7 @@ web applications, Bluetooth devices, and local or network printing.
 | Development editor | Microsoft Visual Studio Code | Microsoft signed APT repository, opt-in | APT updates, Git, terminal, extensions, file watching, and desktop integration work. |
 | Image editing | GIMP | Debian stable | GIMP launches and can create, open, edit, and export representative images. |
 | USB image writing | GNOME Disks (`gnome-disk-utility`) | Debian stable | Restore Disk Image writes a test ISO to a disposable USB drive and reports completion. |
-| Screenshot capture | GNOME Shell capture plus Flameshot | Debian stable | The standard shortcut works and Flameshot provides a discoverable GUI with annotation and save/copy workflows. |
+| Screenshot capture | GNOME Shell native screenshot interface | Debian stable | The standard shortcut opens the overlay; area, window, and full-screen capture, saving, and clipboard use work in live and installed GNOME Wayland sessions. |
 | Lightweight games | Quadrapassel, Aisleriot, GNOME Chess with GNU Chess | Debian stable | Each game launches; GNOME Chess can start a local single-player game. |
 
 ## Terminal direction
@@ -83,10 +83,10 @@ installation.
 
 The image explicitly includes GNOME Disks as its USB ISO writer because its
 Restore Disk Image workflow is maintained in Debian, fits GNOME, and avoids an
-external repository or a second storage stack. Flameshot supplements GNOME
-Shell's built-in screenshot overlay with a dedicated, discoverable GUI and
-annotation workflow. Both are available in the live system and are copied to
-the installed system by the existing Calamares unpack model.
+external repository or a second storage stack. GNOME Shell's native screenshot
+interface is the supported default in both live and installed systems. It does
+not provide an equivalent annotation workflow. Advanced users may install
+other screenshot tools themselves; these are not part of default acceptance.
 
 GIMP and the Arch-equivalent lightweight games are also explicit image
 packages: `quadrapassel` for falling blocks, `aisleriot` for solitaire, and
