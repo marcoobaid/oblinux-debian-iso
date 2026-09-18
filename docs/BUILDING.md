@@ -354,9 +354,10 @@ cd oblinux-debian-iso
 
 The dedicated builder should use a repository-scoped, read-only Stable deploy
 key. Read access is sufficient for the guarded remote-head check. The build
-procedure does not pull, check out, or select a replacement commit; it stops
-unless local and remote Stable `main` equal the exact full commit authorized by
-the release manager.
+script does not pull, check out, or select a replacement commit; it derives the
+source commit from clean local Stable `main` and stops unless local HEAD, the
+locally recorded `origin/main`, and the directly queried remote Stable `main`
+all identify that same exact commit.
 
 ## Configure and validate
 
@@ -386,16 +387,21 @@ example of why configuration validation precedes a full build.
 
 The tracked `scripts/build-iso` wrapper is deliberately Dev-only: its exact
 remote guard prevents it from running in Stable. Do not alter or bypass that
-guard. Build Stable only from a separate Stable checkout using the
-[guarded exact-commit procedure](RELEASING.md#guarded-stable-build-after-promotion).
+guard. Build Stable only from a separate Stable checkout using:
 
-Set `STABLE_COMMIT` to the final full Stable `origin/main` SHA and run the
-documented Bash block from the Stable repository root on Debian 13 `amd64`.
-Before cleaning or building, it verifies the authorized Stable remote, branch
-`main`, exact local and remote commit, clean worktree, `VERSION=26.3.0`, host,
-architecture, and required commands. It generates a fresh `BUILD_ID` through
-`auto/build`; it never pulls or builds Dev `main` and never reuses or renames
-the accepted Dev ISO.
+```bash
+cd ~/oblinux-debian-iso
+./scripts/build-stable-iso
+```
+
+Before cleaning or building, the Stable script verifies the authorized Stable
+remote, branch `main`, exact agreement among HEAD, `origin/main`, and a direct
+remote query, clean worktree, `VERSION=26.3.0`, Debian 13 `amd64`, the normal
+builder account, and documented build dependencies. It generates a fresh
+`BUILD_ID` through `auto/build`; it never pulls or builds Dev `main` and never
+reuses or renames the accepted Dev ISO. See the
+[release procedure](RELEASING.md#guarded-stable-build-after-promotion) for the
+complete safeguards and acceptance boundary.
 
 Run it from an interactive terminal so `sudo` can prompt normally. Do not place
 a password in commands, documentation, environment variables, or the

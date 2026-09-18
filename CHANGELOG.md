@@ -4,6 +4,10 @@
 
 ## 26.3.0
 
+- Add a guarded `scripts/build-stable-iso` entry point that derives the source
+  commit from clean Stable `main`, verifies it directly against remote
+  `origin/main`, and delegates image creation to the existing live-build
+  workflow.
 - Enable location-aware Calamares timezone detection through KDE's Calamares
   GeoIP service while retaining an offline fallback.
 - Add Arch-parity Calamares swap selection for automated installs, offering

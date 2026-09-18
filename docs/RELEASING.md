@@ -76,72 +76,32 @@ as Stable. Dev remains the normal development workspace.
 
 ## Guarded Stable build after promotion
 
-Preserve `scripts/build-iso` unchanged as the Dev-only workflow. The minimal
-Stable workflow is the guarded command block below, using the same live-build
-wrappers without introducing a second build implementation or changing remotes.
+Preserve `scripts/build-iso` unchanged as the Dev-only workflow. Stable uses
+the repository's separate guarded entry point while retaining `auto/build` and
+the existing live-build implementation:
+
+```bash
+cd ~/oblinux-debian-iso
+./scripts/build-stable-iso
+```
 
 Use a separate normal clone of `oblinux-debian-iso` on the Debian 13 amd64
 builder, with repository-scoped read access to Stable. After promotion, prepare
 that checkout at the approved Stable `main` commit. Do not reuse the Dev clone
-or its chroot. The block never pulls, checks out, or selects another commit.
-It stops unless local HEAD and the current remote Stable `main` both equal the
-explicit full commit supplied by the release manager. If remote main advances,
-reconcile the approved commit before proceeding; do not silently substitute it.
+or its chroot. The script never pulls, checks out, or selects another commit.
+It derives the authorized source SHA from the clean local HEAD, requires the
+locally recorded `origin/main` to match, and verifies that same SHA directly
+against the current remote Stable `main` immediately before building. If remote
+main advances, inspect and reconcile it first; do not silently substitute it.
 
-From the Stable repository root, start Bash, export `STABLE_COMMIT` as the
-approved full 40-character SHA, and run the following block only after build
-authorization. It purges generated build state in this dedicated checkout.
-
-```bash
-(
-    set -euo pipefail
-    fail() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
-    : "${STABLE_COMMIT:?Set the approved full Stable commit SHA}"
-    [[ $STABLE_COMMIT =~ ^[0-9a-f]{40}$ ]] || fail 'Invalid Stable commit'
-    [[ -d .git ]] || fail 'Run from a normal Stable clone root'
-    stable_origin=$(git remote get-url origin)
-    case "$stable_origin" in
-        git@github-oblinux-debian:marcoobaid/oblinux-debian-iso.git|git@github.com:marcoobaid/oblinux-debian-iso.git|https://github.com/marcoobaid/oblinux-debian-iso.git) ;;
-        *) fail 'origin is not the authorized Stable repository' ;;
-    esac
-    [[ $(git branch --show-current) == main ]] || fail 'Stable main is required'
-    [[ $(git rev-parse HEAD) == "$STABLE_COMMIT" ]] || fail 'Wrong local commit'
-    [[ -z $(git status --porcelain --untracked-files=all) ]] || fail 'Dirty checkout'
-    [[ $(cat VERSION) == 26.3.0 ]] || fail 'Stable VERSION must be 26.3.0'
-    stable_remote_head=$(git ls-remote --exit-code "$stable_origin" refs/heads/main | awk '{print $1}')
-    [[ $stable_remote_head == "$STABLE_COMMIT" ]] || fail 'Wrong remote Stable commit'
-    [[ $EUID -ne 0 ]] || fail 'Run as the normal builder account'
-    . /etc/os-release
-    [[ ${ID-} == debian && ${VERSION_CODENAME-} == trixie ]] || fail 'Debian 13 required'
-    [[ $(dpkg --print-architecture) == amd64 ]] || fail 'amd64 required'
-    for command in lb sudo sha256sum xorriso unsquashfs cmp; do
-        command -v "$command" >/dev/null || fail "Missing dependency: $command"
-    done
-    printf 'Stable source: %s\n' "$STABLE_COMMIT"
-    df -hP .
-    sudo -v
-    sudo lb clean --purge
-    scripts/validate-branding-integration
-    lb config
-    lb config --validate
-    sudo lb build
-    . .build/oblinux-release
-    [[ $VERSION == 26.3.0 ]] || fail 'Incorrect build VERSION'
-    [[ $BUILD_ID =~ ^[0-9]{8}-[0-9]{4}$ ]] || fail 'Incorrect BUILD_ID'
-    [[ $IMAGE_NAME == "oblinux-debian-26.3.0-$BUILD_ID" ]] || fail 'Incorrect image identity'
-    stable_iso="${IMAGE_NAME}-amd64.iso"
-    test -s "$stable_iso"
-    test -s "build-logs/build-${BUILD_ID}.log"
-    cmp config/includes.chroot/etc/os-release config/includes.chroot/usr/lib/os-release
-    grep -qx 'VERSION="26.3.0"' config/includes.chroot/etc/os-release
-    grep -qx 'VERSION_ID="26.3.0"' config/includes.chroot/etc/os-release
-    grep -qx "BUILD_ID=\"$BUILD_ID\"" config/includes.chroot/etc/os-release
-    [[ $(git rev-parse HEAD) == "$STABLE_COMMIT" ]] || fail 'HEAD changed during build'
-    [[ -z $(git status --porcelain --untracked-files=all) ]] || fail 'Checkout changed'
-    sha256sum "$stable_iso"
-    printf 'Built from %s; payload and runtime acceptance still required.\n' "$STABLE_COMMIT"
-)
-```
+The script also requires Stable `VERSION=26.3.0`, Debian 13 `amd64`, a normal
+non-root builder account, and all documented build dependencies. It prints the
+verified version, full source commit, remote status, and builder identity before
+requesting sudo access. It then purges generated state, validates branding and
+live-build configuration, and invokes `sudo lb build`; ISO generation remains
+owned by the existing `auto/build` workflow. Afterward it validates the build
+record, ISO, build log, boot metadata, both generated `os-release` files, Git
+state, and SHA-256. Any failed check stops the workflow with an error.
 
 `auto/build` generates one BUILD_ID from builder-local time and renders both
 `os-release` paths from Stable `VERSION`. Calamares unpacks the live filesystem;

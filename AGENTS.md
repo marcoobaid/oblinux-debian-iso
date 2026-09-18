@@ -161,24 +161,22 @@ unexpected.
 Build on an up-to-date Debian 13 `amd64` host with root access, a native Linux
 filesystem, and at least 40 GB free (60 GB recommended). See
 `docs/BUILDING.md` for dependencies, host setup, wrapper behavior, generated
-files, logs, and artifact inspection. From the repository root, the primary
-sequence is exactly:
+files, logs, and artifact inspection. From the repository root, the Stable
+build entry point is exactly:
 
 ```bash
-scripts/validate-branding-integration
-lb config
-lb config --validate
-sudo lb build
+scripts/build-stable-iso
 ```
 
 The tracked `scripts/build-iso` wrapper is intentionally guarded for the Dev
 repository and must not be run or repointed in this Stable checkout. Build the
-Stable ISO only through the exact-commit Stable procedure in
-`docs/RELEASING.md`. It verifies the authorized Stable remote, `main`, the full
-specified commit, matching local and remote heads, a clean tree,
-`VERSION=26.3.0`, and a Debian 13 `amd64` host before invoking the same
-live-build implementation. Runtime, installation, and hardware testing remain
-separate acceptance stages.
+Stable ISO with `scripts/build-stable-iso` as defined in
+`docs/RELEASING.md`. It derives the source from clean Stable `main`, verifies
+the authorized Stable remote and exact local/remote commit agreement,
+`VERSION=26.3.0`, the Debian 13 `amd64` host, and build dependencies before
+purging generated state and invoking the existing branding validation,
+live-build configuration, validation, and `sudo lb build` sequence. Runtime,
+installation, and hardware testing remain separate acceptance stages.
 
 Output follows `oblinux-debian-${VERSION}-${BUILD_ID}-amd64.iso`. Inspect it with:
 

@@ -1,0 +1,169 @@
+#!/bin/bash
+
+set -euo pipefail
+
+repository_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$repository_root"
+
+die() {
+    printf 'ERROR: %s\n' "$*" >&2
+    exit 1
+}
+
+run() {
+    printf '\n==> %s\n' "$*"
+    "$@"
+}
+
+if [[ ${1-} == --help ]]; then
+    cat <<'EOF'
+Usage: scripts/build-stable-iso
+
+Build OBLinux Debian Stable from a clean, synchronized Stable main checkout.
+The script verifies the repository, remote commit, release version, build host,
+and dependencies before purging generated state and invoking live-build.
+EOF
+    exit 0
+fi
+[[ $# -eq 0 ]] || die "no arguments are supported (use --help)"
+[[ $EUID -ne 0 ]] || die "run this script as the normal builder account, not with sudo"
+
+command -v git >/dev/null 2>&1 || die "required command is unavailable: git"
+[[ -d .git ]] || die "run from a normal OBLinux Debian Stable Git checkout"
+[[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == true ]] ||
+    die "run from a normal OBLinux Debian Stable Git checkout"
+[[ $(git rev-parse --show-toplevel) == "$repository_root" ]] ||
+    die "the script is not running from the checkout root"
+
+origin_url=$(git remote get-url origin 2>/dev/null) || die "origin is not configured"
+case "$origin_url" in
+    git@github-oblinux-debian:marcoobaid/oblinux-debian-iso.git|git@github.com:marcoobaid/oblinux-debian-iso.git|https://github.com/marcoobaid/oblinux-debian-iso.git) ;;
+    *) die "origin is not an authorized OBLinux Debian Stable repository" ;;
+esac
+
+[[ $(git branch --show-current) == main ]] || die "the Stable build must run from branch main"
+if [[ -n $(git status --porcelain --untracked-files=all) ]]; then
+    git status --short --branch >&2
+    die "the working tree must be completely clean"
+fi
+
+version=$(cat VERSION 2>/dev/null) || die "VERSION is unavailable"
+[[ $version =~ ^[0-9]{2}\.[1-4]\.[0-9]+$ ]] ||
+    die "VERSION must be a Stable release without a -dev suffix: $version"
+[[ $version == 26.3.0 ]] || die "Stable VERSION must be exactly 26.3.0: $version"
+
+source_commit=$(git rev-parse --verify HEAD)
+[[ $source_commit =~ ^[0-9a-f]{40}$ ]] || die "unable to determine the full local HEAD"
+tracking_commit=$(git rev-parse --verify refs/remotes/origin/main 2>/dev/null) ||
+    die "local origin/main is unavailable; fetch Stable main and review it first"
+[[ $source_commit == "$tracking_commit" ]] ||
+    die "local HEAD does not match the locally recorded origin/main"
+
+[[ -r /etc/os-release ]] || die "the build host must provide /etc/os-release"
+# shellcheck disable=SC1091
+. /etc/os-release
+[[ ${ID-} == debian && ${VERSION_CODENAME-} == trixie ]] ||
+    die "the build host must be Debian 13 (trixie)"
+
+for command in awk cat cmp curl date df dpkg dpkg-query file grep lb python3 \
+    rsync sed sha256sum stat sudo tee xorriso unsquashfs; do
+    command -v "$command" >/dev/null 2>&1 || die "required command is unavailable: $command"
+done
+[[ $(dpkg --print-architecture) == amd64 ]] || die "the build host must use amd64"
+
+required_packages=(
+    ca-certificates curl debhelper debootstrap dosfstools dpkg-dev git
+    grub-efi-amd64-bin grub-pc-bin isolinux live-build mtools rsync
+    librsvg2-bin python3 python3-pil squashfs-tools syslinux-utils xorriso
+)
+for package in "${required_packages[@]}"; do
+    dpkg-query -W -f='${db:Status-Status}\n' "$package" 2>/dev/null \
+        | grep -qx installed \
+        || die "required build package is not installed: $package"
+done
+
+# Query the remote only after every local host and dependency check has passed,
+# so this is the final source-authorization check before build activity begins.
+remote_line=$(git ls-remote --exit-code "$origin_url" refs/heads/main) ||
+    die "unable to read Stable origin/main directly"
+remote_commit=${remote_line%%[[:space:]]*}
+[[ $remote_commit =~ ^[0-9a-f]{40}$ ]] || die "Stable origin/main returned an invalid SHA"
+[[ $source_commit == "$remote_commit" ]] ||
+    die "local HEAD does not match the current remote Stable main"
+
+printf '\nOBLinux Debian Stable Build\n'
+printf 'Version: %s\n' "$version"
+printf 'Source commit: %s\n' "$source_commit"
+printf 'Remote verification: PASS\n'
+printf 'Builder: Debian 13 amd64\n'
+printf 'Build authorization checks: PASS\n'
+printf 'Build filesystem:\n'
+df -hP "$repository_root"
+
+printf '\n==> Validating sudo access\n'
+sudo -v
+
+run sudo lb clean --purge
+
+available_kib=$(df -Pk "$repository_root" | awk 'NR == 2 {print $4}')
+if (( available_kib < 40 * 1024 * 1024 )); then
+    printf 'WARNING: less than the recommended 40 GiB is free after cleaning.\n' >&2
+    df -hP "$repository_root" >&2
+fi
+
+run scripts/validate-branding-integration
+run lb config
+run lb config --validate
+
+build_started=$(date +%s)
+run sudo lb build
+
+[[ -r .build/oblinux-release ]] || die "the build release record is missing"
+# Values are generated internally by auto/build and validated again below.
+# shellcheck disable=SC1091
+. .build/oblinux-release
+
+[[ ${VERSION-} == "$version" ]] || die "build-record VERSION does not match Stable VERSION"
+[[ ${BUILD_ID-} =~ ^[0-9]{8}-[0-9]{4}$ ]] || die "build-record BUILD_ID is invalid"
+[[ ${IMAGE_NAME-} == "oblinux-debian-${version}-${BUILD_ID}" ]] ||
+    die "build-record IMAGE_NAME is inconsistent"
+
+iso="${IMAGE_NAME}-amd64.iso"
+log="build-logs/build-${BUILD_ID}.log"
+[[ -s $iso ]] || die "expected ISO is missing or empty: $iso"
+[[ -s $log ]] || die "expected build log is missing or empty: $log"
+(( $(stat -c %Y "$iso") >= build_started )) || die "the ISO predates this build invocation"
+
+etc_os_release=config/includes.chroot/etc/os-release
+usr_os_release=config/includes.chroot/usr/lib/os-release
+[[ -s $etc_os_release ]] || die "generated /etc/os-release is missing or empty"
+[[ -s $usr_os_release ]] || die "generated /usr/lib/os-release is missing or empty"
+cmp "$etc_os_release" "$usr_os_release" || die "the two generated os-release files differ"
+grep -qx "PRETTY_NAME=\"OBLinux $version\"" "$etc_os_release" ||
+    die "generated os-release PRETTY_NAME does not match"
+grep -qx "VERSION=\"$version\"" "$etc_os_release" ||
+    die "generated os-release VERSION does not match"
+grep -qx "VERSION_ID=\"$version\"" "$etc_os_release" ||
+    die "generated os-release VERSION_ID does not match"
+grep -qx "BUILD_ID=\"$BUILD_ID\"" "$etc_os_release" ||
+    die "generated os-release BUILD_ID does not match"
+
+file "$iso" | grep -q 'ISO 9660' || die "the artifact is not recognized as an ISO 9660 image"
+xorriso -indev "$iso" -report_el_torito plain 2>&1 | grep -q 'El Torito' ||
+    die "the ISO has no El Torito boot information"
+
+[[ $(git rev-parse HEAD) == "$source_commit" ]] || die "Git HEAD changed during the build"
+[[ -z $(git status --porcelain --untracked-files=all) ]] ||
+    die "the working tree changed during the build"
+
+checksum_line=$(sha256sum "$iso")
+checksum=${checksum_line%%[[:space:]]*}
+
+printf '\nOBLinux Debian Stable build completed.\n'
+printf 'Version: %s\n' "$version"
+printf 'BUILD_ID: %s\n' "$BUILD_ID"
+printf 'Source commit: %s\n' "$source_commit"
+printf 'ISO: %s/%s\n' "$repository_root" "$iso"
+printf 'Build log: %s/%s\n' "$repository_root" "$log"
+printf 'SHA-256: %s\n' "$checksum"
+printf '\nPayload, VM, installation, and physical acceptance remain separate tests.\n'
