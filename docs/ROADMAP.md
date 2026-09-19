@@ -1,8 +1,8 @@
 # OBLinux Roadmap
 
 This roadmap is ordered by learning value. The project is in Phase 3. Stable
-26.3.0 is released: the owner confirmed final VM and physical laptop
-installation/regression passed, tag `v26.3.0` identifies the certified source,
+26.3.0 is released: final VM and physical laptop installation/regression
+testing passed, tag `v26.3.0` identifies the certified source,
 and the Stable ISO is published on SourceForge. See
 [RELEASING.md](RELEASING.md) for exact artifact details.
 Remaining checklist items require their own evidence; release completion does

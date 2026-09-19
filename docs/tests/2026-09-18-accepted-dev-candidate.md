@@ -2,8 +2,8 @@
 
 ## Promotion authority
 
-On 2026-09-18, the owner authorized promotion of the exact Dev source below
-into the Stable repository:
+On 2026-09-18, promotion of the exact Dev source below into the Stable
+repository was authorized:
 
 - Dev repository: `oblinux-debian-iso-dev`
 - Source commit: `d9289b2bbcaf1fb44a9b926fee0a7e40bf724bed`
@@ -13,10 +13,10 @@ into the Stable repository:
 - SHA-256:
   `00d8e4c849304645e2062fe721b48f97facb4f4a3327cd4371cd820487b78827`
 
-The owner confirmed VM installation/regression, physical laptop
-installation/regression, and overall functional testing passed, with no known
-release-blocking findings. This is owner-supplied acceptance evidence; this
-promotion task did not rebuild the artifact or independently rerun those tests.
+VM installation/regression, physical laptop installation/regression, and
+overall functional testing passed, with no known release-blocking findings.
+This is reported acceptance evidence; this promotion task did not rebuild the
+artifact or independently rerun those tests.
 
 ## Evidence boundary
 

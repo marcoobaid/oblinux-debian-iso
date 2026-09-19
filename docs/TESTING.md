@@ -9,8 +9,9 @@ Testing should answer two questions during the POC:
 
 ## Current acceptance
 
-OBLinux Debian **26.3.0 is released**. The owner certified the following Stable
-artifact and confirmed both VM and physical laptop installation/regression passed.
+OBLinux Debian **26.3.0 is released**. The following certified Stable
+artifact passed installation and regression testing on both a virtual machine
+and physical laptop.
 
 - Git tag: `v26.3.0`
 - Certified source commit: `8f28de66fc43c4bf1d9f76b0880810eefd6c519b`
@@ -22,7 +23,7 @@ artifact and confirmed both VM and physical laptop installation/regression passe
 The certified release code is frozen. Later documentation updates do not change
 the certified source commit or immutable release tag.
 
-These are owner-supplied release results; this documentation update did not
+These are reported release results; this documentation update did not
 rerun build or runtime tests. The [accepted Dev candidate record](tests/2026-09-18-accepted-dev-candidate.md)
 remains the evidence for the earlier source promotion. Historical records below
 describe their own artifacts; checklists remain procedures and are not

@@ -29,7 +29,7 @@ governance. Report any apparent conflict instead of resolving it silently.
   environment. Report failures and skipped checks.
 - Preserve this repository's Debian-specific architecture and conventions.
   Do not import another OBLinux edition's implementation mechanically.
-- Do not commit or push unless explicitly requested by the owner.
+- Do not commit or push unless explicitly requested.
 
 ## Git Commit Policy
 
@@ -44,11 +44,11 @@ When Claude Code creates Git commits in this repository:
 - Do not mention Claude, Anthropic, Claude Code, AI assistance, or automated
   generation anywhere in the commit message.
 - Do not add Claude or Anthropic as a contributor.
-- Do not add any attribution trailer unless the owner explicitly requests one
+- Do not add any attribution trailer unless explicitly requested
   for a specific commit.
 - Write normal, professional commit messages describing the actual repository
   change, following AGENTS.md's Conventional Commit-style convention (`feat:`,
   `fix:`, `docs:`, `test:`, `build:`, `design:`, etc.).
 
 The repository's configured human Git identity is the sole commit
-attribution unless the owner explicitly instructs otherwise.
+attribution unless explicitly instructed otherwise.

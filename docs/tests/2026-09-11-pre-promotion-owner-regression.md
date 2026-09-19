@@ -1,9 +1,9 @@
-# Pre-promotion owner regression confirmation
+# Pre-promotion regression confirmation
 
 ## Baseline and result
 
-Recorded on 2026-09-11 (America/Chicago) from the owner's documentation-task
-instructions. The owner confirms successful regression testing on both:
+Recorded on 2026-09-11 (America/Chicago) from the supplied documentation-task
+instructions. Regression testing was reported successful on both:
 
 - Virtual machines
 - Physical hardware
@@ -14,21 +14,21 @@ HEAD, and local `origin/main` all identified that commit, and the working tree
 was clean. Documentation commits after this baseline do not represent new
 functional ISO changes.
 
-The owner approves the current implementation for stable promotion subject to
+The current implementation is approved for stable promotion subject to
 documentation, version, and repository checks. This confirmation does not
 authorize performing promotion in this documentation task.
 
 ## Evidence limits
 
-This is an owner-reported regression result, not a new test run by the
-documentation editor. The confirmation does not supply an ISO filename,
+This is a reported regression result; testing was not rerun as part of the
+documentation update. The confirmation does not supply an ISO filename,
 checksum, build ID, hardware inventory, test dates, or per-check command output.
 Do not infer those details or mark every historical checklist item passed.
 Earlier dated build/test records retain their artifact-specific results,
 including superseded-artifact warnings.
 
 The confirmation supersedes general statements that the current functional
-baseline still awaits owner VM or physical regression acceptance. It does not
+baseline still awaits VM or physical regression acceptance. It does not
 expand supported installation scenarios, claim broad hardware support, or
 establish public production readiness.
 

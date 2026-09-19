@@ -23,8 +23,8 @@ and tradeoffs.
 
 ## Current validation status
 
-The owner confirmed VM and physical laptop installation/regression passed for
-the released Stable 26.3.0 artifact identified in [RELEASING.md](RELEASING.md).
+The released Stable 26.3.0 artifact identified in [RELEASING.md](RELEASING.md)
+passed VM and physical laptop installation/regression testing.
 The earlier Build 002 restrictions below describe that historical milestone,
 not a reversal of later physical acceptance. The installation baseline remains
 unencrypted erase-disk UEFI/GPT/ext4 on disposable VM disks and the designated

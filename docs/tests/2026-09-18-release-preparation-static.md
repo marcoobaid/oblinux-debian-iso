@@ -7,9 +7,9 @@ This record accompanies the preparation commits, not a built release artifact.
 The source VERSION remains `26.3.0-dev`. Stable was not modified; no ISO was
 built, promoted, tagged, or published.
 
-The owner authorized native GNOME screenshots as the default and final VM plus
-physical-hardware regression as the 26.3.0 release gate. The current procedure
-is [RELEASING.md](../RELEASING.md). Earlier dated evidence remains unchanged.
+Native GNOME screenshots were approved as the default, and final VM plus
+physical-hardware regression was approved as the 26.3.0 release gate. The current
+procedure is [RELEASING.md](../RELEASING.md). Earlier dated evidence remains unchanged.
 
 ## Executed checks
 

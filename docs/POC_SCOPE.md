@@ -9,8 +9,8 @@ use it to evaluate the effort required to operate OBLinux over time.
 
 The original POC has progressed to public Stable 26.3.0. The Stable ISO is
 published on SourceForge under `OBLinux-Debian-ISO/26.3.0/`, and tag `v26.3.0`
-identifies the certified source commit. The owner confirmed final VM and
-physical laptop installation/regression passed. This expands distribution
+identifies the certified source commit. Final VM and physical laptop
+installation/regression testing passed. This expands distribution
 scope, not hardware or installer support claims. See [RELEASING.md](RELEASING.md)
 for the certified artifact details.
 

@@ -2,7 +2,7 @@
 
 ## Result
 
-- Status: Passed based on tester-reported live and installed-system results
+- Status: Passed based on reported live and installed-system results
 - Test date: 2026-08-22 America/Chicago
 - Source under test: commit `4884aa4` (includes terminal fix `2e35277`)
 - Environments: Oracle VirtualBox live session and physical installation
@@ -11,8 +11,8 @@
 
 ## Live-session result
 
-Passed. After pulling the source and building a new ISO, the tester booted the
-live image in Oracle VirtualBox. Ptyxis opened directly in GNOME light mode with
+Passed. After the source was pulled and a new ISO built, the live image was
+booted in Oracle VirtualBox. Ptyxis opened directly in GNOME light mode with
 readable foreground text; the previous faded-gray startup state did not recur.
 Fastfetch displayed a cyan OBLinux logo, blue title and field-label accents, and
 readable foreground-colored values. Zsh was reported installed and active in
@@ -23,8 +23,8 @@ The supplied screenshot is stored outside Git with SHA-256
 
 ## Installed-system result
 
-Passed. The tester subsequently reported that physical installation and
-installed-system testing completed successfully. This confirms the correction
+Passed. Subsequent test results reported successful physical installation and
+installed-system testing. This confirms the correction
 on the installed-system path at the level of the supplied report.
 
 No physical model, firmware mode, ISO checksum, screenshots, or individual

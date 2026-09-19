@@ -95,14 +95,14 @@ dark comparison.
 
 ## Resolution verification
 
-The tester pulled commit `4884aa4`, built a new ISO, and booted it in an Oracle
-VirtualBox live session. On the first light-mode Ptyxis launch, terminal text
+Commit `4884aa4` was pulled, a new ISO was built, and the image was booted in an
+Oracle VirtualBox live session. On the first light-mode Ptyxis launch, terminal text
 was readable without an appearance toggle; Fastfetch used the intended cyan
 logo and blue title/label accents; and Zsh was present and active. The supplied
 post-correction screenshot is retained outside Git with SHA-256
 `864ee366118bd400a62f56447883f3d3d1efa672e352eec82cde9a3d219df659`.
 
-The tester subsequently reported that physical installation and installed-
+Subsequent test results reported that physical installation and installed-
 system testing passed. The ISO SHA-256, physical hardware model, firmware mode,
 and individual checklist command output were not supplied, so this record does
 not infer those details. See

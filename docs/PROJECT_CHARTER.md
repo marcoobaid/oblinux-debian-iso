@@ -9,7 +9,7 @@ operating systems without concealing the strengths of Linux or Debian.
 
 ## Current objective
 
-The current objective is a proof of concept that can become the maintainer's
+The current objective is a proof of concept suitable for use as a
 daily-driver system. The POC measures the real engineering and
 maintenance effort; the project has completed its first public Stable
 release, 26.3.0, under the explicitly limited scope below.
@@ -17,11 +17,11 @@ release, 26.3.0, under the explicitly limited scope below.
 The first successful outcome is not a broadly supported product. It is a
 repeatable build that boots into a useful GNOME live session, installs safely in
 the tested scenarios, receives Debian updates normally, and works reliably on
-the maintainer's chosen virtual and physical hardware.
+the designated virtual and physical hardware.
 
 ## Intended evolution
 
-Public Stable 26.3.0 is released, with owner-confirmed final VM and physical
+Public Stable 26.3.0 is released, with confirmed final VM and physical
 laptop installation/regression passes and the limited scope described in
 [RELEASING.md](RELEASING.md). Later work may
 include other desktop or window-manager flavors, a signed OBLinux package

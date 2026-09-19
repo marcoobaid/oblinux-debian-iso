@@ -39,8 +39,9 @@ upstream and consumed from immutable releases.
 
 ## Release status
 
-OBLinux Debian **26.3.0 is released**. The owner certified the following Stable
-artifact and confirmed both VM and physical laptop installation/regression passed.
+OBLinux Debian **26.3.0 is released**. The following certified Stable
+artifact passed installation and regression testing on both a virtual machine
+and physical laptop.
 
 - Git tag: `v26.3.0`
 - Certified source commit: `8f28de66fc43c4bf1d9f76b0880810eefd6c519b`

@@ -75,7 +75,7 @@ metadata. Debian's Calamares configuration installs by unpacking the exact
 live `filesystem.squashfs`. These OBLinux-owned files are not part of the
 installer-only settings package removed from the target, so the same release
 and build identity survives installation. A tester must still verify the live
-and installed files against the ISO filename during acceptance testing.
+and installed files against the ISO filename.
 
 ## Current Stable release and tags
 
@@ -89,12 +89,12 @@ certified source commit:  8f28de66fc43c4bf1d9f76b0880810eefd6c519b
 BUILD_ID:                 20260918-2040
 SourceForge publication:  OBLinux-Debian-ISO/26.3.0/ (published)
 
-AFTER RELEASE, WITH SEPARATE OWNER AUTHORIZATION
+AFTER RELEASE, WITH SEPARATE AUTHORIZATION
 oblinux-debian-iso-dev:   VERSION = 26.4.0-dev
 ```
 
 Promotion removed `-dev` as an intentional Stable metadata change. The released
-Stable artifact has its own BUILD_ID and owner-confirmed final VM and physical
+Stable artifact has its own BUILD_ID and confirmed final VM and physical
 laptop installation/regression passes; its ISO and checksum are recorded in
 [RELEASING.md](RELEASING.md). Automated CI was not a prerequisite for this
 release and remains a future enhancement. The immutable tag `v26.3.0` identifies
@@ -102,7 +102,7 @@ the certified source commit; later documentation updates do not move it.
 
 The stable tag is `v` followed by the stable version. A maintenance release such
 as `26.3.1` receives tag `v26.3.1`. `BUILD_ID` never changes the release version
-or Git tag. Tagging requires separate owner authorization, as defined in
+or Git tag. Tagging requires separate authorization, as defined in
 [AGENTS.md](../AGENTS.md#release-and-tagging-policy).
 
 The promotion, tag, publication, and subsequent development-version advance are

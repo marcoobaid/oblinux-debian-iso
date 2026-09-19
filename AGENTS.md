@@ -16,7 +16,7 @@ GNOME, built as a hybrid live/install ISO with Debian `live-build`, `live-boot`,
 and `live-config`; installed systems receive normal Debian updates through APT.
 
 The project is in Roadmap Phase 3, daily-driver candidate. OBLinux Debian
-26.3.0 is released, with owner-confirmed VM and physical laptop
+26.3.0 is released, with confirmed VM and physical laptop
 installation/regression passes. The immutable tag `v26.3.0` points to certified
 source commit `8f28de66fc43c4bf1d9f76b0880810eefd6c519b`. The certified
 release code is frozen. The Stable ISO is published on SourceForge under
@@ -41,7 +41,7 @@ workspace for feature development, experimentation, or branding integration.
   changes or its `main` branch directly here.
 - Stable receives functional changes only through a separate promotion after
   the proposed Dev ISO has built successfully, passed the required validation
-  and runtime review, and received explicit owner authorization.
+  and runtime review, and received explicit authorization.
 - Do not merge, rebase, reset, cherry-pick, copy, or otherwise synchronize dev
   changes into stable without that explicit promotion authorization. A
   successful development build alone is not approval.
@@ -71,7 +71,7 @@ OBLinux Arch. The root `VERSION` file is the authoritative current repository
 version and must remain `26.3.0` for this release. Do not invent,
 infer, independently increment, or modify it during unrelated work. Development
 versions use `-dev`; stable versions do not. Advancing the separate Dev
-repository requires later explicit owner authorization.
+repository requires later explicit authorization.
 
 `BUILD_ID` is generated automatically once per build and propagated unchanged
 to the ISO name and live/installed `os-release`. It is not part of the release
@@ -252,11 +252,11 @@ filenames and checksums recorded when useful.
 
 ## Change and Git discipline
 
-- Never force-push or rewrite published history without explicit owner approval
+- Never force-push or rewrite published history without explicit approval
   for a specific named recovery situation. Push Stable only for an explicitly
   authorized promotion, release correction, or documentation update, and only
   to the verified `oblinux-debian-iso` origin. Keep any Dev remote read-only;
-  Stable promotion requires separate explicit owner approval.
+  Stable promotion requires separate explicit approval.
 - Use the configured human Git identity. Do not add AI co-author, Generated-By,
   Assisted-By, or other AI attribution to commits or contributor records.
 - Inspect `git status` first and preserve unrelated user work. Keep the change
@@ -281,6 +281,12 @@ filenames and checksums recorded when useful.
 - Keep project-facing documentation professional and free of personal names or
   unique device identifiers; use project roles and redact serial numbers.
 
+Public OBLinux documentation must use the project's voice and describe
+project/release facts directly. Do not refer to the maintainer as "the owner,"
+"project owner," or similar third-person terminology. Testing and release
+records should state what was tested, what passed, and what was released
+without attributing those actions to an unnamed owner.
+
 ### Release and tagging policy
 
 Release tags are always the final step of the release process:
@@ -301,12 +307,12 @@ of their own date, not current release instructions.
   source commit. Any later changes require an explicit evidence review;
   functional/build changes require rebuilding and retesting.
 - After those checks pass, stop and report that the repository is
-  **release-ready**. Do not create or push the release tag unless the owner
-  explicitly authorizes it after that declaration.
+  **release-ready**. Do not create or push the release tag unless explicitly
+  authorized after that declaration.
 - Never tag an intermediate release-preparation commit while validation,
   metadata, packaging, or corrective commits remain.
 - If a published tag is found to be wrong, do not move or replace it
-  automatically; stop and ask the owner how to proceed.
+  automatically; stop and request instructions on how to proceed.
 
 ## Documentation routing
 

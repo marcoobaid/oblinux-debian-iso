@@ -16,7 +16,7 @@ default shell. This confirms the `aa690a0` correction from the obsolete flat
 Calamares `userShell` setting to the nested `user.shell` setting.
 
 The installed-system Fastfetch output also reports Zsh 5.9. The explicit
-installed-user shell result was reported by the tester; no claim is made here
+installed-user shell result was supplied in the test report; no claim is made here
 for checklist commands whose output was not supplied.
 
 ## Presentation finding

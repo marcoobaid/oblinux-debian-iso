@@ -3,7 +3,7 @@
 ## Result
 
 - Status: successful purge build; static and payload verification passed
-- Runtime visual status: pending owner boot test
+- Runtime visual status: pending boot test
 - ISO: `oblinux-debian-gnome-amd64.hybrid.iso`
 - Size: `2183526400` bytes
 - SHA-256:
@@ -61,5 +61,5 @@ changes size. The same invariant was checked for 1024x768, 1280x800, and
 
 This is static implementation and payload validation, not a visual boot test.
 The builder has no offscreen X server and Codex did not boot the ISO in a VM.
-Owner runtime confirmation of the Welcome page at normal and maximized sizes
+Runtime confirmation of the Welcome page at normal and maximized sizes
 remains required before the regression is marked runtime-passed.

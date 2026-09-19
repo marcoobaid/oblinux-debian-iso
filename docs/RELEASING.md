@@ -2,8 +2,9 @@
 
 ## Current state and authority
 
-OBLinux Debian **26.3.0 is released**. The owner certified the following Stable
-artifact and confirmed both VM and physical laptop installation/regression passed.
+OBLinux Debian **26.3.0 is released**. The following certified Stable
+artifact passed installation and regression testing on both a virtual machine
+and physical laptop.
 
 - Git tag: `v26.3.0`
 - Certified source commit: `8f28de66fc43c4bf1d9f76b0880810eefd6c519b`
@@ -17,18 +18,17 @@ the certified source commit or immutable release tag.
 
 Stable `VERSION` remains `26.3.0`. The release includes the accepted Dev source
 from commit `d9289b2bbcaf1fb44a9b926fee0a7e40bf724bed` and preserves both
-repository histories. Advancing Dev remains a separate owner-authorized task.
+repository histories. Advancing Dev remains a separate explicitly authorized task.
 
 The accepted Dev artifact was
 `oblinux-debian-26.3.0-dev-20260918-1057-amd64.iso`, BUILD_ID
 `20260918-1057`, SHA-256
 `00d8e4c849304645e2062fe721b48f97facb4f4a3327cd4371cd820487b78827`.
-The owner confirmed its VM installation/regression, physical laptop
-installation/regression, and overall functional testing passed with no known
-release-blocking findings. This evidence authorizes source promotion; it does
-not replace the exact-commit Stable build or test a Stable artifact.
+Its VM installation/regression, physical laptop installation/regression, and
+overall functional testing passed with no known release-blocking findings.
+This evidence authorizes source promotion; it does not replace the exact-commit Stable build or test a Stable artifact.
 
-The owner-approved 26.3.0 validation gate is successful final VM and
+The approved 26.3.0 validation gate is successful final VM and
 physical-hardware regression, consistent with the completed Arch release.
 Automated CI is not required for this release; automation remains future work.
 This supersedes the CI prerequisite quoted in the September 11 historical test

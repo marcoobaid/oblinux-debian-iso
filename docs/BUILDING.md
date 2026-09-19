@@ -8,8 +8,8 @@ be understood, repeated, and moved to another machine without relying on
 undocumented setup.
 
 Stable 26.3.0 is released for the Debian 13 `amd64` GNOME live and installable
-ISO. The owner confirmed VM and physical laptop installation/regression passed
-for the certified Stable artifact. Tag `v26.3.0` is created and the ISO is
+ISO. The certified Stable artifact passed VM and physical laptop
+installation/regression testing. Tag `v26.3.0` is created and the ISO is
 published on SourceForge. See [RELEASING.md](RELEASING.md) for the certified
 source commit, ISO, BUILD_ID, and checksum.
 
