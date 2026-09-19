@@ -11,8 +11,8 @@ operating systems without concealing the strengths of Linux or Debian.
 
 The current objective is a proof of concept that can become the maintainer's
 daily-driver system. The POC measures the real engineering and
-maintenance effort; the project is now preparing its first public Stable
-release under the explicitly limited scope below.
+maintenance effort; the project has completed its first public Stable
+release, 26.3.0, under the explicitly limited scope below.
 
 The first successful outcome is not a broadly supported product. It is a
 repeatable build that boots into a useful GNOME live session, installs safely in
@@ -21,9 +21,9 @@ the maintainer's chosen virtual and physical hardware.
 
 ## Intended evolution
 
-The current authorized direction is preparation for public Stable 26.3.0,
-with final VM and physical regression and the limited scope described in
-[RELEASING.md](RELEASING.md). The release is not yet complete. Later work may
+Public Stable 26.3.0 is released, with owner-confirmed final VM and physical
+laptop installation/regression passes and the limited scope described in
+[RELEASING.md](RELEASING.md). Later work may
 include other desktop or window-manager flavors, a signed OBLinux package
 repository, and graphical tools for common customization and administration
 tasks.

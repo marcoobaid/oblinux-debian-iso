@@ -1,13 +1,12 @@
 # OBLinux Roadmap
 
-This roadmap is ordered by learning value. The project is in Phase 3. The
-[accepted Dev candidate](tests/2026-09-18-accepted-dev-candidate.md) passed
-owner-confirmed VM and physical laptop regression and has been promoted into
-the Stable 26.3.0 release candidate. The exact-commit Stable build, its final
-regression, tagging, and SourceForge publication remain pending under
-[RELEASING.md](RELEASING.md).
-Remaining checklist items require their own evidence; promotion does not imply
-completion of all POC or public-release goals.
+This roadmap is ordered by learning value. The project is in Phase 3. Stable
+26.3.0 is released: the owner confirmed final VM and physical laptop
+installation/regression passed, tag `v26.3.0` identifies the certified source,
+and the Stable ISO is published on SourceForge. See
+[RELEASING.md](RELEASING.md) for exact artifact details.
+Remaining checklist items require their own evidence; release completion does
+not imply completion of all POC goals.
 
 ## Phase 0: Foundation
 
@@ -111,7 +110,7 @@ with maintenance effort and failures recorded.
 - [ ] Convert persistent configuration into appropriate OBLinux packages
 - [ ] Determine whether an OBLinux APT repository is now justified
 - [ ] Automate smoke tests and artifact generation
-- [ ] Review maintainability after the planned 26.3.0 public release
+- [ ] Review maintainability after the completed 26.3.0 public release
 
 Exit condition: a written proceed, revise, or stop decision is supported by POC
 evidence.
@@ -123,7 +122,8 @@ evidence.
 - Production repository signing and key rotation
 - Secure Boot support, if claimed
 - License and source-distribution compliance
-- Complete the 26.3.0 SourceForge publication and public checksum verification
+- 26.3.0 SourceForge publication is complete; certified artifact details are in
+  [RELEASING.md](RELEASING.md)
 - Broader hardware and installer test matrices
 - Accessibility and localization review
 - Support lifecycle and major-version upgrades

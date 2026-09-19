@@ -37,20 +37,24 @@ identity across OBLinux editions. Debian supplies its own integration and
 retains Obsidian Horizon as its desktop default. Shared artwork is maintained
 upstream and consumed from immutable releases.
 
-## Release-candidate status
+## Release status
 
-The current Stable version is **26.3.0**. Stable `main` contains the accepted
-Dev source from commit `d9289b2bbcaf1fb44a9b926fee0a7e40bf724bed`.
-Owner-confirmed VM and physical laptop regression passed for the exact Dev
-candidate that authorized promotion. The Stable ISO still requires its own
-exact-commit build and final validation before release readiness.
+OBLinux Debian **26.3.0 is released**. The owner certified the following Stable
+artifact and confirmed both VM and physical laptop installation/regression passed.
 
-The planned Stable ISO and SHA-256 checksum will be published on SourceForge
-under `OBLinux-Debian-ISO/26.3.0/`, followed by public download and checksum
-verification. Publication has not occurred, and Git tag `v26.3.0` has not been
-created. See the [release procedure](docs/RELEASING.md) for validation,
-provenance, and the limited installation/hardware scope. Release-candidate
-status does not imply broad hardware compatibility.
+- Git tag: `v26.3.0`
+- Certified source commit: `8f28de66fc43c4bf1d9f76b0880810eefd6c519b`
+- ISO: `oblinux-debian-26.3.0-20260918-2040-amd64.iso`
+- BUILD_ID: `20260918-2040`
+- SHA-256: `6af928461580ccb29be6997eeca1534010038b5c97aaf001b8fc03d4f2243db7`
+- Published on SourceForge: `OBLinux-Debian-ISO/26.3.0/`
+
+The certified release code is frozen. Later documentation updates do not change
+the certified source commit or immutable release tag.
+
+See the [release procedure](docs/RELEASING.md) for provenance and the limited
+installation/hardware scope. Release status does not imply broad hardware
+compatibility.
 
 ## Technology
 

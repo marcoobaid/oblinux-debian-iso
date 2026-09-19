@@ -7,12 +7,12 @@ use it to evaluate the effort required to operate OBLinux over time.
 
 ## Public Stable 26.3.0 transition
 
-The original POC has progressed to the public Stable 26.3.0 release candidate.
-The accepted Dev source has been promoted. The release will use SourceForge for
-the tested Stable ISO and checksum, with final VM and designated physical-
-hardware regression as its validation gate. This expands distribution scope,
-not hardware or installer support claims. The Stable build, tag, and publication
-are still pending. See [RELEASING.md](RELEASING.md).
+The original POC has progressed to public Stable 26.3.0. The Stable ISO is
+published on SourceForge under `OBLinux-Debian-ISO/26.3.0/`, and tag `v26.3.0`
+identifies the certified source commit. The owner confirmed final VM and
+physical laptop installation/regression passed. This expands distribution
+scope, not hardware or installer support claims. See [RELEASING.md](RELEASING.md)
+for the certified artifact details.
 
 ## In scope
 

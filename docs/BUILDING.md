@@ -7,13 +7,11 @@ doing. It is maintained alongside the build configuration so that the build can
 be understood, repeated, and moved to another machine without relying on
 undocumented setup.
 
-The current milestone is the Stable 26.3.0 release candidate for the Debian 13
-`amd64` GNOME live and installable ISO. Owner-confirmed VM and physical laptop
-regression passed for the accepted Dev source and artifact recorded in the
-[promotion acceptance record](tests/2026-09-18-accepted-dev-candidate.md).
-Stable promotion is complete; the exact-commit Stable build, its final
-validation, tagging, and publication remain pending. See
-[RELEASING.md](RELEASING.md).
+Stable 26.3.0 is released for the Debian 13 `amd64` GNOME live and installable
+ISO. The owner confirmed VM and physical laptop installation/regression passed
+for the certified Stable artifact. Tag `v26.3.0` is created and the ISO is
+published on SourceForge. See [RELEASING.md](RELEASING.md) for the certified
+source commit, ISO, BUILD_ID, and checksum.
 
 Release versions and exact build identities follow the policy in
 [VERSIONING.md](VERSIONING.md). The root `VERSION` file is the release source
@@ -383,7 +381,7 @@ The initial validation exposed an invalid selection of two BIOS bootloaders.
 OBLinux now selects `grub-efi` for UEFI and `grub-pc` for BIOS. This is an
 example of why configuration validation precedes a full build.
 
-## Run the Stable release-candidate build
+## Run the Stable build
 
 The tracked `scripts/build-iso` wrapper is deliberately Dev-only: its exact
 remote guard prevents it from running in Stable. Do not alter or bypass that

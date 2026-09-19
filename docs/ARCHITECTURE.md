@@ -108,9 +108,8 @@ Debian-based image and makes the source of future updates clear to the user.
 ## Artifact hosting
 
 GitHub holds source, documentation, issues, and release metadata. Public Stable
-26.3.0 will publish the tested Stable ISO and SHA-256 checksum on SourceForge
-under `OBLinux-Debian-ISO/26.3.0/`. Publication is followed by an independent
-public download and checksum verification. See [RELEASING.md](RELEASING.md)
+26.3.0 is released, with the certified Stable ISO published on SourceForge
+under `OBLinux-Debian-ISO/26.3.0/`. See [RELEASING.md](RELEASING.md)
 for authorization boundaries and provenance. This artifact hosting does not
 create an OBLinux APT repository or change installed Debian update sources.
 

@@ -23,17 +23,15 @@ and tradeoffs.
 
 ## Current validation status
 
-The [accepted Dev candidate record](tests/2026-09-18-accepted-dev-candidate.md)
-identifies the exact source, ISO, BUILD_ID, and checksum for the owner-confirmed
-VM and physical laptop installation/regression passes that authorized Stable
-promotion. The earlier Build 002 restrictions below describe that historical
-milestone, not a reversal of later physical acceptance. For 26.3.0, final
-Stable validation remains unencrypted erase-disk UEFI/GPT/ext4 installation on
-disposable VM disks and the designated recoverable physical target. Test both
-no-swap and bounded-swap choices. No broad hardware, Secure Boot, encryption,
+The owner confirmed VM and physical laptop installation/regression passed for
+the released Stable 26.3.0 artifact identified in [RELEASING.md](RELEASING.md).
+The earlier Build 002 restrictions below describe that historical milestone,
+not a reversal of later physical acceptance. The installation baseline remains
+unencrypted erase-disk UEFI/GPT/ext4 on disposable VM disks and the designated
+recoverable physical target. Test both no-swap and bounded-swap choices.
+No broad hardware, Secure Boot, encryption,
 dual-boot, manual-partitioning, existing-ESP reuse, or interrupted-install
-recovery support is implied. Record new results against the exact Stable
-candidate as required by [RELEASING.md](RELEASING.md).
+recovery support is implied.
 
 ## First supported scenario (historical Build 002 baseline)
 

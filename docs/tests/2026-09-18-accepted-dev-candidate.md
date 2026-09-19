@@ -27,5 +27,7 @@ from the exact authorized Stable commit, and pass the final validation required
 by [the release procedure](../RELEASING.md).
 
 The `v26.3.0` tag and SourceForge publication were not authorized as part of
-promotion and remain pending. The separate Dev repository remains at
+promotion and were pending at that time. The subsequent Stable 26.3.0 release
+is complete; its separate certified artifact and tag are recorded in
+[RELEASING.md](../RELEASING.md). The separate Dev repository remains at
 `26.3.0-dev` until a later explicitly authorized post-release transition.

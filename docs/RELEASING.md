@@ -2,12 +2,22 @@
 
 ## Current state and authority
 
-Stable `main` is the OBLinux Debian 26.3.0 release candidate. It preserves both
-repository histories and contains the accepted Dev source from commit
-`d9289b2bbcaf1fb44a9b926fee0a7e40bf724bed`. Stable `VERSION` is `26.3.0`.
-The `v26.3.0` tag has not been created and SourceForge publication has not
-occurred. Dev remains `26.3.0-dev`; advancing it to `26.4.0-dev` requires later
-explicit owner authorization.
+OBLinux Debian **26.3.0 is released**. The owner certified the following Stable
+artifact and confirmed both VM and physical laptop installation/regression passed.
+
+- Git tag: `v26.3.0`
+- Certified source commit: `8f28de66fc43c4bf1d9f76b0880810eefd6c519b`
+- ISO: `oblinux-debian-26.3.0-20260918-2040-amd64.iso`
+- BUILD_ID: `20260918-2040`
+- SHA-256: `6af928461580ccb29be6997eeca1534010038b5c97aaf001b8fc03d4f2243db7`
+- Published on SourceForge: `OBLinux-Debian-ISO/26.3.0/`
+
+The certified release code is frozen. Later documentation updates do not change
+the certified source commit or immutable release tag.
+
+Stable `VERSION` remains `26.3.0`. The release includes the accepted Dev source
+from commit `d9289b2bbcaf1fb44a9b926fee0a7e40bf724bed` and preserves both
+repository histories. Advancing Dev remains a separate owner-authorized task.
 
 The accepted Dev artifact was
 `oblinux-debian-26.3.0-dev-20260918-1057-amd64.iso`, BUILD_ID
@@ -32,7 +42,7 @@ available for advanced users to install themselves.
 
 ## Scope and approval boundaries
 
-26.3.0 is intended for public distribution, with Debian 13, amd64, GNOME,
+26.3.0 is publicly released, with Debian 13, amd64, GNOME,
 Debian's Calamares workflow, and normal Debian APT updates. Public availability
 does not imply broad hardware compatibility or a new OBLinux package archive.
 The installation baseline remains unencrypted erase-disk UEFI/GPT/ext4, tested
@@ -42,11 +52,15 @@ storage, interrupted-install recovery, and Secure Boot require separate
 approval and evidence before support is claimed.
 
 Promotion, release tagging, SourceForge publication, and advancing Dev are
-separate authorized operations. Promotion is complete. Never force-push,
+separate authorized operations. Promotion, release tagging, and SourceForge
+publication are complete. Never force-push,
 squash away the promoted history, replace published tags, or relabel a Dev ISO
 as Stable. Dev remains the normal development workspace.
 
 ## Release sequence
+
+The 26.3.0 release is complete, as certified above. The sequence below is
+retained as the release procedure, not a list of pending 26.3.0 work.
 
 1. **Complete:** prepare and validate Dev without changing `26.3.0-dev`.
 2. **Complete:** build and accept the exact Dev candidate recorded above.

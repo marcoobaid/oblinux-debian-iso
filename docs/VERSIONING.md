@@ -77,32 +77,33 @@ installer-only settings package removed from the target, so the same release
 and build identity survives installation. A tester must still verify the live
 and installed files against the ISO filename during acceptance testing.
 
-## Current Stable candidate and tags
+## Current Stable release and tags
 
 The current repository state is:
 
 ```text
 oblinux-debian-iso:       VERSION = 26.3.0
 promoted Dev source:      d9289b2bbcaf1fb44a9b926fee0a7e40bf724bed
-future Git tag:           v26.3.0 (not created)
-SourceForge publication:  not performed
+Git tag:                  v26.3.0
+certified source commit:  8f28de66fc43c4bf1d9f76b0880810eefd6c519b
+BUILD_ID:                 20260918-2040
+SourceForge publication:  OBLinux-Debian-ISO/26.3.0/ (published)
 
 AFTER RELEASE, WITH SEPARATE OWNER AUTHORIZATION
 oblinux-debian-iso-dev:   VERSION = 26.4.0-dev
 ```
 
-Promotion removed `-dev` as an intentional Stable metadata change. The Stable
-artifact must be built from the exact authorized Stable `main` commit and must
-receive its own generated `BUILD_ID`; the accepted Dev artifact cannot be
-renamed or represented as the Stable build. Complete the final VM and physical-
-hardware regression gate before declaring release readiness. Automated CI is
-not a prerequisite for this release; it remains a future enhancement. Record
-the tested source commit, ISO identity, checksum, and results under
-[RELEASING.md](RELEASING.md). Tagging then requires separate owner
-authorization, as defined in
-[AGENTS.md](../AGENTS.md#release-and-tagging-policy). The stable tag is `v` followed by the
-stable version. A maintenance release such as `26.3.1` receives tag `v26.3.1`.
-`BUILD_ID` never changes the release version or Git tag.
+Promotion removed `-dev` as an intentional Stable metadata change. The released
+Stable artifact has its own BUILD_ID and owner-confirmed final VM and physical
+laptop installation/regression passes; its ISO and checksum are recorded in
+[RELEASING.md](RELEASING.md). Automated CI was not a prerequisite for this
+release and remains a future enhancement. The immutable tag `v26.3.0` identifies
+the certified source commit; later documentation updates do not move it.
+
+The stable tag is `v` followed by the stable version. A maintenance release such
+as `26.3.1` receives tag `v26.3.1`. `BUILD_ID` never changes the release version
+or Git tag. Tagging requires separate owner authorization, as defined in
+[AGENTS.md](../AGENTS.md#release-and-tagging-policy).
 
 The promotion, tag, publication, and subsequent development-version advance are
 separate authorized operations. This document does not authorize tagging,

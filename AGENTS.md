@@ -15,16 +15,13 @@ package ecosystem. The current edition is Debian 13 stable (`trixie`), `amd64`,
 GNOME, built as a hybrid live/install ISO with Debian `live-build`, `live-boot`,
 and `live-config`; installed systems receive normal Debian updates through APT.
 
-The project is in Roadmap Phase 3, daily-driver candidate. Stable `main` is the
-26.3.0 release candidate promoted from accepted Dev commit
-`d9289b2bbcaf1fb44a9b926fee0a7e40bf724bed`. The owner confirmed VM and physical
-laptop regression passed for Dev artifact
-`oblinux-debian-26.3.0-dev-20260918-1057-amd64.iso`, SHA-256
-`00d8e4c849304645e2062fe721b48f97facb4f4a3327cd4371cd820487b78827`.
-That acceptance authorizes the source promotion; it does not test the future
-Stable artifact, complete public release, create `v26.3.0`, establish
-SourceForge publication, or imply broad hardware support. See
-[the release procedure](docs/RELEASING.md) for current gates and scope.
+The project is in Roadmap Phase 3, daily-driver candidate. OBLinux Debian
+26.3.0 is released, with owner-confirmed VM and physical laptop
+installation/regression passes. The immutable tag `v26.3.0` points to certified
+source commit `8f28de66fc43c4bf1d9f76b0880810eefd6c519b`. The certified
+release code is frozen. The Stable ISO is published on SourceForge under
+`OBLinux-Debian-ISO/26.3.0/`; see [the release record and procedure](docs/RELEASING.md)
+for its exact artifact identity and unchanged support scope.
 
 Codex is the primary development agent. This root `AGENTS.md` is the
 authoritative governance document for all agents; `CLAUDE.md` is a supplemental
@@ -71,7 +68,7 @@ Core principles from the project charter:
 
 `docs/VERSIONING.md` is the authoritative release/version policy shared with
 OBLinux Arch. The root `VERSION` file is the authoritative current repository
-version and must remain `26.3.0` for this release candidate. Do not invent,
+version and must remain `26.3.0` for this release. Do not invent,
 infer, independently increment, or modify it during unrelated work. Development
 versions use `-dev`; stable versions do not. Advancing the separate Dev
 repository requires later explicit owner authorization.
